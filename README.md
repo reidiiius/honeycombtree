@@ -12,6 +12,8 @@ Apiculture
 ### Usage
 command line
 
+    cd honeycombtree
+
     cargo build
 
     cargo run | less

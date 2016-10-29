@@ -86,17 +86,19 @@ zz.insert("j3k56x4","HgTi ____ SnNp UrAu ____ ____ ____ AuUr NpSn ____ TiHg FeFe
 zz.insert("k1j56y7","____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ");
 zz.insert("k2j56y7","NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ");
 
+    let series = concat!("-v", "1477700003");
+
     println!("");
     for (k, v) in zz {
         println!("");
-        println!("{}", "\t".to_string() + k);
-        println!("{}", "\t".to_string() + (&v[25..60]) + &v[00..25]); // Fn
-        println!("{}", "\t".to_string() + (&v[00..60]) + &v[00..00]); // Cn
-        println!("{}", "\t".to_string() + (&v[35..60]) + &v[00..35]); // Gn
-        println!("{}", "\t".to_string() + (&v[10..60]) + &v[00..10]); // Dn
-        println!("{}", "\t".to_string() + (&v[45..60]) + &v[00..45]); // An
-        println!("{}", "\t".to_string() + (&v[20..60]) + &v[00..20]); // En
-        println!("{}", "\t".to_string() + (&v[55..60]) + &v[00..55]); // Bn
+        println!("\t{}{}", k, series);
+        println!("\t{}{}", &v[25..60], &v[00..25]); // Fn
+        println!("\t{}{}", &v[00..60], &v[00..00]); // Cn
+        println!("\t{}{}", &v[35..60], &v[00..35]); // Gn
+        println!("\t{}{}", &v[10..60], &v[00..10]); // Dn
+        println!("\t{}{}", &v[45..60], &v[00..45]); // An
+        println!("\t{}{}", &v[20..60], &v[00..20]); // En
+        println!("\t{}{}", &v[55..60], &v[00..55]); // Bn
         println!("");
     }
     println!("");
