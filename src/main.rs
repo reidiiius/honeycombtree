@@ -1,6 +1,7 @@
 use std::collections::BTreeMap;
 
 fn main() {
+
     let mut zz = BTreeMap::new();
      zz.insert("j2","HgHg PuFe ____ ____ CuNp PbAu ____ AuPb ____ AgUr ____ FePu ");
      zz.insert("j3","HgSn ____ SnHg UrFe ____ PbAg ____ AuAu ____ AgPb ____ FeUr ");
@@ -86,12 +87,11 @@ zz.insert("j3k56x4","HgTi ____ SnNp UrAu ____ ____ ____ AuUr NpSn ____ TiHg FeFe
 zz.insert("k1j56y7","____ AuUr NpSn ____ TiHg FeFe HgTi ____ SnNp UrAu ____ ____ ");
 zz.insert("k2j56y7","NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____ ");
 
-    let series = concat!("-v", "1477700003");
-
     println!("");
+
     for (k, v) in zz {
         println!("");
-        println!("\t{}{}", k, series);
+        println!("\t{}{}", k, " ");
         println!("\t{}{}", &v[25..60], &v[00..25]); // Fn
         println!("\t{}{}", &v[00..60], &v[00..00]); // Cn
         println!("\t{}{}", &v[35..60], &v[00..35]); // Gn
@@ -101,6 +101,8 @@ zz.insert("k2j56y7","NpCu ____ ____ FePu HgHg PuFe SnTi ____ CuNp PbAu ____ ____
         println!("\t{}{}", &v[55..60], &v[00..55]); // Bn
         println!("");
     }
+
     println!("");
+
 }
 
