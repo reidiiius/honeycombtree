@@ -10,13 +10,17 @@ Apiculture
 ---
 
 ### Usage
-command line
+Command-line
 
-    cd honeycombtree
+    cd honeycombtree/
+
+:
 
     cargo build
 
-    cargo run | less
+:
+
+    cargo run | sensible-pager
 
 ---
 
