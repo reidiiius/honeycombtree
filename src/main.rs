@@ -2,7 +2,42 @@ use std::collections::BTreeMap;
 use std::time::SystemTime;
 
 fn main() {
-    let hive = BTreeMap::from([
+    let tune: &str;
+    let cron: u64;
+    let stem: String;
+    let arts: [(&str, &str); 125];
+    let hive: BTreeMap<&str, &str>;
+
+    cron = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
+        Ok(tics) => tics.as_secs(),
+        Err(_) => 0,
+    };
+
+    tune = "beadgcf";
+    stem = format!("-{}-h{}", tune, cron);
+
+    arts = apidict();
+    hive = BTreeMap::from(arts);
+
+    for (key, val) in hive {
+        println!("");
+        println!("\t{}{}", key, stem);
+        println!("\t{}{}", &val[30..36], &val[00..30]); // Bj
+        println!("\t{}{}", &val[15..36], &val[00..15]); // Fn
+        println!("\t{}{}", &val[00..36], &val[00..00]); // Cn
+        println!("\t{}{}", &val[21..36], &val[00..21]); // Gn
+        println!("\t{}{}", &val[06..36], &val[00..06]); // Dn
+        println!("\t{}{}", &val[27..36], &val[00..27]); // An
+        println!("\t{}{}", &val[12..36], &val[00..12]); // En
+        println!("\t{}{}", &val[33..36], &val[00..33]); // Bn
+        println!("\t{}{}", &val[18..36], &val[00..18]); // Fk
+    }
+
+    println!("");
+}
+
+fn apidict() -> [(&'static str, &'static str); 125] {
+    let arts = [
         ("i0", "__ __ __ __ __ __ __ __ __ __ __ __ "),
         ("j136l7", "__ __ tw xr __ wt __ uv yq so __ qy "),
         ("j167l2", "vu __ __ __ rx wt __ uv yq __ os qy "),
@@ -128,31 +163,7 @@ fn main() {
         ("n5l2", "vp __ __ pv rq __ __ uy yu __ ow qr "),
         ("n67m2", "__ ux __ __ ov qq vo __ ty xu __ ww "),
         ("n6m2", "qr vp __ __ pv rq wo __ uy yu __ __ "),
-    ]);
+    ];
 
-    let horus: u64;
-
-    match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
-        Ok(count) => horus = count.as_secs(),
-        Err(_) => panic!(),
-    }
-
-    let tuned = "beadgcf";
-    let crown = format!("-{}-i{}", tuned, horus);
-
-    for (k, v) in hive {
-        println!("");
-        println!("\t{}{}", k, crown);
-        println!("\t{}{}", &v[30..36], &v[00..30]); // Bj
-        println!("\t{}{}", &v[15..36], &v[00..15]); // Fn
-        println!("\t{}{}", &v[00..36], &v[00..00]); // Cn
-        println!("\t{}{}", &v[21..36], &v[00..21]); // Gn
-        println!("\t{}{}", &v[06..36], &v[00..06]); // Dn
-        println!("\t{}{}", &v[27..36], &v[00..27]); // An
-        println!("\t{}{}", &v[12..36], &v[00..12]); // En
-        println!("\t{}{}", &v[33..36], &v[00..33]); // Bn
-        println!("\t{}{}", &v[18..36], &v[00..18]); // Fk
-    }
-
-    println!("");
+    return arts;
 }

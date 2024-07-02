@@ -1,6 +1,6 @@
 [package]
 name = "honeycombtree"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["Reid Netterville III <reidiiius@gmail.com>"]
 
 [dependencies]
