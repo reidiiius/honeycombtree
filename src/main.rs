@@ -1,43 +1,33 @@
-use std::collections::BTreeMap;
 use std::time::SystemTime;
 
 fn main() {
-    let tune: &str;
-    let cron: u64;
-    let stem: String;
-    let arts: [(&str, &str); 125];
-    let hive: BTreeMap<&str, &str>;
-
-    cron = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
+    let tune: &str = "beadgcf";
+    let cron: u64 = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
         Ok(tics) => tics.as_secs(),
         Err(_) => 0,
     };
+    let stem: String = format!("-{}-h{}", tune, cron);
+    let arts: [(&str, &str); 125] = supply();
 
-    tune = "beadgcf";
-    stem = format!("-{}-h{}", tune, cron);
-
-    arts = apidict();
-    hive = BTreeMap::from(arts);
-
-    for (key, val) in hive {
-        println!("");
+    for (key, val) in arts {
+        println!();
         println!("\t{}{}", key, stem);
-        println!("\t{}{}", &val[30..36], &val[00..30]); // Bj
-        println!("\t{}{}", &val[15..36], &val[00..15]); // Fn
-        println!("\t{}{}", &val[00..36], &val[00..00]); // Cn
-        println!("\t{}{}", &val[21..36], &val[00..21]); // Gn
-        println!("\t{}{}", &val[06..36], &val[00..06]); // Dn
-        println!("\t{}{}", &val[27..36], &val[00..27]); // An
-        println!("\t{}{}", &val[12..36], &val[00..12]); // En
-        println!("\t{}{}", &val[33..36], &val[00..33]); // Bn
-        println!("\t{}{}", &val[18..36], &val[00..18]); // Fk
+        println!("\t{}{}", &val[30..36], &val[0..30]); // Bj
+        println!("\t{}{}", &val[15..36], &val[0..15]); // Fn
+        println!("\t{}{}", &val[0..36], &val[0..0]); // Cn
+        println!("\t{}{}", &val[21..36], &val[0..21]); // Gn
+        println!("\t{}{}", &val[6..36], &val[0..6]); // Dn
+        println!("\t{}{}", &val[27..36], &val[0..27]); // An
+        println!("\t{}{}", &val[12..36], &val[0..12]); // En
+        println!("\t{}{}", &val[33..36], &val[0..33]); // Bn
+        println!("\t{}{}", &val[18..36], &val[0..18]); // Fk
     }
 
-    println!("");
+    println!();
 }
 
-fn apidict() -> [(&'static str, &'static str); 125] {
-    let arts = [
+fn supply() -> [(&'static str, &'static str); 125] {
+    [
         ("i0", "__ __ __ __ __ __ __ __ __ __ __ __ "),
         ("j136l7", "__ __ tw xr __ wt __ uv yq so __ qy "),
         ("j167l2", "vu __ __ __ rx wt __ uv yq __ os qy "),
@@ -163,7 +153,5 @@ fn apidict() -> [(&'static str, &'static str); 125] {
         ("n5l2", "vp __ __ pv rq __ __ uy yu __ ow qr "),
         ("n67m2", "__ ux __ __ ov qq vo __ ty xu __ ww "),
         ("n6m2", "qr vp __ __ pv rq wo __ uy yu __ __ "),
-    ];
-
-    return arts;
+    ]
 }
