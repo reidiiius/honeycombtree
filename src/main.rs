@@ -24,7 +24,11 @@ fn lattice(pair: (&str, &str), stem: String, pegs: [usize; 9]) {
 
     println!("\t{}{}", key, stem);
     for gear in pegs {
-        println!("\t{}{}", &val[gear..span], &val[0..gear]);
+        if gear < span {
+            println!("\t{}{}", &val[gear..span], &val[0..gear]);
+        } else {
+            eprintln!(" Index Out of Bounds: {}", gear);
+        }
     }
 }
 
