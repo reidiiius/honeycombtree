@@ -1,29 +1,31 @@
-use std::time::SystemTime;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 fn main() {
     let tune: &str = "beadgcf";
-    let cron: u64 = match SystemTime::now().duration_since(SystemTime::UNIX_EPOCH) {
-        Ok(tics) => tics.as_secs(),
+    let date: SystemTime = SystemTime::now();
+    let aeon: u64 = match date.duration_since(UNIX_EPOCH) {
+        Ok(span) => span.as_secs(),
         Err(_) => 0,
     };
-    let stem: String = format!("-{}-h{}", tune, cron);
+    let stem: String = format!("-{}-h{}", tune, aeon);
+    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
     let arts: [(&str, &str); 125] = supply();
 
-    for (key, val) in arts {
+    for pair in arts {
         println!();
-        println!("\t{}{}", key, stem);
-        println!("\t{}{}", &val[30..36], &val[0..30]); // Bj
-        println!("\t{}{}", &val[15..36], &val[0..15]); // Fn
-        println!("\t{}{}", &val[0..36], &val[0..0]); // Cn
-        println!("\t{}{}", &val[21..36], &val[0..21]); // Gn
-        println!("\t{}{}", &val[6..36], &val[0..6]); // Dn
-        println!("\t{}{}", &val[27..36], &val[0..27]); // An
-        println!("\t{}{}", &val[12..36], &val[0..12]); // En
-        println!("\t{}{}", &val[33..36], &val[0..33]); // Bn
-        println!("\t{}{}", &val[18..36], &val[0..18]); // Fk
+        lattice(pair, stem.clone(), pegs);
     }
-
     println!();
+}
+
+fn lattice(pair: (&str, &str), stem: String, pegs: [usize; 9]) {
+    let (key, val) = pair;
+    let span: usize = val.len();
+
+    println!("\t{}{}", key, stem);
+    for gear in pegs {
+        println!("\t{}{}", &val[gear..span], &val[0..gear]);
+    }
 }
 
 fn supply() -> [(&'static str, &'static str); 125] {
