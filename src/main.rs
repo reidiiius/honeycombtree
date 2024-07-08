@@ -17,7 +17,7 @@ fn main() {
     let stem: String = format!("-{}-h{}", tune, aeon);
 
     if inks.len() > 1 {
-        if inks[1] == "gamut" {
+        if inks[1].eq_ignore_ascii_case("gamut") {
             entirety(&arts, &stem, &pegs);
         } else {
             for clef in inks {
@@ -38,6 +38,7 @@ fn entirety(arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 9]) {
 }
 
 fn spandex(clef: String, arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 9]) {
+    let span: usize = clef.len();
     let mut opts = Vec::new();
 
     for pair in arts {
@@ -45,9 +46,10 @@ fn spandex(clef: String, arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 
     }
 
     for (spot, item) in (0_usize..).zip(opts.into_iter()) {
-        if (clef.len() == item.len()) && (clef == item) {
+        if (span == item.len()) && (clef.eq_ignore_ascii_case(item)) {
             println!();
             lattice(arts[spot], stem.to_owned(), *pegs);
+            break;
         }
     }
 }
