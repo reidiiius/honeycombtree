@@ -20,7 +20,15 @@ Command-line
 
 :
 
-    cargo run | sensible-pager
+    cargo run
+
+:
+
+    cargo run n0 j3
+
+:
+
+    cargo run gamut | sensible-pager
 
 ---
 

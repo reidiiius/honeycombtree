@@ -1,19 +1,70 @@
+use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 fn main() {
-    let tune: &str = "beadgcf";
+    let inks: Vec<String> = env::args().collect();
+    let arts: [(&str, &str); 125] = supply();
+
+    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
+    let tune = String::from("beadgcf");
+
     let date: SystemTime = SystemTime::now();
     let aeon: u64 = match date.duration_since(UNIX_EPOCH) {
         Ok(span) => span.as_secs(),
         Err(_) => 0,
     };
-    let stem: String = format!("-{}-h{}", tune, aeon);
-    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
-    let arts: [(&str, &str); 125] = supply();
 
+    let stem: String = format!("-{}-h{}", tune, aeon);
+
+    if inks.len() > 1 {
+        if inks[1] == "gamut" {
+            entirety(&arts, &stem, &pegs);
+        } else {
+            for clef in inks {
+                spandex(clef, &arts, &stem, &pegs);
+            }
+        }
+    } else {
+        stylist(&arts);
+    }
+    println!();
+}
+
+fn entirety(arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 9]) {
     for pair in arts {
         println!();
-        lattice(pair, stem.clone(), pegs);
+        lattice(*pair, stem.to_owned(), *pegs);
+    }
+}
+
+fn spandex(clef: String, arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 9]) {
+    let mut opts = Vec::new();
+
+    for pair in arts {
+        opts.push(pair.0)
+    }
+
+    for (spot, item) in (0_usize..).zip(opts.into_iter()) {
+        if (clef.len() == item.len()) && (clef == item) {
+            println!();
+            lattice(arts[spot], stem.to_owned(), *pegs);
+        }
+    }
+}
+
+fn stylist(arts: &[(&str, &str); 125]) {
+    let mut opts = Vec::new();
+
+    for pair in arts {
+        opts.push(pair.0)
+    }
+
+    println!();
+    for (numb, item) in (1_u8..).zip(opts.into_iter()) {
+        print!("\t{item}");
+        if numb % 7 == 0 {
+            println!();
+        }
     }
     println!();
 }
@@ -160,4 +211,20 @@ fn supply() -> [(&'static str, &'static str); 125] {
         ("n67m2", "__ ux __ __ ov qq vo __ ty xu __ ww "),
         ("n6m2", "qr vp __ __ pv rq wo __ uy yu __ __ "),
     ]
+}
+
+#[test]
+fn check_supply_return_array_size() {
+    let arts: [(&str, &str); 125] = supply();
+
+    assert_eq!(arts.len(), 125);
+}
+
+#[test]
+fn check_supply_scale_value_lengths() {
+    let arts: [(&str, &str); 125] = supply();
+
+    for pair in arts {
+        assert_eq!(pair.1.len(), 36);
+    }
 }
