@@ -1,9 +1,13 @@
 use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
+/// Amount of Tuples in the Array returned by supply
+const VOLUME: usize = 125;
+
+/// Entry point of application
 fn main() {
     let inks: Vec<String> = env::args().collect();
-    let arts: [(&str, &str); 125] = supply();
+    let arts: [(&str, &str); VOLUME] = supply();
 
     let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
     let tune = String::from("beadgcf");
@@ -30,14 +34,17 @@ fn main() {
     println!();
 }
 
-fn entirety(arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 9]) {
+/// Prints all records from supply by passing each to lattice
+fn entirety(arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize; 9]) {
     for pair in arts {
         println!();
         lattice(*pair, stem.to_owned(), *pegs);
     }
 }
 
-fn spandex(clef: String, arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 9]) {
+/// Parses user input for key matches in supply records,
+/// If so then passes each matched record to lattice
+fn spandex(clef: String, arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize; 9]) {
     let span: usize = clef.len();
     let mut opts = Vec::new();
 
@@ -54,7 +61,8 @@ fn spandex(clef: String, arts: &[(&str, &str); 125], stem: &str, pegs: &[usize; 
     }
 }
 
-fn stylist(arts: &[(&str, &str); 125]) {
+/// Prints all record keys from supply formatted to screen
+fn stylist(arts: &[(&str, &str); VOLUME]) {
     let mut opts = Vec::new();
 
     for pair in arts {
@@ -71,6 +79,7 @@ fn stylist(arts: &[(&str, &str); 125]) {
     println!();
 }
 
+/// Prints selected record from supply formatted to screen
 fn lattice(pair: (&str, &str), stem: String, pegs: [usize; 9]) {
     let (key, val) = pair;
     let span: usize = val.len();
@@ -85,7 +94,8 @@ fn lattice(pair: (&str, &str), stem: String, pegs: [usize; 9]) {
     }
 }
 
-fn supply() -> [(&'static str, &'static str); 125] {
+/// Returns an Array of Tuples containing key-value Strings
+fn supply() -> [(&'static str, &'static str); VOLUME] {
     [
         ("i0", "__ __ __ __ __ __ __ __ __ __ __ __ "),
         ("j136l7", "__ __ tw xr __ wt __ uv yq so __ qy "),
@@ -217,16 +227,36 @@ fn supply() -> [(&'static str, &'static str); 125] {
 
 #[test]
 fn check_supply_return_array_size() {
-    let arts: [(&str, &str); 125] = supply();
+    let arts: [(&str, &str); VOLUME] = supply();
 
-    assert_eq!(arts.len(), 125);
+    assert_eq!(arts.len(), VOLUME);
 }
 
 #[test]
 fn check_supply_scale_value_lengths() {
-    let arts: [(&str, &str); 125] = supply();
+    let arts: [(&str, &str); VOLUME] = supply();
 
     for pair in arts {
         assert_eq!(pair.1.len(), 36);
     }
+}
+
+#[test]
+fn check_stylist_return_type() {
+    let arts: [(&str, &str); VOLUME] = supply();
+    let kind: () = stylist(&arts);
+
+    assert_eq!((), kind);
+}
+
+#[test]
+fn check_entirety_return_type() {
+    let arts: [(&str, &str); VOLUME] = supply();
+    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
+    let tune = String::from("beadgcf");
+    let aeon: u64 = 1721093758;
+    let stem: String = format!("-{}-h{}", tune, aeon);
+    let kind: () = entirety(&arts, &stem, &pegs);
+
+    assert_eq!((), kind);
 }
