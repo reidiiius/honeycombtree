@@ -1,16 +1,36 @@
 use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-/// Amount of Tuples in the Array returned by supply
+/// Quantity of Tuples in the Array returned by supply
 const VOLUME: usize = 125;
 
 /// Entry point of application
 fn main() {
     let inks: Vec<String> = env::args().collect();
-    let arts: [(&str, &str); VOLUME] = supply();
 
-    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
+    // limit amount of arguments
+    if inks.len() > VOLUME {
+        println!("\n\tRequest denied!\n");
+        return;
+    }
+
+    // configure instrument tuning
+    let pegs: Vec<usize>;
     let tune = String::from("beadgcf");
+
+    if tune.eq_ignore_ascii_case("beadgcf") {
+        pegs = vec![30, 15, 0, 21, 6, 27, 12, 33, 18];
+    } else if tune.eq_ignore_ascii_case("bfbfb") {
+        pegs = vec![33, 15, 33, 15, 33];
+    } else if tune.eq_ignore_ascii_case("cgdae") {
+        pegs = vec![12, 27, 6, 21, 0];
+    } else if tune.eq_ignore_ascii_case("eadgbe") {
+        pegs = vec![12, 33, 21, 6, 27, 12];
+    } else if tune.eq_ignore_ascii_case("fkbjdn") {
+        pegs = vec![6, 30, 18, 6, 30, 18];
+    } else {
+        pegs = vec![0];
+    }
 
     let date: SystemTime = SystemTime::now();
     let aeon: u64 = match date.duration_since(UNIX_EPOCH) {
@@ -19,13 +39,21 @@ fn main() {
     };
 
     let stem: String = format!("-{}-h{}", tune, aeon);
+    let arts: [(&str, &str); VOLUME] = supply();
 
     if inks.len() > 1 {
         if inks[1].eq_ignore_ascii_case("gamut") {
             entirety(&arts, &stem, &pegs);
         } else {
+            let wide: usize = 9;
+
             for clef in inks {
-                spandex(clef, &arts, &stem, &pegs);
+                // limit amount of characters
+                if clef.len() > wide {
+                    continue;
+                }
+
+                spandex(&clef, &arts, &stem, &pegs);
             }
         }
     } else {
@@ -35,16 +63,16 @@ fn main() {
 }
 
 /// Prints all records from supply by passing each to lattice
-fn entirety(arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize; 9]) {
+fn entirety(arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize]) {
     for pair in arts {
         println!();
-        lattice(*pair, stem.to_owned(), *pegs);
+        lattice(*pair, stem.to_owned(), pegs.to_vec());
     }
 }
 
 /// Parses user input for key matches in supply records,
 /// If so then passes each matched record to lattice
-fn spandex(clef: String, arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize; 9]) {
+fn spandex(clef: &str, arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize]) {
     let span: usize = clef.len();
     let mut opts = Vec::new();
 
@@ -55,7 +83,7 @@ fn spandex(clef: String, arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usiz
     for (spot, item) in (0_usize..).zip(opts.into_iter()) {
         if (span == item.len()) && (clef.eq_ignore_ascii_case(item)) {
             println!();
-            lattice(arts[spot], stem.to_owned(), *pegs);
+            lattice(arts[spot], stem.to_owned(), pegs.to_vec());
             break;
         }
     }
@@ -80,7 +108,7 @@ fn stylist(arts: &[(&str, &str); VOLUME]) {
 }
 
 /// Prints selected record from supply formatted to screen
-fn lattice(pair: (&str, &str), stem: String, pegs: [usize; 9]) {
+fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
     let (key, val) = pair;
     let span: usize = val.len();
 
@@ -250,13 +278,39 @@ fn check_stylist_return_type() {
 }
 
 #[test]
-fn check_entirety_return_type() {
-    let arts: [(&str, &str); VOLUME] = supply();
+fn check_lattice_return_type() {
     let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
     let tune = String::from("beadgcf");
     let aeon: u64 = 1721093758;
     let stem: String = format!("-{}-h{}", tune, aeon);
+    let arts: [(&str, &str); VOLUME] = supply();
+    let pair: &(&str, &str) = &arts[VOLUME - 1];
+    let kind: () = lattice(*pair, stem.to_owned(), pegs.to_vec());
+
+    assert_eq!((), kind);
+}
+
+#[test]
+fn check_entirety_return_type() {
+    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
+    let tune = String::from("beadgcf");
+    let aeon: u64 = 1721093758;
+    let stem: String = format!("-{}-h{}", tune, aeon);
+    let arts: [(&str, &str); VOLUME] = supply();
     let kind: () = entirety(&arts, &stem, &pegs);
+
+    assert_eq!((), kind);
+}
+
+#[test]
+fn check_spandex_return_type() {
+    let clef: String = String::from("n0");
+    let pegs: [usize; 9] = [30, 15, 0, 21, 6, 27, 12, 33, 18];
+    let tune = String::from("beadgcf");
+    let aeon: u64 = 1721093758;
+    let stem: String = format!("-{}-h{}", tune, aeon);
+    let arts: [(&str, &str); VOLUME] = supply();
+    let kind: () = spandex(&clef, &arts, &stem, &pegs);
 
     assert_eq!((), kind);
 }
