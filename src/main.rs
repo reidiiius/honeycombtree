@@ -14,9 +14,8 @@ fn main() {
         return;
     }
 
-    let lyre = String::from("beadgcf");
-    let figs: (String, Vec<usize>) = figures(lyre);
-    let (tune, pegs) = figs;
+    let tune = String::from("beadgcf");
+    let pegs: Vec<usize> = figures(&tune);
     let aeon: u64 = horolog();
     let stem: String = format!("-{}-h{}", tune, aeon);
     let arts: [(&str, &str); VOLUME] = supply();
@@ -42,9 +41,8 @@ fn main() {
     println!();
 }
 
-/// Matches tuning String and returns a Tuple that
-/// holds the tuning String and a Vector of indices
-fn figures(tune: String) -> (String, Vec<usize>) {
+/// Matches tuning String and returns a Vector of indices
+fn figures(tune: &str) -> Vec<usize> {
     let pegs: Vec<usize>;
 
     if tune.eq_ignore_ascii_case("beadgcf") {
@@ -61,7 +59,7 @@ fn figures(tune: String) -> (String, Vec<usize>) {
         pegs = vec![0];
     }
 
-    (tune, pegs)
+    pegs
 }
 
 /// Returns unix timestamp
@@ -275,11 +273,9 @@ fn check_horolog_return_value() {
 
 #[test]
 fn check_figures_return_values() {
-    let lyre = String::from("cgdae");
-    let figs: (String, Vec<usize>) = figures(lyre);
-    let (tune, pegs) = figs;
+    let tune = String::from("cgdae");
+    let pegs: Vec<usize> = figures(&tune);
 
-    assert_eq!("cgdae", tune);
     assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
 }
 
