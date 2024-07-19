@@ -1,7 +1,7 @@
 use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-/// Quantity of Tuples in the Array returned by supply
+/// Quantity of Tuples in the Array returned by `supply`
 const VOLUME: usize = 125;
 
 /// Entry point of application
@@ -14,30 +14,10 @@ fn main() {
         return;
     }
 
-    // configure instrument tuning
-    let pegs: Vec<usize>;
-    let tune = String::from("beadgcf");
-
-    if tune.eq_ignore_ascii_case("beadgcf") {
-        pegs = vec![30, 15, 0, 21, 6, 27, 12, 33, 18];
-    } else if tune.eq_ignore_ascii_case("bfbfb") {
-        pegs = vec![33, 15, 33, 15, 33];
-    } else if tune.eq_ignore_ascii_case("cgdae") {
-        pegs = vec![12, 27, 6, 21, 0];
-    } else if tune.eq_ignore_ascii_case("eadgbe") {
-        pegs = vec![12, 33, 21, 6, 27, 12];
-    } else if tune.eq_ignore_ascii_case("fkbjdn") {
-        pegs = vec![6, 30, 18, 6, 30, 18];
-    } else {
-        pegs = vec![0];
-    }
-
-    let date: SystemTime = SystemTime::now();
-    let aeon: u64 = match date.duration_since(UNIX_EPOCH) {
-        Ok(span) => span.as_secs(),
-        Err(_) => 0,
-    };
-
+    let lyre = String::from("beadgcf");
+    let figs: (String, Vec<usize>) = figures(lyre);
+    let (tune, pegs) = figs;
+    let aeon: u64 = horolog();
     let stem: String = format!("-{}-h{}", tune, aeon);
     let arts: [(&str, &str); VOLUME] = supply();
 
@@ -62,7 +42,39 @@ fn main() {
     println!();
 }
 
-/// Prints all records from supply by passing each to lattice
+/// Matches tuning String and returns a Tuple that
+/// holds the tuning String and a Vector of indices
+fn figures(tune: String) -> (String, Vec<usize>) {
+    let pegs: Vec<usize>;
+
+    if tune.eq_ignore_ascii_case("beadgcf") {
+        pegs = vec![30, 15, 0, 21, 6, 27, 12, 33, 18];
+    } else if tune.eq_ignore_ascii_case("bfbfb") {
+        pegs = vec![33, 15, 33, 15, 33];
+    } else if tune.eq_ignore_ascii_case("cgdae") {
+        pegs = vec![12, 27, 6, 21, 0];
+    } else if tune.eq_ignore_ascii_case("eadgbe") {
+        pegs = vec![12, 33, 21, 6, 27, 12];
+    } else if tune.eq_ignore_ascii_case("fkbjdn") {
+        pegs = vec![6, 30, 18, 6, 30, 18];
+    } else {
+        pegs = vec![0];
+    }
+
+    (tune, pegs)
+}
+
+/// Returns unix timestamp
+fn horolog() -> u64 {
+    let date: SystemTime = SystemTime::now();
+
+    match date.duration_since(UNIX_EPOCH) {
+        Ok(span) => span.as_secs(),
+        Err(_) => 0,
+    }
+}
+
+/// Prints all records from `supply` by passing each to `lattice`
 fn entirety(arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize]) {
     for pair in arts {
         println!();
@@ -70,8 +82,8 @@ fn entirety(arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize]) {
     }
 }
 
-/// Parses user input for key matches in supply records,
-/// If so then passes each matched record to lattice
+/// Parses user input for key matches in `supply` records,
+/// passing each matched record to `lattice`
 fn spandex(clef: &str, arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize]) {
     let span: usize = clef.len();
     let mut opts = Vec::new();
@@ -89,7 +101,7 @@ fn spandex(clef: &str, arts: &[(&str, &str); VOLUME], stem: &str, pegs: &[usize]
     }
 }
 
-/// Prints all record keys from supply formatted to screen
+/// Prints all record keys from `supply` formatted to screen
 fn stylist(arts: &[(&str, &str); VOLUME]) {
     let mut opts = Vec::new();
 
@@ -107,7 +119,7 @@ fn stylist(arts: &[(&str, &str); VOLUME]) {
     println!();
 }
 
-/// Prints selected record from supply formatted to screen
+/// Prints selected record from `supply` formatted to screen
 fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
     let (key, val) = pair;
     let span: usize = val.len();
@@ -251,6 +263,24 @@ fn supply() -> [(&'static str, &'static str); VOLUME] {
         ("n67m2", "__ ux __ __ ov qq vo __ ty xu __ ww "),
         ("n6m2", "qr vp __ __ pv rq wo __ uy yu __ __ "),
     ]
+}
+
+#[test]
+fn check_horolog_return_value() {
+    let past: u64 = 1721093758;
+    let aeon: u64 = horolog();
+
+    assert!(past < aeon, "horolog assertion failed");
+}
+
+#[test]
+fn check_figures_return_values() {
+    let lyre = String::from("cgdae");
+    let figs: (String, Vec<usize>) = figures(lyre);
+    let (tune, pegs) = figs;
+
+    assert_eq!("cgdae", tune);
+    assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
 }
 
 #[test]
