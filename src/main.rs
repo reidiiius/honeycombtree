@@ -97,7 +97,7 @@ fn spandex(clef: &str, arts: &[(&str, &str); VOLUME], urns: &(String, Vec<usize>
 
     if opts.contains(&clef) {
         for (spot, item) in (0_usize..).zip(opts.into_iter()) {
-            if (span == item.len()) && (clef.eq_ignore_ascii_case(item)) {
+            if span == item.len() && clef.eq_ignore_ascii_case(item) {
                 lattice(arts[spot], stem.to_string(), pegs.to_vec());
                 break;
             }
