@@ -14,14 +14,15 @@ fn main() {
         return;
     }
 
-    let tune = String::from("beadgcf");
-    let pegs: Vec<usize> = figures(&tune);
-    let aeon: u64 = horolog();
-    let stem: String = format!("-{}-h{}", tune, aeon);
-    let urns: (&str, &[usize]) = (&stem, &pegs);
     let arts: [(&str, &str); VOLUME] = supply();
 
     if inks.len() > 1 {
+        let tune = String::from("beadgcf");
+        let pegs: Vec<usize> = figures(&tune);
+        let aeon: u64 = horolog();
+        let stem: String = format!("-{}-h{}", tune, aeon);
+        let urns: (&str, &[usize]) = (&stem, &pegs);
+
         if inks[1].eq_ignore_ascii_case("gamut") {
             entirety(arts, urns);
         } else {
