@@ -28,6 +28,10 @@ Command-line
 
 :
 
+    cargo run n0 j3 cgdae
+
+:
+
     cargo run gamut | sensible-pager
 
 ---
