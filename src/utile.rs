@@ -1,4 +1,4 @@
-use crate::datum::QTY;
+use crate::datum::{signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
@@ -64,7 +64,7 @@ pub fn entirety(arts: [(&str, &str); QTY], urns: (String, Vec<usize>)) {
 }
 
 /// Parses user input for key matches in `records`,
-/// passes each matched Tuples to `lattice`
+/// passes each matched Tuple to `lattice`
 pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], urns: &(String, Vec<usize>)) {
     let span: usize = clef.len();
     let mut opts = Vec::new();
@@ -86,7 +86,7 @@ pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], urns: &(String, Vec<usize
     }
 }
 
-/// Prints selected Tuples from `records` formatted to screen
+/// Prints selected Tuple from `records` formatted to screen
 pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
     let (key, val) = pair;
     let span: usize = val.len();
@@ -101,14 +101,23 @@ pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
     }
 }
 
-/// Prints all Tuple keys from `records` columned to screen
-pub fn stylist(axes: &[&str], arts: [(&str, &str); QTY]) {
-    let mut opts = Vec::new();
-    let cols: u8 = 7;
+/// Returns Tuple holding Vectors of tuning Strings and key Strings
+pub fn shrouds() -> (Vec<String>, Vec<String>) {
+    let axes: [&str; 7] = tunings();
+    let keys: Vec<String> = signats();
+    let mut ouds = Vec::new();
 
-    for pair in arts {
-        opts.push(pair.0)
+    for item in axes {
+        ouds.push(item.to_string());
     }
+
+    (ouds, keys)
+}
+
+/// Prints tunings Strings and Tuple keys from `records` columned
+pub fn stylist() {
+    let (axes, opts) = shrouds();
+    let cols: u8 = 7;
 
     println!();
     for mode in axes {

@@ -2,7 +2,7 @@ mod datum;
 mod utile;
 
 use crate::datum::{records, tunings, QTY};
-use crate::utile::{entirety, pitcher, qualify, spandex, stylist};
+use crate::utile::{entirety, pitcher, qualify, shrouds, spandex, stylist};
 use std::env;
 
 #[cfg(test)]
@@ -19,9 +19,6 @@ fn main() {
         return;
     }
 
-    let arts: [(&str, &str); QTY] = records();
-    let axes: [&str; 7] = tunings();
-
     if inks.len() > 1 {
         // shift head which holds executable path
         inks.remove(0);
@@ -29,25 +26,34 @@ fn main() {
         // lent character set and limit amount of characters
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
-        let tune = pitcher(&axes, &inks);
+        let axes: [&str; 7] = tunings();
+        let tune: String = pitcher(&axes, &inks);
         let urns: (String, Vec<usize>) = qualify(tune);
-
+        let arts: [(&str, &str); QTY] = records();
         let gulp = String::from("gamut");
 
         if inks.contains(&gulp) {
             entirety(arts, urns);
         } else {
-            let pres: [char; 4] = ['i', 'j', 'k', 'n'];
+            let (ouds, keys) = shrouds();
 
-            for clef in inks {
+            for clef in &inks {
                 // sift through items for key signatures
-                if clef.starts_with(pres) {
-                    spandex(&clef, &arts, &urns);
+                if keys.contains(clef) {
+                    spandex(clef, &arts, &urns);
+                } else if ouds.contains(clef) {
+                    if inks.len() == 1 {
+                        stylist();
+                    } else {
+                        continue;
+                    }
+                } else {
+                    println!("\n\t{clef} ?");
                 }
             }
         }
     } else {
-        stylist(&axes, arts);
+        stylist();
     }
     println!();
 }

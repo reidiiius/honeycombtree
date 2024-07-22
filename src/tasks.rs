@@ -1,5 +1,7 @@
 use crate::datum::{records, tunings, QTY};
-use crate::utile::{entirety, figures, horolog, lattice, pitcher, qualify, spandex, stylist};
+use crate::utile::{
+    entirety, figures, horolog, lattice, pitcher, qualify, shrouds, spandex, stylist,
+};
 
 #[test]
 fn constant_variable_qty() {
@@ -97,10 +99,16 @@ fn lattice_return_type() {
 }
 
 #[test]
+fn shrouds_returns_tuple() {
+    let (axes, opts) = shrouds();
+
+    assert!(axes.len() == 7, "shrouds axes length");
+    assert!(opts.len() == QTY, "shrouds opts length");
+}
+
+#[test]
 fn stylist_return_type() {
-    let arts: [(&str, &str); QTY] = records();
-    let axes = ["beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn"];
-    let kind: () = stylist(&axes, arts);
+    let kind: () = stylist();
 
     assert_eq!((), kind);
 }

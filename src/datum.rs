@@ -8,6 +8,18 @@ pub fn tunings() -> [&'static str; 7] {
     ]
 }
 
+/// Returns a Vector of key Strings from `records`
+pub fn signats() -> Vec<String> {
+    let arts: [(&str, &str); QTY] = records();
+    let mut opts = Vec::new();
+
+    for pair in arts {
+        opts.push(pair.0.to_string());
+    }
+
+    opts
+}
+
 /// Returns an Array of Tuples containing key-value Strings
 pub fn records() -> [(&'static str, &'static str); QTY] {
     [
