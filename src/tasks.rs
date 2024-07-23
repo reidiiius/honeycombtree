@@ -1,6 +1,6 @@
 use crate::datum::{records, tunings, QTY};
 use crate::utile::{
-    entirety, figures, horolog, lattice, pitcher, qualify, shrouds, spandex, stylist,
+    entirety, figures, horolog, lattice, options, pitcher, qualify, spandex, stylist, veranda,
 };
 
 #[test]
@@ -10,7 +10,7 @@ fn constant_variable_qty() {
 
 #[test]
 fn tunings_return_length() {
-    let axes: [&str; 7] = tunings();
+    let axes: Vec<String> = tunings();
 
     assert!(axes.len() == 7, "tunings length incorrect");
 }
@@ -33,10 +33,11 @@ fn records_value_lengths() {
 
 #[test]
 fn pitcher_return_value() {
-    let (ouds, keys) = shrouds();
+    let axes: Vec<String> = tunings();
+    let (ouds, keys) = options();
     let viol = String::from(&ouds[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone()];
-    let tune = pitcher(&ouds, &inks[0..]);
+    let tune = pitcher(axes, &inks);
 
     assert_eq!(viol, tune);
 }
@@ -76,6 +77,17 @@ fn entirety_return_type() {
 }
 
 #[test]
+fn veranda_return_type() {
+    let (ouds, keys) = options();
+    let viol = String::from(&ouds[2]);
+    let inks = vec![keys[0].clone(), viol.clone(), keys[1].clone()];
+    let urns: (String, Vec<usize>) = qualify(viol);
+    let kind: () = veranda(inks, urns);
+
+    assert_eq!((), kind);
+}
+
+#[test]
 fn spandex_return_type() {
     let clef = String::from("n0");
     let tune = String::from("beadgcf");
@@ -98,11 +110,11 @@ fn lattice_return_type() {
 }
 
 #[test]
-fn shrouds_returns_tuple() {
-    let (axes, opts) = shrouds();
+fn options_returns_tuple() {
+    let (ouds, keys) = options();
 
-    assert!(axes.len() == 7, "shrouds axes length");
-    assert!(opts.len() == QTY, "shrouds opts length");
+    assert!(ouds.len() == 7, "options ouds length");
+    assert!(keys.len() == QTY, "options keys length");
 }
 
 #[test]

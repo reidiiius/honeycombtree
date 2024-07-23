@@ -2,13 +2,13 @@ use crate::datum::{records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
-pub fn pitcher(axes: &Vec<String>, inks: &[String]) -> String {
+pub fn pitcher(axes: Vec<String>, inks: &[String]) -> String {
     // default tuning predefined
     let mut tune = String::from("eadgbe");
 
     for mode in axes {
-        if inks.contains(&mode.to_string()) {
-            tune = mode.to_string();
+        if inks.contains(&mode) {
+            tune = mode;
             break;
         }
     }
@@ -64,14 +64,36 @@ pub fn entirety(urns: (String, Vec<usize>)) {
     }
 }
 
+/// Parses user input for key or tuning String matches,
+/// passes each matched key String to `lattice`
+pub fn veranda(inks: Vec<String>, urns: (String, Vec<usize>)) {
+    let arts: [(&str, &str); QTY] = records();
+    let (ouds, keys) = options();
+
+    for item in &inks {
+        // sift through items for signatures or tunings
+        if keys.contains(item) {
+            spandex(item, &arts, &urns);
+        } else if ouds.contains(item) {
+            if inks.len() == 1 {
+                stylist();
+            } else {
+                continue;
+            }
+        } else {
+            println!("\n\t{item} ?");
+        }
+    }
+}
+
 /// Parses user input for key matches in `records`,
 /// passes each matched Tuple to `lattice`
 pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], urns: &(String, Vec<usize>)) {
     let span: usize = clef.len();
-    let opts: Vec<String> = signats();
+    let keys: Vec<String> = signats();
     let (stem, pegs) = urns;
 
-    for (spot, item) in (0_usize..).zip(opts.into_iter()) {
+    for (spot, item) in (0_usize..).zip(keys.into_iter()) {
         if span == item.len() && clef.eq_ignore_ascii_case(&item) {
             lattice(arts[spot], stem.to_string(), pegs.to_vec());
             break;
@@ -94,9 +116,9 @@ pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
     }
 }
 
-/// Returns Tuple holding Vectors of tuning Strings and key Strings
-pub fn shrouds() -> (Vec<String>, Vec<String>) {
-    let axes: [&str; 7] = tunings();
+/// Returns Tuple holding Vectors of tuning and key Strings
+pub fn options() -> (Vec<String>, Vec<String>) {
+    let axes: Vec<String> = tunings();
     let keys: Vec<String> = signats();
     let mut ouds = Vec::new();
 
@@ -109,15 +131,15 @@ pub fn shrouds() -> (Vec<String>, Vec<String>) {
 
 /// Prints tuning Strings and Tuple keys from `records` columned
 pub fn stylist() {
-    let (axes, opts) = shrouds();
+    let (ouds, keys) = options();
     let cols: u8 = 7;
 
     println!();
-    for mode in axes {
+    for mode in ouds {
         print!("\t{}", mode)
     }
     println!("\n");
-    for (numb, item) in (1_u8..).zip(opts.into_iter()) {
+    for (numb, item) in (1_u8..).zip(keys.into_iter()) {
         print!("\t{item}");
         if numb % cols == 0 {
             println!();

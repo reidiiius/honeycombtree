@@ -1,23 +1,30 @@
 /// Quantity of Tuples in the Array returned by `records`
 pub const QTY: usize = 125;
 
-/// Returns an Array of tuning Strings
-pub fn tunings() -> [&'static str; 7] {
-    [
+/// Returns a Vector of tuning Strings
+pub fn tunings() -> Vec<String> {
+    let ways = [
         "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
-    ]
+    ];
+    let mut axes = Vec::new();
+
+    for cord in ways {
+        axes.push(cord.to_string());
+    }
+
+    axes
 }
 
 /// Returns a Vector of key Strings from `records`
 pub fn signats() -> Vec<String> {
     let arts: [(&str, &str); QTY] = records();
-    let mut opts = Vec::new();
+    let mut keys = Vec::new();
 
     for pair in arts {
-        opts.push(pair.0.to_string());
+        keys.push(pair.0.to_string());
     }
 
-    opts
+    keys
 }
 
 /// Returns an Array of Tuples containing key-value Strings
