@@ -1,8 +1,8 @@
-use crate::datum::{signats, tunings, QTY};
+use crate::datum::{records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
-pub fn pitcher(axes: &[&str], inks: &[String]) -> String {
+pub fn pitcher(axes: &Vec<String>, inks: &[String]) -> String {
     // default tuning predefined
     let mut tune = String::from("eadgbe");
 
@@ -55,7 +55,8 @@ pub fn figures(tune: &str) -> Vec<usize> {
 }
 
 /// Prints all Tuples from `records` passing each to `lattice`
-pub fn entirety(arts: [(&str, &str); QTY], urns: (String, Vec<usize>)) {
+pub fn entirety(urns: (String, Vec<usize>)) {
+    let arts: [(&str, &str); QTY] = records();
     let (stem, pegs) = urns;
 
     for pair in arts {
@@ -67,22 +68,14 @@ pub fn entirety(arts: [(&str, &str); QTY], urns: (String, Vec<usize>)) {
 /// passes each matched Tuple to `lattice`
 pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], urns: &(String, Vec<usize>)) {
     let span: usize = clef.len();
-    let mut opts = Vec::new();
+    let opts: Vec<String> = signats();
     let (stem, pegs) = urns;
 
-    for pair in arts {
-        opts.push(pair.0)
-    }
-
-    if opts.contains(&clef) {
-        for (spot, item) in (0_usize..).zip(opts.into_iter()) {
-            if span == item.len() && clef.eq_ignore_ascii_case(item) {
-                lattice(arts[spot], stem.to_string(), pegs.to_vec());
-                break;
-            }
+    for (spot, item) in (0_usize..).zip(opts.into_iter()) {
+        if span == item.len() && clef.eq_ignore_ascii_case(&item) {
+            lattice(arts[spot], stem.to_string(), pegs.to_vec());
+            break;
         }
-    } else {
-        println!("\n\t{clef} ?");
     }
 }
 
@@ -114,7 +107,7 @@ pub fn shrouds() -> (Vec<String>, Vec<String>) {
     (ouds, keys)
 }
 
-/// Prints tunings Strings and Tuple keys from `records` columned
+/// Prints tuning Strings and Tuple keys from `records` columned
 pub fn stylist() {
     let (axes, opts) = shrouds();
     let cols: u8 = 7;

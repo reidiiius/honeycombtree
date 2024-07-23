@@ -33,10 +33,10 @@ fn records_value_lengths() {
 
 #[test]
 fn pitcher_return_value() {
-    let viol = String::from("cgdae");
-    let inks = ["n0".to_string(), "j3".to_string(), viol.clone()];
-    let axes = ["beadgcf", "bfbfb", "cgdae", "eadgbe", "fkbjdn"];
-    let tune = pitcher(&axes, &inks);
+    let (ouds, keys) = shrouds();
+    let viol = String::from(&ouds[2]);
+    let inks = [keys[0].clone(), viol.clone(), keys[1].clone()];
+    let tune = pitcher(&ouds, &inks[0..]);
 
     assert_eq!(viol, tune);
 }
@@ -70,8 +70,7 @@ fn figures_return_values() {
 fn entirety_return_type() {
     let tune = String::from("beadgcf");
     let urns: (String, Vec<usize>) = qualify(tune);
-    let arts: [(&str, &str); QTY] = records();
-    let kind: () = entirety(arts, urns);
+    let kind: () = entirety(urns);
 
     assert_eq!((), kind);
 }

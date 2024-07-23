@@ -1,7 +1,7 @@
 mod datum;
 mod utile;
 
-use crate::datum::{records, tunings, QTY};
+use crate::datum::{records, QTY};
 use crate::utile::{entirety, pitcher, qualify, shrouds, spandex, stylist};
 use std::env;
 
@@ -26,29 +26,28 @@ fn main() {
         // lent character set and limit amount of characters
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
-        let axes: [&str; 7] = tunings();
-        let tune: String = pitcher(&axes, &inks);
+        let (ouds, keys) = shrouds();
+        let tune: String = pitcher(&ouds, &inks);
         let urns: (String, Vec<usize>) = qualify(tune);
-        let arts: [(&str, &str); QTY] = records();
         let gulp = String::from("gamut");
 
         if inks.contains(&gulp) {
-            entirety(arts, urns);
+            entirety(urns);
         } else {
-            let (ouds, keys) = shrouds();
+            let arts: [(&str, &str); QTY] = records();
 
-            for clef in &inks {
-                // sift through items for key signatures
-                if keys.contains(clef) {
-                    spandex(clef, &arts, &urns);
-                } else if ouds.contains(clef) {
+            for item in &inks {
+                // sift through items for signatures or tunings
+                if keys.contains(item) {
+                    spandex(item, &arts, &urns);
+                } else if ouds.contains(item) {
                     if inks.len() == 1 {
                         stylist();
                     } else {
                         continue;
                     }
                 } else {
-                    println!("\n\t{clef} ?");
+                    println!("\n\t{item} ?");
                 }
             }
         }
