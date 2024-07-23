@@ -26,8 +26,8 @@ fn main() {
         // lent character set and limit amount of characters
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
-        let axes: Vec<String> = tunings();
-        let tune: String = pitcher(axes, &inks);
+        let ouds: Vec<String> = tunings();
+        let tune: String = pitcher(ouds, &inks);
         let urns: (String, Vec<usize>) = qualify(tune);
         let gulp = String::from("gamut");
 

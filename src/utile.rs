@@ -2,13 +2,13 @@ use crate::datum::{records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
-pub fn pitcher(axes: Vec<String>, inks: &[String]) -> String {
+pub fn pitcher(ouds: Vec<String>, inks: &[String]) -> String {
     // default tuning predefined
     let mut tune = String::from("eadgbe");
 
-    for mode in axes {
-        if inks.contains(&mode) {
-            tune = mode;
+    for spec in ouds {
+        if inks.contains(&spec) {
+            tune = spec;
             break;
         }
     }
@@ -64,11 +64,11 @@ pub fn entirety(urns: (String, Vec<usize>)) {
     }
 }
 
-/// Parses user input for key or tuning String matches,
-/// passes each matched key String to `lattice`
+/// Parses user input for key or tuning Strings,
+/// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, urns: (String, Vec<usize>)) {
     let arts: [(&str, &str); QTY] = records();
-    let (ouds, keys) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = options();
 
     for item in &inks {
         // sift through items for signatures or tunings
@@ -118,25 +118,20 @@ pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
 
 /// Returns Tuple holding Vectors of tuning and key Strings
 pub fn options() -> (Vec<String>, Vec<String>) {
-    let axes: Vec<String> = tunings();
+    let ouds: Vec<String> = tunings();
     let keys: Vec<String> = signats();
-    let mut ouds = Vec::new();
-
-    for item in axes {
-        ouds.push(item.to_string());
-    }
 
     (ouds, keys)
 }
 
 /// Prints tuning Strings and Tuple keys from `records` columned
 pub fn stylist() {
-    let (ouds, keys) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = options();
     let cols: u8 = 7;
 
     println!();
-    for mode in ouds {
-        print!("\t{}", mode)
+    for spec in ouds {
+        print!("\t{}", spec)
     }
     println!("\n");
     for (numb, item) in (1_u8..).zip(keys.into_iter()) {

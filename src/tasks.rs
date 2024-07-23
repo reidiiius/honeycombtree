@@ -10,9 +10,9 @@ fn constant_variable_qty() {
 
 #[test]
 fn tunings_return_length() {
-    let axes: Vec<String> = tunings();
+    let ouds: Vec<String> = tunings();
 
-    assert!(axes.len() == 7, "tunings length incorrect");
+    assert!(ouds.len() == 7, "tunings length incorrect");
 }
 
 #[test]
@@ -33,11 +33,10 @@ fn records_value_lengths() {
 
 #[test]
 fn pitcher_return_value() {
-    let axes: Vec<String> = tunings();
-    let (ouds, keys) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = options();
     let viol = String::from(&ouds[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone()];
-    let tune = pitcher(axes, &inks);
+    let tune = pitcher(ouds, &inks);
 
     assert_eq!(viol, tune);
 }
@@ -53,7 +52,8 @@ fn horolog_return_value() {
 #[test]
 fn qualify_return_values() {
     let tune = String::from("cgdae");
-    let (stem, pegs) = qualify(tune);
+    let urns: (String, Vec<usize>) = qualify(tune);
+    let (stem, pegs) = urns;
 
     assert!(!stem.is_empty(), "qualify stem is empty");
     assert!(!pegs.is_empty(), "qualify pegs is empty");
@@ -78,7 +78,7 @@ fn entirety_return_type() {
 
 #[test]
 fn veranda_return_type() {
-    let (ouds, keys) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = options();
     let viol = String::from(&ouds[2]);
     let inks = vec![keys[0].clone(), viol.clone(), keys[1].clone()];
     let urns: (String, Vec<usize>) = qualify(viol);
@@ -101,7 +101,8 @@ fn spandex_return_type() {
 #[test]
 fn lattice_return_type() {
     let tune = String::from("beadgcf");
-    let (stem, pegs) = qualify(tune);
+    let urns: (String, Vec<usize>) = qualify(tune);
+    let (stem, pegs) = urns;
     let arts: [(&str, &str); QTY] = records();
     let pair: (&str, &str) = arts[QTY - 1];
     let kind: () = lattice(pair, stem, pegs);
@@ -111,7 +112,7 @@ fn lattice_return_type() {
 
 #[test]
 fn options_returns_tuple() {
-    let (ouds, keys) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = options();
 
     assert!(ouds.len() == 7, "options ouds length");
     assert!(keys.len() == QTY, "options keys length");

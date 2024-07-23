@@ -6,13 +6,13 @@ pub fn tunings() -> Vec<String> {
     let ways = [
         "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
     ];
-    let mut axes = Vec::new();
+    let mut ouds = Vec::new();
 
-    for cord in ways {
-        axes.push(cord.to_string());
+    for tune in ways {
+        ouds.push(tune.to_string());
     }
 
-    axes
+    ouds
 }
 
 /// Returns a Vector of key Strings from `records`
