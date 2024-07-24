@@ -36,7 +36,7 @@ fn pitcher_return_value() {
     let (ouds, keys): (Vec<String>, Vec<String>) = options();
     let viol = String::from(&ouds[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone()];
-    let tune = pitcher(ouds, &inks);
+    let tune = pitcher(&inks);
 
     assert_eq!(viol, tune);
 }
@@ -52,8 +52,8 @@ fn horolog_return_value() {
 #[test]
 fn qualify_return_values() {
     let tune = String::from("cgdae");
-    let urns: (String, Vec<usize>) = qualify(tune);
-    let (stem, pegs) = urns;
+    let cogs: (String, Vec<usize>) = qualify(tune);
+    let (stem, pegs) = cogs;
 
     assert!(!stem.is_empty(), "qualify stem is empty");
     assert!(!pegs.is_empty(), "qualify pegs is empty");
@@ -70,8 +70,7 @@ fn figures_return_values() {
 #[test]
 fn entirety_return_type() {
     let tune = String::from("beadgcf");
-    let urns: (String, Vec<usize>) = qualify(tune);
-    let kind: () = entirety(urns);
+    let kind: () = entirety(tune);
 
     assert_eq!((), kind);
 }
@@ -80,9 +79,9 @@ fn entirety_return_type() {
 fn veranda_return_type() {
     let (ouds, keys): (Vec<String>, Vec<String>) = options();
     let viol = String::from(&ouds[2]);
+    let tune = String::from(&viol);
     let inks = vec![keys[0].clone(), viol.clone(), keys[1].clone()];
-    let urns: (String, Vec<usize>) = qualify(viol);
-    let kind: () = veranda(inks, urns);
+    let kind: () = veranda(inks, tune);
 
     assert_eq!((), kind);
 }
@@ -91,9 +90,9 @@ fn veranda_return_type() {
 fn spandex_return_type() {
     let clef = String::from("n0");
     let tune = String::from("beadgcf");
-    let urns: (String, Vec<usize>) = qualify(tune);
+    let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
-    let kind: () = spandex(&clef, &arts, &urns);
+    let kind: () = spandex(&clef, &arts, &cogs);
 
     assert_eq!((), kind);
 }
@@ -101,8 +100,8 @@ fn spandex_return_type() {
 #[test]
 fn lattice_return_type() {
     let tune = String::from("beadgcf");
-    let urns: (String, Vec<usize>) = qualify(tune);
-    let (stem, pegs) = urns;
+    let cogs: (String, Vec<usize>) = qualify(tune);
+    let (stem, pegs) = cogs;
     let arts: [(&str, &str); QTY] = records();
     let pair: (&str, &str) = arts[QTY - 1];
     let kind: () = lattice(pair, stem, pegs);

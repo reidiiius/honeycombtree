@@ -1,8 +1,8 @@
 mod datum;
 mod utile;
 
-use crate::datum::{tunings, QTY};
-use crate::utile::{entirety, pitcher, qualify, stylist, veranda};
+use crate::datum::QTY;
+use crate::utile::{entirety, pitcher, stylist, veranda};
 use std::env;
 
 #[cfg(test)]
@@ -26,15 +26,13 @@ fn main() {
         // lent character set and limit amount of characters
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
-        let ouds: Vec<String> = tunings();
-        let tune: String = pitcher(ouds, &inks);
-        let urns: (String, Vec<usize>) = qualify(tune);
+        let tune: String = pitcher(&inks);
         let gulp = String::from("gamut");
 
         if inks.contains(&gulp) {
-            entirety(urns);
+            entirety(tune);
         } else {
-            veranda(inks, urns);
+            veranda(inks, tune);
         }
     } else {
         stylist();

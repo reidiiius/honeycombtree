@@ -2,9 +2,10 @@ use crate::datum::{records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
-pub fn pitcher(ouds: Vec<String>, inks: &[String]) -> String {
+pub fn pitcher(inks: &[String]) -> String {
+    let ouds: Vec<String> = tunings();
     // default tuning predefined
-    let mut tune = String::from("eadgbe");
+    let mut tune = String::from(&ouds[4]);
 
     for spec in ouds {
         if inks.contains(&spec) {
@@ -55,9 +56,10 @@ pub fn figures(tune: &str) -> Vec<usize> {
 }
 
 /// Prints all Tuples from `records` passing each to `lattice`
-pub fn entirety(urns: (String, Vec<usize>)) {
+pub fn entirety(tune: String) {
     let arts: [(&str, &str); QTY] = records();
-    let (stem, pegs) = urns;
+    let cogs: (String, Vec<usize>) = qualify(tune);
+    let (stem, pegs) = cogs;
 
     for pair in arts {
         lattice(pair, stem.to_string(), pegs.to_vec());
@@ -66,14 +68,15 @@ pub fn entirety(urns: (String, Vec<usize>)) {
 
 /// Parses user input for key or tuning Strings,
 /// passes matched key String to `spandex`
-pub fn veranda(inks: Vec<String>, urns: (String, Vec<usize>)) {
-    let arts: [(&str, &str); QTY] = records();
+pub fn veranda(inks: Vec<String>, tune: String) {
     let (ouds, keys): (Vec<String>, Vec<String>) = options();
+    let cogs: (String, Vec<usize>) = qualify(tune);
+    let arts: [(&str, &str); QTY] = records();
 
     for item in &inks {
         // sift through items for signatures or tunings
         if keys.contains(item) {
-            spandex(item, &arts, &urns);
+            spandex(item, &arts, &cogs);
         } else if ouds.contains(item) {
             if inks.len() == 1 {
                 stylist();
@@ -88,10 +91,10 @@ pub fn veranda(inks: Vec<String>, urns: (String, Vec<usize>)) {
 
 /// Parses user input for key matches in `records`,
 /// passes each matched Tuple to `lattice`
-pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], urns: &(String, Vec<usize>)) {
+pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], cogs: &(String, Vec<usize>)) {
     let span: usize = clef.len();
     let keys: Vec<String> = signats();
-    let (stem, pegs) = urns;
+    let (stem, pegs) = cogs;
 
     for (spot, item) in (0_usize..).zip(keys.into_iter()) {
         if span == item.len() && clef.eq_ignore_ascii_case(&item) {
