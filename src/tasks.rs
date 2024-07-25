@@ -11,10 +11,12 @@ fn datum_constant_variable_qty() {
 }
 
 #[test]
-fn datum_tunings_return_length() {
+fn datum_tunings_content_ascii() {
     let ouds: Vec<String> = tunings();
 
-    assert!(ouds.len() == 7, "tunings length incorrect");
+    for item in ouds {
+        assert!(item.is_ascii());
+    }
 }
 
 #[test]
@@ -25,18 +27,21 @@ fn datum_signats_return_length() {
 }
 
 #[test]
-fn datum_records_return_length() {
+fn datum_records_content_ascii() {
     let arts: [(&str, &str); QTY] = records();
 
-    assert_eq!(arts.len(), QTY);
+    for (key, val) in arts {
+        assert!(key.is_ascii() && val.is_ascii());
+    }
 }
 
 #[test]
 fn datum_records_value_lengths() {
     let arts: [(&str, &str); QTY] = records();
+    let span: usize = 36;
 
     for pair in arts {
-        assert_eq!(pair.1.len(), 36);
+        assert_eq!(pair.1.len(), span);
     }
 }
 
