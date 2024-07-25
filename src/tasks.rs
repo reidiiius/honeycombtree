@@ -5,7 +5,9 @@ use crate::utile::{
 
 #[test]
 fn datum_constant_variable_qty() {
-    assert!(QTY == 125, "constant QTY value incorrect");
+    let duos: usize = records().len();
+
+    assert!(QTY == duos, "constant QTY value incorrect");
 }
 
 #[test]
@@ -118,9 +120,10 @@ fn utile_lattice_return_type() {
 
 #[test]
 fn utile_choices_returns_tuple() {
+    let numb: usize = tunings().len();
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();
 
-    assert!(ouds.len() == 7, "choices ouds length");
+    assert!(ouds.len() == numb, "choices ouds length");
     assert!(keys.len() == QTY, "choices keys length");
 }
 
