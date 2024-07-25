@@ -1,29 +1,36 @@
-use crate::datum::{records, tunings, QTY};
+use crate::datum::{records, signats, tunings, QTY};
 use crate::utile::{
     choices, entirety, figures, horolog, lattice, pitcher, qualify, spandex, stylist, veranda,
 };
 
 #[test]
-fn constant_variable_qty() {
+fn datum_constant_variable_qty() {
     assert!(QTY == 125, "constant QTY value incorrect");
 }
 
 #[test]
-fn tunings_return_length() {
+fn datum_tunings_return_length() {
     let ouds: Vec<String> = tunings();
 
     assert!(ouds.len() == 7, "tunings length incorrect");
 }
 
 #[test]
-fn records_return_length() {
+fn datum_signats_return_length() {
+    let keys: Vec<String> = signats();
+
+    assert!(keys.len() == QTY, "signats length incorrect");
+}
+
+#[test]
+fn datum_records_return_length() {
     let arts: [(&str, &str); QTY] = records();
 
     assert_eq!(arts.len(), QTY);
 }
 
 #[test]
-fn records_value_lengths() {
+fn datum_records_value_lengths() {
     let arts: [(&str, &str); QTY] = records();
 
     for pair in arts {
@@ -32,7 +39,7 @@ fn records_value_lengths() {
 }
 
 #[test]
-fn pitcher_return_value() {
+fn utile_pitcher_return_value() {
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();
     let viol = String::from(&ouds[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone()];
@@ -42,7 +49,7 @@ fn pitcher_return_value() {
 }
 
 #[test]
-fn horolog_return_value() {
+fn utile_horolog_return_value() {
     let past: u64 = 1721093758;
     let aeon: u64 = horolog();
 
@@ -50,7 +57,7 @@ fn horolog_return_value() {
 }
 
 #[test]
-fn qualify_return_values() {
+fn utile_qualify_return_values() {
     let tune = String::from("cgdae");
     let cogs: (String, Vec<usize>) = qualify(tune);
     let (stem, pegs) = cogs;
@@ -60,7 +67,7 @@ fn qualify_return_values() {
 }
 
 #[test]
-fn figures_return_values() {
+fn utile_figures_return_values() {
     let tune = String::from("cgdae");
     let pegs: Vec<usize> = figures(Some(&tune));
 
@@ -68,7 +75,7 @@ fn figures_return_values() {
 }
 
 #[test]
-fn entirety_return_type() {
+fn utile_entirety_return_type() {
     let tune = String::from("beadgcf");
     let kind: () = entirety(tune);
 
@@ -76,7 +83,7 @@ fn entirety_return_type() {
 }
 
 #[test]
-fn veranda_return_type() {
+fn utile_veranda_return_type() {
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();
     let viol = String::from(&ouds[2]);
     let tune = String::from(&viol);
@@ -87,7 +94,7 @@ fn veranda_return_type() {
 }
 
 #[test]
-fn spandex_return_type() {
+fn utile_spandex_return_type() {
     let clef = String::from("n0");
     let tune = String::from("beadgcf");
     let cogs: (String, Vec<usize>) = qualify(tune);
@@ -98,7 +105,7 @@ fn spandex_return_type() {
 }
 
 #[test]
-fn lattice_return_type() {
+fn utile_lattice_return_type() {
     let tune = String::from("beadgcf");
     let cogs: (String, Vec<usize>) = qualify(tune);
     let (stem, pegs) = cogs;
@@ -110,7 +117,7 @@ fn lattice_return_type() {
 }
 
 #[test]
-fn choices_returns_tuple() {
+fn utile_choices_returns_tuple() {
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();
 
     assert!(ouds.len() == 7, "choices ouds length");
@@ -118,7 +125,7 @@ fn choices_returns_tuple() {
 }
 
 #[test]
-fn stylist_return_type() {
+fn utile_stylist_return_type() {
     let kind: () = stylist();
 
     assert_eq!((), kind);
