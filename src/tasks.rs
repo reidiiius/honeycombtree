@@ -1,6 +1,6 @@
 use crate::datum::{records, tunings, QTY};
 use crate::utile::{
-    entirety, figures, horolog, lattice, options, pitcher, qualify, spandex, stylist, veranda,
+    choices, entirety, figures, horolog, lattice, pitcher, qualify, spandex, stylist, veranda,
 };
 
 #[test]
@@ -33,7 +33,7 @@ fn records_value_lengths() {
 
 #[test]
 fn pitcher_return_value() {
-    let (ouds, keys): (Vec<String>, Vec<String>) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
     let viol = String::from(&ouds[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone()];
     let tune = pitcher(&inks);
@@ -62,7 +62,7 @@ fn qualify_return_values() {
 #[test]
 fn figures_return_values() {
     let tune = String::from("cgdae");
-    let pegs: Vec<usize> = figures(&tune);
+    let pegs: Vec<usize> = figures(Some(&tune));
 
     assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
 }
@@ -77,7 +77,7 @@ fn entirety_return_type() {
 
 #[test]
 fn veranda_return_type() {
-    let (ouds, keys): (Vec<String>, Vec<String>) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
     let viol = String::from(&ouds[2]);
     let tune = String::from(&viol);
     let inks = vec![keys[0].clone(), viol.clone(), keys[1].clone()];
@@ -110,11 +110,11 @@ fn lattice_return_type() {
 }
 
 #[test]
-fn options_returns_tuple() {
-    let (ouds, keys): (Vec<String>, Vec<String>) = options();
+fn choices_returns_tuple() {
+    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
 
-    assert!(ouds.len() == 7, "options ouds length");
-    assert!(keys.len() == QTY, "options keys length");
+    assert!(ouds.len() == 7, "choices ouds length");
+    assert!(keys.len() == QTY, "choices keys length");
 }
 
 #[test]

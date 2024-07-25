@@ -31,27 +31,23 @@ pub fn horolog() -> u64 {
 pub fn qualify(tune: String) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
     let stem: String = format!("-{}-h{}", tune, aeon);
-    let pegs: Vec<usize> = figures(&tune);
+    let pegs: Vec<usize> = figures(Some(&tune));
 
     (stem, pegs)
 }
 
 /// Matches tuning String and returns a Vector of indices
-pub fn figures(tune: &str) -> Vec<usize> {
-    if tune.eq_ignore_ascii_case("beadgcf") {
-        vec![30, 15, 0, 21, 6, 27, 12, 33, 18]
-    } else if tune.eq_ignore_ascii_case("bfbfb") {
-        vec![33, 15, 33, 15, 33]
-    } else if tune.eq_ignore_ascii_case("cgdae") {
-        vec![12, 27, 6, 21, 0]
-    } else if tune.eq_ignore_ascii_case("dgdgbd") {
-        vec![6, 33, 21, 6, 21, 6]
-    } else if tune.eq_ignore_ascii_case("eadgbe") {
-        vec![12, 33, 21, 6, 27, 12]
-    } else if tune.eq_ignore_ascii_case("fkbjdn") {
-        vec![6, 30, 18, 6, 30, 18]
-    } else {
-        vec![0]
+pub fn figures(tune: Option<&str>) -> Vec<usize> {
+    match tune {
+        Some("beadgcf") => vec![30, 15, 0, 21, 6, 27, 12, 33, 18],
+        Some("bfbfb") => vec![33, 15, 33, 15, 33],
+        Some("cgdae") => vec![12, 27, 6, 21, 0],
+        Some("dgdgbd") => vec![6, 33, 21, 6, 21, 6],
+        Some("eadgbe") => vec![12, 33, 21, 6, 27, 12],
+        Some("fkbjdn") => vec![6, 30, 18, 6, 30, 18],
+        Some("piano") => vec![0],
+        Some(&_) => vec![0],
+        None => vec![0],
     }
 }
 
@@ -69,17 +65,25 @@ pub fn entirety(tune: String) {
 /// Parses user input for key or tuning Strings,
 /// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
-    let (ouds, keys): (Vec<String>, Vec<String>) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
+
+    let mut have = 0;
+    for spec in &keys {
+        if inks.contains(spec) {
+            have += 1;
+        }
+    }
 
     for item in &inks {
         // sift through items for signatures or tunings
         if keys.contains(item) {
             spandex(item, &arts, &cogs);
         } else if ouds.contains(item) {
-            if inks.len() == 1 {
+            if have == 0 {
                 stylist();
+                break;
             } else {
                 continue;
             }
@@ -97,7 +101,7 @@ pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], cogs: &(String, Vec<usize
     let (stem, pegs) = cogs;
 
     for (spot, item) in (0_usize..).zip(keys.into_iter()) {
-        if span == item.len() && clef.eq_ignore_ascii_case(&item) {
+        if span == item.len() && clef.eq(&item) {
             lattice(arts[spot], stem.to_string(), pegs.to_vec());
             break;
         }
@@ -120,7 +124,7 @@ pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
 }
 
 /// Returns Tuple holding Vectors of tuning and key Strings
-pub fn options() -> (Vec<String>, Vec<String>) {
+pub fn choices() -> (Vec<String>, Vec<String>) {
     let ouds: Vec<String> = tunings();
     let keys: Vec<String> = signats();
 
@@ -129,7 +133,7 @@ pub fn options() -> (Vec<String>, Vec<String>) {
 
 /// Prints tuning Strings and Tuple keys from `records` columned
 pub fn stylist() {
-    let (ouds, keys): (Vec<String>, Vec<String>) = options();
+    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
     let cols: u8 = 7;
 
     println!();
