@@ -2,7 +2,7 @@ mod datum;
 mod utile;
 
 use crate::datum::QTY;
-use crate::utile::{entirety, groupie, pitcher, refined, stylist, veranda};
+use crate::utile::{enclave, entirety, groupie, pitcher, refined, stylist, veranda};
 use std::env;
 
 #[cfg(test)]
@@ -29,12 +29,15 @@ fn main() {
         let tune: String = pitcher(&inks);
         let gulp = String::from("gamut");
         let grok = String::from("group");
+        let quiz = String::from("query");
         let tons = String::from("tonal");
 
         if inks.contains(&gulp) {
             entirety(tune);
         } else if inks.contains(&grok) {
             groupie(inks);
+        } else if inks.contains(&quiz) {
+            enclave(inks);
         } else if inks.contains(&tons) {
             refined();
         } else {

@@ -40,6 +40,10 @@ Command-line
 
 :
 
+    cargo run query k2j j2k
+
+:
+
     cargo run gamut | sensible-pager
 
 ---

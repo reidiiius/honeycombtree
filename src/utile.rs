@@ -106,6 +106,50 @@ pub fn groupie(inks: Vec<String>) {
     }
 }
 
+/// Prints matched key Strings from `records` columned
+pub fn enclave(inks: Vec<String>) {
+    if inks.len() > 1 {
+        let keys: Vec<String> = signats();
+        let mut hits: Vec<String> = vec![];
+        let mut last: usize = 0;
+        let mut numb: usize = 1;
+        let cols: usize = 7;
+
+        for argo in inks {
+            if argo.eq("query") {
+                continue;
+            }
+
+            for item in &keys {
+                if item.contains(&argo) {
+                    hits.push(item.to_string());
+                    last += 1;
+                }
+            }
+
+            if last > 0 {
+                println!();
+                while numb <= last {
+                    print!("\t{}", hits[numb - 1]);
+                    if numb % cols == 0 && numb != last {
+                        println!();
+                    }
+                    numb += 1;
+                }
+                println!();
+            } else {
+                println!("\n\t{} ?", argo);
+            }
+
+            hits.clear();
+            last = 0;
+            numb = 1;
+        }
+    } else {
+        stylist();
+    }
+}
+
 /// Parses input for key or tuning Strings,
 /// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {

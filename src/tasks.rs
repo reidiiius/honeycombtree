@@ -1,7 +1,7 @@
 use crate::datum::{flavors, melodia, records, signats, tunings, QTY};
 use crate::utile::{
-    choices, entirety, figures, groupie, horolog, lattice, pitcher, qualify, refined, spandex,
-    stylist, veranda,
+    choices, enclave, entirety, figures, groupie, horolog, lattice, pitcher, qualify, refined,
+    spandex, stylist, veranda,
 };
 
 #[test]
@@ -119,6 +119,14 @@ fn utile_entirety_return_type() {
 fn utile_groupie_return_type() {
     let inks = vec!["group".to_string(), "yq".to_string()];
     let kind: () = groupie(inks);
+
+    assert_eq!((), kind);
+}
+
+#[test]
+fn utile_enclave_return_type() {
+    let inks = vec!["query".to_string(), "56".to_string()];
+    let kind: () = enclave(inks);
 
     assert_eq!((), kind);
 }
