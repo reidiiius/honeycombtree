@@ -62,7 +62,51 @@ pub fn entirety(tune: String) {
     }
 }
 
-/// Parses user input for key or tuning Strings,
+/// Prints matched digraph Strings from `records` columned
+pub fn groupie(inks: Vec<String>) {
+    let arts: [(&str, &str); QTY] = records();
+    let urns: Vec<String> = flavors();
+    let mut keys: Vec<String> = vec![];
+    let mut held: bool = false;
+    let mut last: usize = 0;
+    let mut numb: usize = 1;
+    let cols: usize = 7;
+
+    for argo in inks {
+        if argo.eq("group") {
+            continue;
+        }
+        if urns.contains(&argo) {
+            for pair in arts {
+                if pair.1.contains(&argo) {
+                    keys.push(pair.0.to_string());
+                    last += 1;
+                }
+            }
+            if last > 0 {
+                println!();
+                while numb <= last {
+                    print!("\t{}", keys[numb - 1]);
+                    if numb % cols == 0 && numb != last {
+                        println!();
+                    }
+                    numb += 1;
+                }
+            }
+            println!();
+
+            keys.clear();
+            held = true;
+            last = 0;
+            numb = 1;
+        }
+    }
+    if !held {
+        refined();
+    }
+}
+
+/// Parses input for key or tuning Strings,
 /// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();

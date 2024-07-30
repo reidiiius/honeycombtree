@@ -28,6 +28,10 @@ Command-line
 
 :
 
+    cargo run group wq xq
+
+:
+
     cargo run n0 j3
 
 :

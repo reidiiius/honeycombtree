@@ -1,18 +1,18 @@
 use crate::datum::{flavors, melodia, records, signats, tunings, QTY};
 use crate::utile::{
-    choices, entirety, figures, horolog, lattice, pitcher, qualify, refined, spandex, stylist,
-    veranda,
+    choices, entirety, figures, groupie, horolog, lattice, pitcher, qualify, refined, spandex,
+    stylist, veranda,
 };
 
 #[test]
-fn datum_constant_variable_qty() {
+fn datum_const_qty_value_size() {
     let duos: usize = records().len();
 
     assert!(QTY == duos, "constant QTY value incorrect");
 }
 
 #[test]
-fn datum_tunings_content_ascii() {
+fn datum_tunings_encode_ascii() {
     let ouds: Vec<String> = tunings();
 
     for item in ouds {
@@ -21,29 +21,29 @@ fn datum_tunings_content_ascii() {
 }
 
 #[test]
-fn datum_signats_return_length() {
+fn datum_signats_return_size() {
     let keys: Vec<String> = signats();
 
-    assert!(keys.len() == QTY, "signats length incorrect");
+    assert!(keys.len() == QTY, "signats size incorrect");
 }
 
 #[test]
-fn datum_melodia_return_length() {
+fn datum_melodia_return_size() {
     let vals: Vec<String> = melodia();
 
-    assert!(vals.len() == QTY, "melodia length incorrect");
+    assert!(vals.len() == QTY, "melodia size incorrect");
 }
 
 #[test]
-fn datum_flavors_return_length() {
+fn datum_flavors_return_size() {
     let urns: Vec<String> = flavors();
     let span: usize = 84;
 
-    assert!(urns.len() == span, "flavors length incorrect");
+    assert!(urns.len() == span, "flavors size incorrect");
 }
 
 #[test]
-fn datum_flavors_member_lengths() {
+fn datum_flavors_value_size() {
     let urns: Vec<String> = flavors();
     let span: usize = 2;
 
@@ -53,7 +53,7 @@ fn datum_flavors_member_lengths() {
 }
 
 #[test]
-fn datum_records_content_ascii() {
+fn datum_records_encode_ascii() {
     let arts: [(&str, &str); QTY] = records();
 
     for (key, val) in arts {
@@ -62,7 +62,7 @@ fn datum_records_content_ascii() {
 }
 
 #[test]
-fn datum_records_value_lengths() {
+fn datum_records_value_size() {
     let arts: [(&str, &str); QTY] = records();
     let span: usize = 36;
 
@@ -90,7 +90,7 @@ fn utile_horolog_return_value() {
 }
 
 #[test]
-fn utile_qualify_return_values() {
+fn utile_qualify_return_value() {
     let tune = String::from("cgdae");
     let cogs: (String, Vec<usize>) = qualify(tune);
     let (stem, pegs) = cogs;
@@ -100,7 +100,7 @@ fn utile_qualify_return_values() {
 }
 
 #[test]
-fn utile_figures_return_values() {
+fn utile_figures_return_value() {
     let tune = String::from("cgdae");
     let pegs: Vec<usize> = figures(Some(&tune));
 
@@ -111,6 +111,14 @@ fn utile_figures_return_values() {
 fn utile_entirety_return_type() {
     let tune = String::from("beadgcf");
     let kind: () = entirety(tune);
+
+    assert_eq!((), kind);
+}
+
+#[test]
+fn utile_groupie_return_type() {
+    let inks = vec!["group".to_string(), "yq".to_string()];
+    let kind: () = groupie(inks);
 
     assert_eq!((), kind);
 }
@@ -150,12 +158,12 @@ fn utile_lattice_return_type() {
 }
 
 #[test]
-fn utile_choices_returns_tuple() {
+fn utile_choices_return_size() {
     let numb: usize = tunings().len();
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();
 
-    assert!(ouds.len() == numb, "choices ouds length");
-    assert!(keys.len() == QTY, "choices keys length");
+    assert!(ouds.len() == numb, "choices ouds size");
+    assert!(keys.len() == QTY, "choices keys size");
 }
 
 #[test]
