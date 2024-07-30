@@ -1,6 +1,7 @@
-use crate::datum::{records, signats, tunings, QTY};
+use crate::datum::{flavors, melodia, records, signats, tunings, QTY};
 use crate::utile::{
-    choices, entirety, figures, horolog, lattice, pitcher, qualify, spandex, stylist, veranda,
+    choices, entirety, figures, horolog, lattice, pitcher, qualify, refined, spandex, stylist,
+    veranda,
 };
 
 #[test]
@@ -24,6 +25,31 @@ fn datum_signats_return_length() {
     let keys: Vec<String> = signats();
 
     assert!(keys.len() == QTY, "signats length incorrect");
+}
+
+#[test]
+fn datum_melodia_return_length() {
+    let vals: Vec<String> = melodia();
+
+    assert!(vals.len() == QTY, "melodia length incorrect");
+}
+
+#[test]
+fn datum_flavors_return_length() {
+    let urns: Vec<String> = flavors();
+    let span: usize = 84;
+
+    assert!(urns.len() == span, "flavors length incorrect");
+}
+
+#[test]
+fn datum_flavors_member_lengths() {
+    let urns: Vec<String> = flavors();
+    let span: usize = 2;
+
+    for duet in urns {
+        assert_eq!(duet.len(), span);
+    }
 }
 
 #[test]
@@ -130,6 +156,13 @@ fn utile_choices_returns_tuple() {
 
     assert!(ouds.len() == numb, "choices ouds length");
     assert!(keys.len() == QTY, "choices keys length");
+}
+
+#[test]
+fn utile_refined_return_type() {
+    let kind: () = refined();
+
+    assert_eq!((), kind);
 }
 
 #[test]

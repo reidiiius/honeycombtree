@@ -2,7 +2,7 @@ mod datum;
 mod utile;
 
 use crate::datum::QTY;
-use crate::utile::{entirety, pitcher, stylist, veranda};
+use crate::utile::{entirety, pitcher, refined, stylist, veranda};
 use std::env;
 
 #[cfg(test)]
@@ -28,9 +28,12 @@ fn main() {
 
         let tune: String = pitcher(&inks);
         let gulp = String::from("gamut");
+        let tons = String::from("tonal");
 
         if inks.contains(&gulp) {
             entirety(tune);
+        } else if inks.contains(&tons) {
+            refined();
         } else {
             veranda(inks, tune);
         }

@@ -3,10 +3,10 @@ pub const QTY: usize = 126;
 
 /// Returns a Vector of tuning Strings
 pub fn tunings() -> Vec<String> {
-    let ways = [
+    let ways: [&str; 7] = [
         "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
     ];
-    let mut ouds = Vec::new();
+    let mut ouds: Vec<String> = vec![];
 
     for tune in ways {
         ouds.push(tune.to_string());
@@ -18,13 +18,54 @@ pub fn tunings() -> Vec<String> {
 /// Returns a Vector of key Strings from `records`
 pub fn signats() -> Vec<String> {
     let arts: [(&str, &str); QTY] = records();
-    let mut keys = Vec::new();
+    let mut keys: Vec<String> = vec![];
 
     for pair in arts {
         keys.push(pair.0.to_string());
     }
 
     keys
+}
+
+/// Returns a Vector of value Strings from `records`
+pub fn melodia() -> Vec<String> {
+    let arts: [(&str, &str); QTY] = records();
+    let mut vals: Vec<String> = vec![];
+
+    for pair in arts {
+        vals.push(pair.1.to_string());
+    }
+
+    vals
+}
+
+/// Returns sorted Vector of digraph Strings from `records`
+pub fn flavors() -> Vec<String> {
+    let vals: Vec<String> = melodia();
+    let mut temp: Vec<String> = vec![];
+    let mut urns: Vec<String> = vec![];
+
+    for cord in vals {
+        for atom in &mut cord.split_ascii_whitespace() {
+            if atom.eq("__") {
+                continue;
+            } else {
+                temp.push(atom.to_string());
+            }
+        }
+    }
+    urns.push(temp.pop().expect("temp vacant"));
+
+    for duet in temp {
+        if urns.contains(&duet) {
+            continue;
+        } else {
+            urns.push(duet);
+        }
+    }
+    urns.sort();
+
+    urns
 }
 
 /// Returns an Array of Tuples containing key-value Strings

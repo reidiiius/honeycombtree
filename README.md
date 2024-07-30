@@ -1,5 +1,5 @@
 # Honeycombtree
-Apiculture
+APIculture
 
 ---
 
@@ -24,11 +24,15 @@ Command-line
 
 :
 
+    cargo run tonal
+
+:
+
     cargo run n0 j3
 
 :
 
-    cargo run n0 j3 cgdae
+    cargo run cgdae n0 j3
 
 :
 

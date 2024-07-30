@@ -1,4 +1,4 @@
-use crate::datum::{records, signats, tunings, QTY};
+use crate::datum::{flavors, records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
@@ -131,18 +131,38 @@ pub fn choices() -> (Vec<String>, Vec<String>) {
     (ouds, keys)
 }
 
+/// Prints sorted digraph Strings from `records` columned
+pub fn refined() {
+    let urns: Vec<String> = flavors();
+    let mut numb: usize = 1;
+    let cols: usize = 7;
+
+    println!();
+    while numb <= urns.len() {
+        print!("  {}", urns[numb - 1]);
+        if numb % cols == 0 {
+            println!();
+        }
+        numb += 1;
+    }
+}
+
 /// Prints tuning Strings and Tuple keys from `records` columned
 pub fn stylist() {
     let (ouds, keys): (Vec<String>, Vec<String>) = choices();
-    let cols: u8 = 7;
+    let last: usize = keys.len();
+    let cols: usize = 7;
 
     println!();
     for spec in ouds {
         print!("\t{}", spec)
     }
     println!("\n");
-    for (numb, item) in (1_u8..).zip(keys.into_iter()) {
+    for (numb, item) in (1_usize..).zip(keys.into_iter()) {
         print!("\t{item}");
+        if numb == last {
+            continue;
+        }
         if numb % cols == 0 {
             println!();
         }
