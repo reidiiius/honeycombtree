@@ -1,6 +1,25 @@
 [package]
 name = "honeycombtree"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
+authors = ["Reid Netterville III"]
+rust-version = "1.75.0"
+description = "Music education resources"
+repository = "https://github.com/reidiiius/honeycombtree"
+license = "MIT"
+keywords = [
+  "education",
+  "etude",
+  "musicology",
+  "tablature",
+  "tonnetz"
+]
+categories = [
+  "command-line-utilities",
+  "data-structures",
+  "database-implementations",
+  "text-processing",
+  "visualization"
+]
 
 [dependencies]
