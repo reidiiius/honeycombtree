@@ -130,9 +130,7 @@ pub fn groupie(inks: Vec<String>) {
 /// Prints matched key Strings from `records` columned
 pub fn enclave(inks: Vec<String>) {
     if inks.len() > 1 {
-        let dyns: Vec<String> = dynamos();
-        let tuns: Vec<String> = tunings();
-        let keys: Vec<String> = signats();
+        let (dyns, tuns, keys) = choices();
         let mut held: bool = false;
 
         for argo in &inks {
