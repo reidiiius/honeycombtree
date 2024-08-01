@@ -1,4 +1,4 @@
-use crate::datum::{codices, dynamos, flavors, melodia, records, signats, tunings, QTY};
+use crate::datum::{codices, dynamos, melodia, nodules, records, signats, tunings, QTY};
 use crate::utile::{
     enclave, entirety, figures, groupie, horolog, lattice, pitcher, qualify, refined, spandex,
     stylist, veranda, waxwork,
@@ -44,19 +44,19 @@ fn datum_melodia_return_size() {
 }
 
 #[test]
-fn datum_flavors_return_size() {
-    let urns: Vec<String> = flavors();
+fn datum_nodules_return_size() {
+    let nods: Vec<String> = nodules();
     let span: usize = 84;
 
-    assert!(urns.len() == span, "flavors size incorrect");
+    assert!(nods.len() == span, "nodules size incorrect");
 }
 
 #[test]
-fn datum_flavors_value_size() {
-    let urns: Vec<String> = flavors();
+fn datum_nodules_value_size() {
+    let nods: Vec<String> = nodules();
     let span: usize = 2;
 
-    for duet in urns {
+    for duet in nods {
         assert_eq!(duet.len(), span);
     }
 }

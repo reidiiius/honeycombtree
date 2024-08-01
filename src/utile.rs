@@ -1,4 +1,4 @@
-use crate::datum::{codices, dynamos, flavors, records, signats, tunings, QTY};
+use crate::datum::{codices, dynamos, nodules, records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
@@ -71,11 +71,11 @@ pub fn waxwork(hits: &[String]) {
 /// Prints matched digraph Strings from `records` columned
 pub fn groupie(inks: Vec<String>) {
     if inks.len() > 1 {
-        let urns: Vec<String> = flavors();
+        let nods: Vec<String> = nodules();
         let mut held: bool = false;
 
         for argo in &inks {
-            if urns.contains(argo) {
+            if nods.contains(argo) {
                 held = true;
                 break;
             }
@@ -236,13 +236,13 @@ pub fn entirety(tune: String) {
 
 /// Prints sorted digraph Strings from `records` columned
 pub fn refined() {
-    let urns: Vec<String> = flavors();
+    let nods: Vec<String> = nodules();
     let mut numb: usize = 1;
     let cols: usize = 7;
 
     println!();
-    while numb <= urns.len() {
-        print!("  {}", urns[numb - 1]);
+    while numb <= nods.len() {
+        print!("  {}", nods[numb - 1]);
         if numb % cols == 0 {
             println!();
         }

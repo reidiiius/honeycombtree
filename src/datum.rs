@@ -61,10 +61,10 @@ pub fn melodia() -> Vec<String> {
 }
 
 /// Returns sorted Vector of digraph Strings from `records`
-pub fn flavors() -> Vec<String> {
+pub fn nodules() -> Vec<String> {
     let vals: Vec<String> = melodia();
     let mut temp: Vec<String> = vec![];
-    let mut urns: Vec<String> = vec![];
+    let mut nods: Vec<String> = vec![];
 
     for raga in vals {
         for duet in &mut raga.split_ascii_whitespace() {
@@ -75,18 +75,18 @@ pub fn flavors() -> Vec<String> {
             }
         }
     }
-    urns.push(temp.pop().expect("temp vacant"));
+    nods.push(temp.pop().expect("temp vacant"));
 
     for duet in temp {
-        if urns.contains(&duet) {
+        if nods.contains(&duet) {
             continue;
         } else {
-            urns.push(duet);
+            nods.push(duet);
         }
     }
-    urns.sort();
+    nods.sort();
 
-    urns
+    nods
 }
 
 /// Returns an Array of Tuples containing key-value string slices
