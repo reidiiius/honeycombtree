@@ -1,6 +1,27 @@
 /// Quantity of Tuples in the Array returned by `records`
 pub const QTY: usize = 126;
 
+/// Returns Tuple holding Vectors of routine, tuning, and key Strings
+pub fn choices() -> (Vec<String>, Vec<String>, Vec<String>) {
+    let dyns: Vec<String> = dynamos();
+    let ouds: Vec<String> = tunings();
+    let keys: Vec<String> = signats();
+
+    (dyns, ouds, keys)
+}
+
+/// Returns a Vector of routine Strings
+pub fn dynamos() -> Vec<String> {
+    let ways: [&str; 4] = ["gamut", "group", "query", "tonal"];
+    let mut dyns: Vec<String> = vec![];
+
+    for proc in ways {
+        dyns.push(proc.to_string());
+    }
+
+    dyns
+}
+
 /// Returns a Vector of tuning Strings
 pub fn tunings() -> Vec<String> {
     let ways: [&str; 7] = [

@@ -1,4 +1,4 @@
-use crate::datum::{flavors, records, signats, tunings, QTY};
+use crate::datum::{choices, dynamos, flavors, records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
@@ -62,6 +62,22 @@ pub fn entirety(tune: String) {
     }
 }
 
+/// Prints passed collection columned to screen
+pub fn waxwork(hits: &[String], last: usize) {
+    let mut numb: usize = 1;
+    let cols: usize = 7;
+
+    println!();
+    while numb <= last {
+        print!("\t{}", hits[numb - 1]);
+        if numb % cols == 0 && numb != last {
+            println!();
+        }
+        numb += 1;
+    }
+    println!();
+}
+
 /// Prints matched digraph Strings from `records` columned
 pub fn groupie(inks: Vec<String>) {
     if inks.len() > 1 {
@@ -77,41 +93,31 @@ pub fn groupie(inks: Vec<String>) {
 
         if held {
             let arts: [(&str, &str); QTY] = records();
+            let dyns: Vec<String> = dynamos();
             let tuns: Vec<String> = tunings();
             let mut hits: Vec<String> = vec![];
             let mut last: usize = 0;
-            let mut numb: usize = 1;
-            let cols: usize = 7;
 
             for argo in inks {
-                if argo.eq("group") || tuns.contains(&argo) {
+                if dyns.contains(&argo) || tuns.contains(&argo) {
                     continue;
                 }
 
-                for pair in arts {
-                    if pair.1.contains(&argo) {
-                        hits.push(pair.0.to_string());
+                for (clef, raga) in arts {
+                    if raga.contains(&argo) {
+                        hits.push(clef.to_string());
                         last += 1;
                     }
                 }
 
                 if last > 0 {
-                    println!();
-                    while numb <= last {
-                        print!("\t{}", hits[numb - 1]);
-                        if numb % cols == 0 && numb != last {
-                            println!();
-                        }
-                        numb += 1;
-                    }
-                    println!();
+                    waxwork(&hits, last);
                 } else {
                     println!("\n\t{} ?", argo);
                 }
 
                 hits.clear();
                 last = 0;
-                numb = 1;
             }
         } else {
             refined();
@@ -124,52 +130,42 @@ pub fn groupie(inks: Vec<String>) {
 /// Prints matched key Strings from `records` columned
 pub fn enclave(inks: Vec<String>) {
     if inks.len() > 1 {
+        let dyns: Vec<String> = dynamos();
+        let tuns: Vec<String> = tunings();
         let keys: Vec<String> = signats();
         let mut held: bool = false;
 
         for argo in &inks {
-            if keys.contains(argo) {
+            if !dyns.contains(argo) && !tuns.contains(argo) {
                 held = true;
                 break;
             }
         }
 
         if held {
-            let tuns: Vec<String> = tunings();
             let mut hits: Vec<String> = vec![];
             let mut last: usize = 0;
-            let mut numb: usize = 1;
-            let cols: usize = 7;
 
             for argo in inks {
-                if argo.eq("query") || tuns.contains(&argo) {
+                if dyns.contains(&argo) || tuns.contains(&argo) {
                     continue;
                 }
 
-                for item in &keys {
-                    if item.contains(&argo) {
-                        hits.push(item.to_string());
+                for clef in &keys {
+                    if clef.contains(&argo) {
+                        hits.push(clef.to_string());
                         last += 1;
                     }
                 }
 
                 if last > 0 {
-                    println!();
-                    while numb <= last {
-                        print!("\t{}", hits[numb - 1]);
-                        if numb % cols == 0 && numb != last {
-                            println!();
-                        }
-                        numb += 1;
-                    }
-                    println!();
+                    waxwork(&hits, last);
                 } else {
                     println!("\n\t{} ?", argo);
                 }
 
                 hits.clear();
                 last = 0;
-                numb = 1;
             }
         } else {
             stylist();
@@ -182,7 +178,7 @@ pub fn enclave(inks: Vec<String>) {
 /// Parses input for key or tuning Strings,
 /// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
-    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
+    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
 
@@ -193,11 +189,11 @@ pub fn veranda(inks: Vec<String>, tune: String) {
         }
     }
 
-    for item in &inks {
+    for argo in &inks {
         // sift through items for signatures or tunings
-        if keys.contains(item) {
-            spandex(item, &arts, &cogs);
-        } else if ouds.contains(item) {
+        if keys.contains(argo) {
+            spandex(argo, &arts, &cogs);
+        } else if ouds.contains(argo) || dyns.contains(argo) {
             if have == 0 {
                 stylist();
                 break;
@@ -205,7 +201,7 @@ pub fn veranda(inks: Vec<String>, tune: String) {
                 continue;
             }
         } else {
-            println!("\n\t{item} ?");
+            println!("\n\t{} ?", argo);
         }
     }
 }
@@ -240,14 +236,6 @@ pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
     }
 }
 
-/// Returns Tuple holding Vectors of tuning and key Strings
-pub fn choices() -> (Vec<String>, Vec<String>) {
-    let ouds: Vec<String> = tunings();
-    let keys: Vec<String> = signats();
-
-    (ouds, keys)
-}
-
 /// Prints sorted digraph Strings from `records` columned
 pub fn refined() {
     let urns: Vec<String> = flavors();
@@ -264,13 +252,17 @@ pub fn refined() {
     }
 }
 
-/// Prints tuning Strings and Tuple keys from `records` columned
+/// Prints routines, tunings, and Tuple keys from `records` columned
 pub fn stylist() {
-    let (ouds, keys): (Vec<String>, Vec<String>) = choices();
+    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
     let last: usize = keys.len();
     let cols: usize = 7;
 
     println!();
+    for spec in dyns {
+        print!("\t{}", spec)
+    }
+    println!("\n");
     for spec in ouds {
         print!("\t{}", spec)
     }
