@@ -2,7 +2,7 @@
 pub const QTY: usize = 126;
 
 /// Returns Tuple holding Vectors of routine, tuning, and key Strings
-pub fn choices() -> (Vec<String>, Vec<String>, Vec<String>) {
+pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
     let dyns: Vec<String> = dynamos();
     let tuns: Vec<String> = tunings();
     let keys: Vec<String> = signats();

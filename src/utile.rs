@@ -1,4 +1,4 @@
-use crate::datum::{choices, dynamos, flavors, records, signats, tunings, QTY};
+use crate::datum::{codices, dynamos, flavors, records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
@@ -30,10 +30,10 @@ pub fn horolog() -> u64 {
 /// Establishes tuning-dateline String and indices Vector
 pub fn qualify(tune: String) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
-    let stem: String = format!("-{}-h{}", tune, aeon);
+    let mast: String = format!("-{}-h{}", tune, aeon);
     let pegs: Vec<usize> = figures(Some(&tune));
 
-    (stem, pegs)
+    (mast, pegs)
 }
 
 /// Matches tuning String and returns a Vector of indices
@@ -51,21 +51,10 @@ pub fn figures(tune: Option<&str>) -> Vec<usize> {
     }
 }
 
-/// Prints all Tuples from `records` passing each to `lattice`
-pub fn entirety(tune: String) {
-    let arts: [(&str, &str); QTY] = records();
-    let cogs: (String, Vec<usize>) = qualify(tune);
-    let (stem, pegs) = cogs;
-
-    for pair in arts {
-        lattice(pair, stem.to_string(), pegs.to_vec());
-    }
-}
-
 /// Prints passed collection columned to screen
 pub fn waxwork(hits: &[String]) {
-    let mut numb: usize = 1;
     let last: usize = hits.len();
+    let mut numb: usize = 1;
     let cols: usize = 7;
 
     println!();
@@ -131,7 +120,7 @@ pub fn groupie(inks: Vec<String>) {
 /// Prints matched key Strings from `records` columned
 pub fn enclave(inks: Vec<String>) {
     if inks.len() > 1 {
-        let (dyns, tuns, keys) = choices();
+        let (dyns, tuns, keys) = codices();
         let mut held: bool = false;
 
         for argo in &inks {
@@ -177,7 +166,7 @@ pub fn enclave(inks: Vec<String>) {
 /// Parses input for key or tuning Strings,
 /// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
-    let (dyns, tuns, keys) = choices();
+    let (dyns, tuns, keys) = codices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
 
@@ -191,7 +180,7 @@ pub fn veranda(inks: Vec<String>, tune: String) {
     for argo in &inks {
         // sift through items for signatures or tunings
         if keys.contains(argo) {
-            spandex(argo, &arts, &cogs);
+            spandex(argo, &cogs, &arts);
         } else if tuns.contains(argo) || dyns.contains(argo) {
             if have == 0 {
                 stylist();
@@ -207,31 +196,41 @@ pub fn veranda(inks: Vec<String>, tune: String) {
 
 /// Parses user input for key matches in `records`,
 /// passes each matched Tuple to `lattice`
-pub fn spandex(clef: &str, arts: &[(&str, &str); QTY], cogs: &(String, Vec<usize>)) {
-    let span: usize = clef.len();
+pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), arts: &[(&str, &str); QTY]) {
     let keys: Vec<String> = signats();
-    let (stem, pegs) = cogs;
+    let span: usize = argo.len();
 
-    for (spot, item) in (0_usize..).zip(keys.into_iter()) {
-        if span == item.len() && clef.eq(&item) {
-            lattice(arts[spot], stem.to_string(), pegs.to_vec());
+    for (spot, clef) in (0_usize..).zip(keys.into_iter()) {
+        if span == clef.len() && argo.eq(&clef) {
+            lattice(arts[spot], cogs);
             break;
         }
     }
 }
 
 /// Prints selected Tuple from `records` formatted to screen
-pub fn lattice(pair: (&str, &str), stem: String, pegs: Vec<usize>) {
-    let (key, val) = pair;
-    let span: usize = val.len();
+pub fn lattice(pair: (&str, &str), cogs: &(String, Vec<usize>)) {
+    let (clef, raga) = pair;
+    let (mast, pegs) = cogs;
+    let span: usize = raga.len();
 
-    println!("\n\t{}{}", key, stem);
+    println!("\n\t{}{}", clef, mast);
     for gear in pegs {
-        if gear < span {
-            println!("\t{}{}", &val[gear..span], &val[0..gear]);
+        if gear < &span {
+            println!("\t{}{}", &raga[*gear..span], &raga[..*gear]);
         } else {
             eprintln!(" Index Out of Bounds: {}", gear);
         }
+    }
+}
+
+/// Prints all Tuples from `records` passing each to `lattice`
+pub fn entirety(tune: String) {
+    let arts: [(&str, &str); QTY] = records();
+    let cogs: (String, Vec<usize>) = qualify(tune);
+
+    for pair in arts {
+        lattice(pair, &cogs);
     }
 }
 
@@ -253,7 +252,7 @@ pub fn refined() {
 
 /// Prints routines, tunings, and Tuple keys from `records` columned
 pub fn stylist() {
-    let (dyns, tuns, keys) = choices();
+    let (dyns, tuns, keys) = codices();
     let last: usize = keys.len();
     let cols: usize = 7;
 

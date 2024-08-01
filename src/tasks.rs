@@ -1,4 +1,4 @@
-use crate::datum::{choices, dynamos, flavors, melodia, records, signats, tunings, QTY};
+use crate::datum::{codices, dynamos, flavors, melodia, records, signats, tunings, QTY};
 use crate::utile::{
     enclave, entirety, figures, groupie, horolog, lattice, pitcher, qualify, refined, spandex,
     stylist, veranda, waxwork,
@@ -82,7 +82,7 @@ fn datum_records_value_size() {
 
 #[test]
 fn utile_pitcher_return_value() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
     let proc = String::from(&dyns[2]);
     let viol = String::from(&tuns[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone(), proc];
@@ -103,9 +103,9 @@ fn utile_horolog_return_value() {
 fn utile_qualify_return_value() {
     let tune = String::from("cgdae");
     let cogs: (String, Vec<usize>) = qualify(tune);
-    let (stem, pegs) = cogs;
+    let (mast, pegs) = cogs;
 
-    assert!(!stem.is_empty(), "qualify stem is empty");
+    assert!(!mast.is_empty(), "qualify mast is empty");
     assert!(!pegs.is_empty(), "qualify pegs is empty");
 }
 
@@ -115,14 +115,6 @@ fn utile_figures_return_value() {
     let pegs: Vec<usize> = figures(Some(&tune));
 
     assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
-}
-
-#[test]
-fn utile_entirety_return_type() {
-    let tune = String::from("beadgcf");
-    let kind: () = entirety(tune);
-
-    assert_eq!((), kind);
 }
 
 #[test]
@@ -155,7 +147,7 @@ fn utile_enclave_return_type() {
 
 #[test]
 fn utile_veranda_return_type() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
     let proc = String::from(&dyns[2]);
     let viol = String::from(&tuns[2]);
     let tune = String::from(&viol);
@@ -171,7 +163,7 @@ fn utile_spandex_return_type() {
     let tune = String::from("beadgcf");
     let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
-    let kind: () = spandex(&clef, &arts, &cogs);
+    let kind: () = spandex(&clef, &cogs, &arts);
 
     assert_eq!((), kind);
 }
@@ -180,21 +172,28 @@ fn utile_spandex_return_type() {
 fn utile_lattice_return_type() {
     let tune = String::from("beadgcf");
     let cogs: (String, Vec<usize>) = qualify(tune);
-    let (stem, pegs) = cogs;
     let arts: [(&str, &str); QTY] = records();
     let pair: (&str, &str) = arts[QTY - 1];
-    let kind: () = lattice(pair, stem, pegs);
+    let kind: () = lattice(pair, &cogs);
 
     assert_eq!((), kind);
 }
 
 #[test]
-fn datum_choices_return_size() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+fn utile_entirety_return_type() {
+    let tune = String::from("beadgcf");
+    let kind: () = entirety(tune);
 
-    assert!(dyns.len() == 4, "choices dyns size");
-    assert!(tuns.len() == 7, "choices tuns size");
-    assert!(keys.len() == QTY, "choices keys size");
+    assert_eq!((), kind);
+}
+
+#[test]
+fn datum_codices_return_size() {
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
+
+    assert!(dyns.len() == 4, "codices dyns size");
+    assert!(tuns.len() == 7, "codices tuns size");
+    assert!(keys.len() == QTY, "codices keys size");
 }
 
 #[test]
