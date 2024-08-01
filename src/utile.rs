@@ -3,11 +3,11 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
 pub fn pitcher(inks: &[String]) -> String {
-    let ouds: Vec<String> = tunings();
+    let tuns: Vec<String> = tunings();
     // default tuning predefined
-    let mut tune = String::from(&ouds[4]);
+    let mut tune = String::from(&tuns[4]);
 
-    for spec in ouds {
+    for spec in tuns {
         if inks.contains(&spec) {
             tune = spec;
             break;
@@ -63,8 +63,9 @@ pub fn entirety(tune: String) {
 }
 
 /// Prints passed collection columned to screen
-pub fn waxwork(hits: &[String], last: usize) {
+pub fn waxwork(hits: &[String]) {
     let mut numb: usize = 1;
+    let last: usize = hits.len();
     let cols: usize = 7;
 
     println!();
@@ -111,7 +112,7 @@ pub fn groupie(inks: Vec<String>) {
                 }
 
                 if last > 0 {
-                    waxwork(&hits, last);
+                    waxwork(&hits);
                 } else {
                     println!("\n\t{} ?", argo);
                 }
@@ -157,7 +158,7 @@ pub fn enclave(inks: Vec<String>) {
                 }
 
                 if last > 0 {
-                    waxwork(&hits, last);
+                    waxwork(&hits);
                 } else {
                     println!("\n\t{} ?", argo);
                 }
@@ -176,7 +177,7 @@ pub fn enclave(inks: Vec<String>) {
 /// Parses input for key or tuning Strings,
 /// passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
-    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys) = choices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
 
@@ -191,7 +192,7 @@ pub fn veranda(inks: Vec<String>, tune: String) {
         // sift through items for signatures or tunings
         if keys.contains(argo) {
             spandex(argo, &arts, &cogs);
-        } else if ouds.contains(argo) || dyns.contains(argo) {
+        } else if tuns.contains(argo) || dyns.contains(argo) {
             if have == 0 {
                 stylist();
                 break;
@@ -252,7 +253,7 @@ pub fn refined() {
 
 /// Prints routines, tunings, and Tuple keys from `records` columned
 pub fn stylist() {
-    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys) = choices();
     let last: usize = keys.len();
     let cols: usize = 7;
 
@@ -261,7 +262,7 @@ pub fn stylist() {
         print!("\t{}", spec)
     }
     println!("\n");
-    for spec in ouds {
+    for spec in tuns {
         print!("\t{}", spec)
     }
     println!("\n");

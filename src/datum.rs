@@ -4,10 +4,10 @@ pub const QTY: usize = 126;
 /// Returns Tuple holding Vectors of routine, tuning, and key Strings
 pub fn choices() -> (Vec<String>, Vec<String>, Vec<String>) {
     let dyns: Vec<String> = dynamos();
-    let ouds: Vec<String> = tunings();
+    let tuns: Vec<String> = tunings();
     let keys: Vec<String> = signats();
 
-    (dyns, ouds, keys)
+    (dyns, tuns, keys)
 }
 
 /// Returns a Vector of routine Strings
@@ -27,13 +27,13 @@ pub fn tunings() -> Vec<String> {
     let ways: [&str; 7] = [
         "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
     ];
-    let mut ouds: Vec<String> = vec![];
+    let mut tuns: Vec<String> = vec![];
 
     for tune in ways {
-        ouds.push(tune.to_string());
+        tuns.push(tune.to_string());
     }
 
-    ouds
+    tuns
 }
 
 /// Returns a Vector of key Strings from `records`
@@ -66,12 +66,12 @@ pub fn flavors() -> Vec<String> {
     let mut temp: Vec<String> = vec![];
     let mut urns: Vec<String> = vec![];
 
-    for cord in vals {
-        for atom in &mut cord.split_ascii_whitespace() {
-            if atom.eq("__") {
+    for raga in vals {
+        for duet in &mut raga.split_ascii_whitespace() {
+            if duet.eq("__") {
                 continue;
             } else {
-                temp.push(atom.to_string());
+                temp.push(duet.to_string());
             }
         }
     }

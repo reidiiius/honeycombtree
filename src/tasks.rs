@@ -22,9 +22,9 @@ fn datum_dynamos_encode_ascii() {
 
 #[test]
 fn datum_tunings_encode_ascii() {
-    let ouds: Vec<String> = tunings();
+    let tuns: Vec<String> = tunings();
 
-    for item in ouds {
+    for item in tuns {
         assert!(item.is_ascii());
     }
 }
@@ -82,9 +82,9 @@ fn datum_records_value_size() {
 
 #[test]
 fn utile_pitcher_return_value() {
-    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
     let proc = String::from(&dyns[2]);
-    let viol = String::from(&ouds[2]);
+    let viol = String::from(&tuns[2]);
     let inks = [keys[0].clone(), viol.clone(), keys[1].clone(), proc];
     let tune = pitcher(&inks);
 
@@ -127,19 +127,14 @@ fn utile_entirety_return_type() {
 
 #[test]
 fn utile_waxwork_return_type() {
-    let keys: Vec<String> = signats();
     let mut hits: Vec<String> = vec![];
-    let mut last: usize = 0;
 
-    for clef in &keys {
-        if clef.contains("n0") {
-            hits.push(clef.to_string());
-            last += 1;
-        }
+    for clef in ["n0pz", "n0", "n0yy", "n0zp"] {
+        hits.push(clef.to_string());
     }
-    assert!(last > 0, "variable incremental?");
+
     assert!(hits.len() > 0, "vector is empty");
-    assert_eq!((), waxwork(&hits, last));
+    assert_eq!((), waxwork(&hits));
 }
 
 #[test]
@@ -160,9 +155,9 @@ fn utile_enclave_return_type() {
 
 #[test]
 fn utile_veranda_return_type() {
-    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
     let proc = String::from(&dyns[2]);
-    let viol = String::from(&ouds[2]);
+    let viol = String::from(&tuns[2]);
     let tune = String::from(&viol);
     let inks = vec![keys[0].clone(), viol.clone(), keys[1].clone(), proc];
     let kind: () = veranda(inks, tune);
@@ -195,10 +190,10 @@ fn utile_lattice_return_type() {
 
 #[test]
 fn datum_choices_return_size() {
-    let (dyns, ouds, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = choices();
 
     assert!(dyns.len() == 4, "choices dyns size");
-    assert!(ouds.len() == 7, "choices ouds size");
+    assert!(tuns.len() == 7, "choices tuns size");
     assert!(keys.len() == QTY, "choices keys size");
 }
 
