@@ -1,4 +1,4 @@
-use crate::datum::{codices, dynamos, nodules, records, signats, tunings, QTY};
+use crate::datum::{codices, dynamos, machine, nodules, records, signats, tunings, QTY};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Searches argument list for tuning String
@@ -27,28 +27,13 @@ pub fn horolog() -> u64 {
     }
 }
 
-/// Establishes tuning-dateline String and indices Vector
+/// Returns a Tuple containing tuning-dateline String and indices Vector
 pub fn qualify(tune: String) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
     let mast: String = format!("-{}-h{}", tune, aeon);
-    let pegs: Vec<usize> = figures(Some(&tune));
+    let pegs: Vec<usize> = machine(Some(&tune));
 
     (mast, pegs)
-}
-
-/// Matches tuning String and returns a Vector of indices
-pub fn figures(tune: Option<&str>) -> Vec<usize> {
-    match tune {
-        Some("beadgcf") => vec![30, 15, 0, 21, 6, 27, 12, 33, 18],
-        Some("bfbfb") => vec![33, 15, 33, 15, 33],
-        Some("cgdae") => vec![12, 27, 6, 21, 0],
-        Some("dgdgbd") => vec![6, 33, 21, 6, 21, 6],
-        Some("eadgbe") => vec![12, 33, 21, 6, 27, 12],
-        Some("fkbjdn") => vec![6, 30, 18, 6, 30, 18],
-        Some("piano") => vec![0],
-        Some(&_) => vec![0],
-        None => vec![0],
-    }
 }
 
 /// Prints passed collection columned to screen

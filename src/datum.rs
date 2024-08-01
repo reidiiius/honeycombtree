@@ -36,6 +36,21 @@ pub fn tunings() -> Vec<String> {
     tuns
 }
 
+/// Matches tuning String and returns a Vector of indices
+pub fn machine(tune: Option<&str>) -> Vec<usize> {
+    match tune {
+        Some("beadgcf") => vec![30, 15, 0, 21, 6, 27, 12, 33, 18],
+        Some("bfbfb") => vec![33, 15, 33, 15, 33],
+        Some("cgdae") => vec![12, 27, 6, 21, 0],
+        Some("dgdgbd") => vec![6, 33, 21, 6, 21, 6],
+        Some("eadgbe") => vec![12, 33, 21, 6, 27, 12],
+        Some("fkbjdn") => vec![6, 30, 18, 6, 30, 18],
+        Some("piano") => vec![0],
+        Some(&_) => vec![0],
+        None => vec![0],
+    }
+}
+
 /// Returns a Vector of key Strings from `records`
 pub fn signats() -> Vec<String> {
     let arts: [(&str, &str); QTY] = records();

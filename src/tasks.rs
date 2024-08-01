@@ -1,7 +1,7 @@
-use crate::datum::{codices, dynamos, melodia, nodules, records, signats, tunings, QTY};
+use crate::datum::{codices, dynamos, machine, melodia, nodules, records, signats, tunings, QTY};
 use crate::utile::{
-    enclave, entirety, figures, groupie, horolog, lattice, pitcher, qualify, refined, spandex,
-    stylist, veranda, waxwork,
+    enclave, entirety, groupie, horolog, lattice, pitcher, qualify, refined, spandex, stylist,
+    veranda, waxwork,
 };
 
 #[test]
@@ -27,6 +27,14 @@ fn datum_tunings_encode_ascii() {
     for item in tuns {
         assert!(item.is_ascii());
     }
+}
+
+#[test]
+fn datum_machine_return_value() {
+    let tune = String::from("cgdae");
+    let pegs: Vec<usize> = machine(Some(&tune));
+
+    assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
 }
 
 #[test]
@@ -107,14 +115,6 @@ fn utile_qualify_return_value() {
 
     assert!(!mast.is_empty(), "qualify mast is empty");
     assert!(!pegs.is_empty(), "qualify pegs is empty");
-}
-
-#[test]
-fn utile_figures_return_value() {
-    let tune = String::from("cgdae");
-    let pegs: Vec<usize> = figures(Some(&tune));
-
-    assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
 }
 
 #[test]
