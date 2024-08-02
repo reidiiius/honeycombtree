@@ -1,3 +1,5 @@
+use std::time::{SystemTime, UNIX_EPOCH};
+
 /// Quantity of Tuples in the Array returned by `records`
 pub const QTY: usize = 126;
 
@@ -20,6 +22,22 @@ pub fn dynamos() -> Vec<String> {
     }
 
     dyns
+}
+
+/// Searches argument list for tuning String
+pub fn adaptor(inks: &[String]) -> String {
+    let tuns: Vec<String> = tunings();
+    // default tuning predefined
+    let mut tune = String::from(&tuns[4]);
+
+    for spec in tuns {
+        if inks.contains(&spec) {
+            tune = spec;
+            break;
+        }
+    }
+
+    tune
 }
 
 /// Returns a Vector of tuning Strings
@@ -48,6 +66,25 @@ pub fn machine(tune: Option<&str>) -> Vec<usize> {
         Some("piano") => vec![0],
         Some(&_) => vec![0],
         None => vec![0],
+    }
+}
+
+/// Returns a Tuple containing tuning-dateline String and indices Vector
+pub fn qualify(tune: String) -> (String, Vec<usize>) {
+    let aeon: u64 = horolog();
+    let mast: String = format!("-{}-h{}", tune, aeon);
+    let pegs: Vec<usize> = machine(Some(&tune));
+
+    (mast, pegs)
+}
+
+/// Returns unix timestamp
+pub fn horolog() -> u64 {
+    let date: SystemTime = SystemTime::now();
+
+    match date.duration_since(UNIX_EPOCH) {
+        Ok(span) => span.as_secs(),
+        Err(_) => 0,
     }
 }
 

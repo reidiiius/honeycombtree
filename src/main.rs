@@ -1,8 +1,8 @@
 mod datum;
 mod utile;
 
-use crate::datum::QTY;
-use crate::utile::{enclave, entirety, groupie, pitcher, refined, stylist, veranda};
+use crate::datum::{adaptor, QTY};
+use crate::utile::{enclave, entirety, groupie, refined, stylist, veranda};
 use std::env;
 
 #[cfg(test)]
@@ -26,7 +26,7 @@ fn main() {
         // lent character set and limit amount of characters
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
-        let tune: String = pitcher(&inks);
+        let tune: String = adaptor(&inks);
         let gulp = String::from("gamut");
         let grok = String::from("group");
         let quiz = String::from("query");

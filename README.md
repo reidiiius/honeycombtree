@@ -32,11 +32,19 @@ Command-line
 
 :
 
-    cargo run n0 j3
+    cargo run n0 k1
 
 :
 
-    cargo run cgdae n0 j3
+    cargo run n0 k1 query
+
+:
+
+    cargo run n0yy k1zz
+
+:
+
+    cargo run cgdae n0yy k1zz
 
 :
 
@@ -44,7 +52,11 @@ Command-line
 
 :
 
-    cargo run gamut | sensible-pager
+    cargo run beadgcf k2j6 j2k5
+
+:
+
+    cargo run beadgcf gamut | sensible-pager
 
 ---
 

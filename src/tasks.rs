@@ -1,7 +1,9 @@
-use crate::datum::{codices, dynamos, machine, melodia, nodules, records, signats, tunings, QTY};
+use crate::datum::{
+    adaptor, codices, dynamos, horolog, machine, melodia, nodules, qualify, records, signats,
+    tunings, QTY,
+};
 use crate::utile::{
-    enclave, entirety, groupie, horolog, lattice, pitcher, qualify, refined, spandex, stylist,
-    veranda, waxwork,
+    enclave, entirety, groupie, lattice, refined, spandex, stylist, veranda, waxwork,
 };
 
 #[test]
@@ -12,12 +14,32 @@ fn datum_const_qty_value_size() {
 }
 
 #[test]
+fn datum_codices_return_size() {
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
+
+    assert!(dyns.len() == 4, "codices dyns size");
+    assert!(tuns.len() == 7, "codices tuns size");
+    assert!(keys.len() == QTY, "codices keys size");
+}
+
+#[test]
 fn datum_dynamos_encode_ascii() {
     let dyns: Vec<String> = dynamos();
 
     for proc in dyns {
         assert!(proc.is_ascii());
     }
+}
+
+#[test]
+fn datum_adaptor_return_value() {
+    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
+    let proc = String::from(&dyns[2]);
+    let viol = String::from(&tuns[2]);
+    let inks = [keys[0].clone(), viol.clone(), keys[1].clone(), proc];
+    let tune = adaptor(&inks);
+
+    assert_eq!(viol, tune);
 }
 
 #[test]
@@ -35,6 +57,24 @@ fn datum_machine_return_value() {
     let pegs: Vec<usize> = machine(Some(&tune));
 
     assert_eq!([12, 27, 6, 21, 0].to_vec(), pegs);
+}
+
+#[test]
+fn datum_qualify_return_value() {
+    let tune = String::from("cgdae");
+    let cogs: (String, Vec<usize>) = qualify(tune);
+    let (mast, pegs) = cogs;
+
+    assert!(!mast.is_empty(), "qualify mast is empty");
+    assert!(!pegs.is_empty(), "qualify pegs is empty");
+}
+
+#[test]
+fn datum_horolog_return_value() {
+    let past: u64 = 1721093758;
+    let aeon: u64 = horolog();
+
+    assert!(past < aeon, "horolog assertion failed");
 }
 
 #[test]
@@ -86,35 +126,6 @@ fn datum_records_value_size() {
     for pair in arts {
         assert_eq!(pair.1.len(), span);
     }
-}
-
-#[test]
-fn utile_pitcher_return_value() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
-    let proc = String::from(&dyns[2]);
-    let viol = String::from(&tuns[2]);
-    let inks = [keys[0].clone(), viol.clone(), keys[1].clone(), proc];
-    let tune = pitcher(&inks);
-
-    assert_eq!(viol, tune);
-}
-
-#[test]
-fn utile_horolog_return_value() {
-    let past: u64 = 1721093758;
-    let aeon: u64 = horolog();
-
-    assert!(past < aeon, "horolog assertion failed");
-}
-
-#[test]
-fn utile_qualify_return_value() {
-    let tune = String::from("cgdae");
-    let cogs: (String, Vec<usize>) = qualify(tune);
-    let (mast, pegs) = cogs;
-
-    assert!(!mast.is_empty(), "qualify mast is empty");
-    assert!(!pegs.is_empty(), "qualify pegs is empty");
 }
 
 #[test]
@@ -185,15 +196,6 @@ fn utile_entirety_return_type() {
     let kind: () = entirety(tune);
 
     assert_eq!((), kind);
-}
-
-#[test]
-fn datum_codices_return_size() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
-
-    assert!(dyns.len() == 4, "codices dyns size");
-    assert!(tuns.len() == 7, "codices tuns size");
-    assert!(keys.len() == QTY, "codices keys size");
 }
 
 #[test]

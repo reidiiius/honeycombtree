@@ -1,40 +1,4 @@
-use crate::datum::{codices, dynamos, machine, nodules, records, signats, tunings, QTY};
-use std::time::{SystemTime, UNIX_EPOCH};
-
-/// Searches argument list for tuning String
-pub fn pitcher(inks: &[String]) -> String {
-    let tuns: Vec<String> = tunings();
-    // default tuning predefined
-    let mut tune = String::from(&tuns[4]);
-
-    for spec in tuns {
-        if inks.contains(&spec) {
-            tune = spec;
-            break;
-        }
-    }
-
-    tune
-}
-
-/// Returns unix timestamp
-pub fn horolog() -> u64 {
-    let date: SystemTime = SystemTime::now();
-
-    match date.duration_since(UNIX_EPOCH) {
-        Ok(span) => span.as_secs(),
-        Err(_) => 0,
-    }
-}
-
-/// Returns a Tuple containing tuning-dateline String and indices Vector
-pub fn qualify(tune: String) -> (String, Vec<usize>) {
-    let aeon: u64 = horolog();
-    let mast: String = format!("-{}-h{}", tune, aeon);
-    let pegs: Vec<usize> = machine(Some(&tune));
-
-    (mast, pegs)
-}
+use crate::datum::{codices, dynamos, nodules, qualify, records, tunings, QTY};
 
 /// Prints passed collection columned to screen
 pub fn waxwork(hits: &[String]) {
@@ -183,11 +147,10 @@ pub fn veranda(inks: Vec<String>, tune: String) {
 /// Parses user input for key matches in `records`,
 /// passes each matched Tuple to `lattice`
 pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), arts: &[(&str, &str); QTY]) {
-    let keys: Vec<String> = signats();
     let span: usize = argo.len();
 
-    for (spot, clef) in (0_usize..).zip(keys.into_iter()) {
-        if span == clef.len() && argo.eq(&clef) {
+    for (spot, pair) in (0_usize..).zip(arts.iter()) {
+        if span == pair.0.len() && argo.eq(pair.0) {
             lattice(arts[spot], cogs);
             break;
         }
