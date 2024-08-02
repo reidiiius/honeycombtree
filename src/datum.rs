@@ -24,7 +24,7 @@ pub fn dynamos() -> Vec<String> {
     dyns
 }
 
-/// Searches argument list for tuning String
+/// Searches argument list for tuning String and returns tuning String
 pub fn adaptor(inks: &[String]) -> String {
     let tuns: Vec<String> = tunings();
     // default tuning predefined

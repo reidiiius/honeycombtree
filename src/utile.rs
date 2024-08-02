@@ -112,8 +112,7 @@ pub fn enclave(inks: Vec<String>) {
     }
 }
 
-/// Parses input for key or tuning Strings,
-/// passes matched key String to `spandex`
+/// Parses input for `codices` Strings, passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
     let (dyns, tuns, keys) = codices();
     let cogs: (String, Vec<usize>) = qualify(tune);
@@ -144,8 +143,7 @@ pub fn veranda(inks: Vec<String>, tune: String) {
     }
 }
 
-/// Parses user input for key matches in `records`,
-/// passes each matched Tuple to `lattice`
+/// Parses input for key matches in `records`, passes matched Tuple to `lattice`
 pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), arts: &[(&str, &str); QTY]) {
     let span: usize = argo.len();
 
