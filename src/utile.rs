@@ -154,24 +154,25 @@ pub fn veranda(inks: Vec<String>, tune: String) {
     let (dyns, tuns, keys) = codices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let arts: [(&str, &str); QTY] = records();
+    let mut have: bool = false;
 
-    let mut have = 0;
-    for spec in &keys {
-        if inks.contains(spec) {
-            have += 1;
+    // sift arguments for absence or presence of keys
+    for argo in &inks {
+        if keys.contains(argo) {
+            have = true;
+            break;
         }
     }
 
     for argo in &inks {
-        // sift through items for signatures or tunings
         if keys.contains(argo) {
             spandex(argo, &cogs, &arts);
         } else if tuns.contains(argo) || dyns.contains(argo) {
-            if have == 0 {
+            if have {
+                continue;
+            } else {
                 stylist();
                 break;
-            } else {
-                continue;
             }
         } else {
             println!("\n\t{} ?", argo);
