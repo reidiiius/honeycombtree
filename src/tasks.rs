@@ -1,6 +1,6 @@
 use crate::datum::{
-    adaptor, codices, dynamos, horolog, machine, melodia, nodules, qualify, records, signats,
-    tunings, QTY,
+    adaptor, codices, dynamos, horolog, machine, melodia, nodules, proctor, qualify, records,
+    signats, tunings, QTY,
 };
 use crate::utile::{
     enclave, entirety, groupie, lattice, refined, spandex, stylist, veranda, waxwork,
@@ -29,6 +29,14 @@ fn datum_dynamos_encode_ascii() {
     for proc in dyns {
         assert!(proc.is_ascii());
     }
+}
+
+#[test]
+fn datum_proctor_return_value() {
+    let inks = vec!["cgdae".to_string(), "tonal".to_string()];
+    let rout: String = proctor(&inks);
+
+    assert_eq!(rout, "tonal");
 }
 
 #[test]

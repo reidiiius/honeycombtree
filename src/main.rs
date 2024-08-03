@@ -1,7 +1,7 @@
 mod datum;
 mod utile;
 
-use crate::datum::{adaptor, QTY};
+use crate::datum::{adaptor, dynamos, proctor, QTY};
 use crate::utile::{enclave, entirety, groupie, refined, stylist, veranda};
 use std::env;
 
@@ -27,18 +27,18 @@ fn main() {
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
         let tune: String = adaptor(&inks);
-        let gulp = String::from("gamut");
-        let grok = String::from("group");
-        let quiz = String::from("query");
-        let tons = String::from("tonal");
+        let rout: String = proctor(&inks);
+        let dyns: Vec<String> = dynamos();
 
-        if inks.contains(&gulp) {
+        if rout.is_empty() {
+            veranda(inks, tune);
+        } else if rout.eq(&dyns[0]) {
             entirety(tune);
-        } else if inks.contains(&grok) {
+        } else if rout.eq(&dyns[1]) {
             groupie(inks);
-        } else if inks.contains(&quiz) {
+        } else if rout.eq(&dyns[2]) {
             enclave(inks);
-        } else if inks.contains(&tons) {
+        } else if rout.eq(&dyns[3]) {
             refined();
         } else {
             veranda(inks, tune);

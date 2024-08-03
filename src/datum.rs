@@ -24,6 +24,21 @@ pub fn dynamos() -> Vec<String> {
     dyns
 }
 
+/// Searches argument list for routine String and returns a String
+pub fn proctor(inks: &[String]) -> String {
+    let dyns: Vec<String> = dynamos();
+    let mut rout = String::new();
+
+    for argo in inks {
+        if dyns.contains(argo) {
+            rout = argo.to_string();
+            break;
+        }
+    }
+
+    rout
+}
+
 /// Searches argument list for tuning String and returns tuning String
 pub fn adaptor(inks: &[String]) -> String {
     let tuns: Vec<String> = tunings();
