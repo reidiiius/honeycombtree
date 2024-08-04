@@ -52,6 +52,10 @@ Command-line
 
 :
 
+    cargo run polar
+
+:
+
     cargo run query k2j j2k
 
 :

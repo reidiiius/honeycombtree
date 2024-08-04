@@ -3,7 +3,8 @@ use crate::datum::{
     records, signats, tunings, QTY,
 };
 use crate::utile::{
-    enclave, entirety, groupie, lattice, octopus, refined, spandex, stylist, veranda, waxwork,
+    enclave, entirety, groupie, lattice, octopus, polaris, refined, spandex, stylist, veranda,
+    waxwork,
 };
 
 #[test]
@@ -17,7 +18,7 @@ fn datum_const_qty_value_size() {
 fn datum_codices_return_size() {
     let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
 
-    assert!(dyns.len() == 5, "codices dyns size");
+    assert!(dyns.len() == 6, "codices dyns size");
     assert!(tuns.len() == 7, "codices tuns size");
     assert!(keys.len() == QTY, "codices keys size");
 }
@@ -158,6 +159,13 @@ fn utile_waxwork_return_type() {
 #[test]
 fn utile_octopus_return_type() {
     let kind: () = octopus();
+
+    assert_eq!((), kind);
+}
+
+#[test]
+fn utile_polaris_return_type() {
+    let kind: () = polaris();
 
     assert_eq!((), kind);
 }

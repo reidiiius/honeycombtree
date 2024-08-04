@@ -14,7 +14,7 @@ pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
 
 /// Returns a Vector of routine Strings
 pub fn dynamos() -> Vec<String> {
-    let ways: [&str; 5] = ["gamut", "group", "octad", "query", "tonal"];
+    let ways: [&str; 6] = ["gamut", "group", "octad", "polar", "query", "tonal"];
     let mut dyns: Vec<String> = vec![];
 
     for proc in ways {

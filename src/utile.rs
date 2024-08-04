@@ -35,6 +35,60 @@ pub fn octopus() {
     }
 }
 
+/// Prints polarized key Strings from `records` columned
+pub fn polaris() {
+    let recs: [(&str, &str); QTY] = records();
+    let mut prots: Vec<String> = vec![];
+    let mut neuts: Vec<String> = vec![];
+    let mut elecs: Vec<String> = vec![];
+    let mut incs;
+
+    for (clef, raga) in recs {
+        if clef.contains("n0") {
+            neuts.push(clef.to_string());
+            continue;
+        }
+        incs = raga.char_indices();
+
+        for (numb, atom) in incs {
+            if numb == 0 && atom.eq(&'v') {
+                prots.push(clef.to_string());
+                break;
+            } else if numb == 1 && atom.eq(&'r') {
+                elecs.push(clef.to_string());
+                break;
+            } else if numb < 15 {
+                continue;
+            } else if numb == 15 && atom.eq(&'w') {
+                prots.push(clef.to_string());
+                break;
+            } else if numb == 16 && atom.eq(&'q') {
+                elecs.push(clef.to_string());
+                break;
+            } else if numb < 33 {
+                continue;
+            } else if numb == 33 && atom.eq(&'q') {
+                prots.push(clef.to_string());
+                break;
+            } else if numb == 34 && atom.eq(&'w') {
+                elecs.push(clef.to_string());
+                break;
+            } else {
+                break;
+            }
+        }
+    }
+    let total = prots.len() + neuts.len() + elecs.len();
+
+    if total == QTY {
+        for parts in [prots, neuts, elecs] {
+            waxwork(&parts);
+        }
+    } else {
+        eprintln!("\npolaris parts: {}, unequal to records: {}", total, QTY);
+    }
+}
+
 /// Prints matched digraph Strings from `records` columned
 pub fn groupie(inks: Vec<String>) {
     if inks.len() > 1 {

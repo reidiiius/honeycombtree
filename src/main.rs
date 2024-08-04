@@ -2,7 +2,7 @@ mod datum;
 mod utile;
 
 use crate::datum::{adaptor, dynamos, proctor, QTY};
-use crate::utile::{enclave, entirety, groupie, octopus, refined, stylist, veranda};
+use crate::utile::{enclave, entirety, groupie, octopus, polaris, refined, stylist, veranda};
 use std::env;
 
 #[cfg(test)]
@@ -39,8 +39,10 @@ fn main() {
         } else if rout.eq(&dyns[2]) {
             octopus(); // octad
         } else if rout.eq(&dyns[3]) {
-            enclave(inks); // query
+            polaris(); // polar
         } else if rout.eq(&dyns[4]) {
+            enclave(inks); // query
+        } else if rout.eq(&dyns[5]) {
             refined(); // tonal
         } else {
             veranda(inks, tune);
