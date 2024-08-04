@@ -1,4 +1,4 @@
-use crate::datum::{codices, dynamos, nodules, qualify, records, tunings, QTY};
+use crate::datum::{caboose, codices, dynamos, nodules, qualify, records, signats, tunings, QTY};
 
 /// Prints passed collection columned to screen
 pub fn waxwork(hits: &[String]) {
@@ -15,6 +15,24 @@ pub fn waxwork(hits: &[String]) {
         numb += 1;
     }
     println!();
+}
+
+/// Prints matched octad key Strings from `records` columned
+pub fn octopus() {
+    let keys: Vec<String> = signats();
+    let mut orcs: Vec<String> = vec![];
+
+    for sign in keys {
+        if caboose(sign.as_str()) {
+            orcs.push(sign);
+        }
+    }
+
+    if orcs.is_empty() {
+        eprintln!("\n\toctopus: orcs vacancy");
+    } else {
+        waxwork(&orcs);
+    }
 }
 
 /// Prints matched digraph Strings from `records` columned
@@ -35,7 +53,6 @@ pub fn groupie(inks: Vec<String>) {
             let dyns: Vec<String> = dynamos();
             let tuns: Vec<String> = tunings();
             let mut hits: Vec<String> = vec![];
-            let mut last: usize = 0;
 
             for argo in inks {
                 if dyns.contains(&argo) || tuns.contains(&argo) {
@@ -45,18 +62,16 @@ pub fn groupie(inks: Vec<String>) {
                 for (clef, raga) in arts {
                     if raga.contains(&argo) {
                         hits.push(clef.to_string());
-                        last += 1;
                     }
                 }
 
-                if last > 0 {
-                    waxwork(&hits);
-                } else {
+                if hits.is_empty() {
                     println!("\n\t{} ?", argo);
+                } else {
+                    waxwork(&hits);
                 }
 
                 hits.clear();
-                last = 0;
             }
         } else {
             refined();
@@ -81,7 +96,6 @@ pub fn enclave(inks: Vec<String>) {
 
         if held {
             let mut hits: Vec<String> = vec![];
-            let mut last: usize = 0;
 
             for argo in inks {
                 if dyns.contains(&argo) || tuns.contains(&argo) {
@@ -91,18 +105,16 @@ pub fn enclave(inks: Vec<String>) {
                 for clef in &keys {
                     if clef.contains(&argo) {
                         hits.push(clef.to_string());
-                        last += 1;
                     }
                 }
 
-                if last > 0 {
-                    waxwork(&hits);
-                } else {
+                if hits.is_empty() {
                     println!("\n\t{} ?", argo);
+                } else {
+                    waxwork(&hits);
                 }
 
                 hits.clear();
-                last = 0;
             }
         } else {
             stylist();

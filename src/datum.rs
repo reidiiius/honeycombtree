@@ -14,7 +14,7 @@ pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
 
 /// Returns a Vector of routine Strings
 pub fn dynamos() -> Vec<String> {
-    let ways: [&str; 4] = ["gamut", "group", "query", "tonal"];
+    let ways: [&str; 5] = ["gamut", "group", "octad", "query", "tonal"];
     let mut dyns: Vec<String> = vec![];
 
     for proc in ways {
@@ -101,6 +101,14 @@ pub fn horolog() -> u64 {
         Ok(span) => span.as_secs(),
         Err(_) => 0,
     }
+}
+
+/// Parses last character of key String and returns Boolean
+pub fn caboose(clef: &str) -> bool {
+    let cars: [char; 12] = ['o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    let flag: bool = clef.ends_with(cars);
+
+    flag
 }
 
 /// Returns a Vector of key Strings from `records`

@@ -48,6 +48,10 @@ Command-line
 
 :
 
+    cargo run octad
+
+:
+
     cargo run query k2j j2k
 
 :

@@ -1,9 +1,9 @@
 use crate::datum::{
-    adaptor, codices, dynamos, horolog, machine, melodia, nodules, proctor, qualify, records,
-    signats, tunings, QTY,
+    adaptor, caboose, codices, dynamos, horolog, machine, melodia, nodules, proctor, qualify,
+    records, signats, tunings, QTY,
 };
 use crate::utile::{
-    enclave, entirety, groupie, lattice, refined, spandex, stylist, veranda, waxwork,
+    enclave, entirety, groupie, lattice, octopus, refined, spandex, stylist, veranda, waxwork,
 };
 
 #[test]
@@ -17,7 +17,7 @@ fn datum_const_qty_value_size() {
 fn datum_codices_return_size() {
     let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
 
-    assert!(dyns.len() == 4, "codices dyns size");
+    assert!(dyns.len() == 5, "codices dyns size");
     assert!(tuns.len() == 7, "codices tuns size");
     assert!(keys.len() == QTY, "codices keys size");
 }
@@ -86,6 +86,13 @@ fn datum_horolog_return_value() {
 }
 
 #[test]
+fn datum_caboose_return_bool() {
+    let flag = caboose("k6sv");
+
+    assert!(flag, "caboose returns boolean");
+}
+
+#[test]
 fn datum_signats_return_size() {
     let keys: Vec<String> = signats();
 
@@ -146,6 +153,13 @@ fn utile_waxwork_return_type() {
 
     assert!(hits.len() > 0, "vector is empty");
     assert_eq!((), waxwork(&hits));
+}
+
+#[test]
+fn utile_octopus_return_type() {
+    let kind: () = octopus();
+
+    assert_eq!((), kind);
 }
 
 #[test]
