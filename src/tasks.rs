@@ -3,8 +3,8 @@ use crate::datum::{
     records, signats, tunings, QTY,
 };
 use crate::utile::{
-    enclave, entirety, groupie, lattice, octopus, polaris, refined, spandex, stylist, veranda,
-    waxwork,
+    catalog, diatoms, enclave, entirety, groupie, lattice, octopus, polaris, spandex, trellis,
+    veranda,
 };
 
 #[test]
@@ -16,9 +16,9 @@ fn datum_const_qty_value_size() {
 
 #[test]
 fn datum_codices_return_size() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
+    let (dyns, tuns, keys) = codices();
 
-    assert!(dyns.len() == 6, "codices dyns size");
+    assert!(dyns.len() == 7, "codices dyns size");
     assert!(tuns.len() == 7, "codices tuns size");
     assert!(keys.len() == QTY, "codices keys size");
 }
@@ -34,7 +34,7 @@ fn datum_dynamos_encode_ascii() {
 
 #[test]
 fn datum_proctor_return_value() {
-    let inks = vec!["cgdae".to_string(), "tonal".to_string()];
+    let inks = ["cgdae".to_string(), "tonal".to_string()];
     let rout: String = proctor(&inks);
 
     assert_eq!(rout, "tonal");
@@ -42,10 +42,11 @@ fn datum_proctor_return_value() {
 
 #[test]
 fn datum_adaptor_return_value() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
+    let (dyns, tuns, keys) = codices();
     let proc = String::from(&dyns[2]);
     let viol = String::from(&tuns[2]);
-    let inks = [keys[0].clone(), viol.clone(), keys[1].clone(), proc];
+    let clef = String::from(&keys[2]);
+    let inks = [viol.clone(), clef, proc];
     let tune = adaptor(&inks);
 
     assert_eq!(viol, tune);
@@ -90,7 +91,7 @@ fn datum_horolog_return_value() {
 fn datum_caboose_return_bool() {
     let flag = caboose("k6sv");
 
-    assert!(flag, "caboose returns boolean");
+    assert!(flag, "caboose assertion failed");
 }
 
 #[test]
@@ -127,33 +128,38 @@ fn datum_nodules_value_size() {
 
 #[test]
 fn datum_records_encode_ascii() {
-    let arts: [(&str, &str); QTY] = records();
+    let recs: [(&str, &str); QTY] = records();
 
-    for (key, val) in arts {
+    for (key, val) in recs {
         assert!(key.is_ascii() && val.is_ascii());
     }
 }
 
 #[test]
+fn datum_records_keys_size() {
+    let recs: [(&str, &str); QTY] = records();
+    let span: usize = 10;
+
+    for pair in recs {
+        assert!(!pair.0.is_empty() && pair.0.len() < span);
+    }
+}
+
+#[test]
 fn datum_records_value_size() {
-    let arts: [(&str, &str); QTY] = records();
+    let recs: [(&str, &str); QTY] = records();
     let span: usize = 36;
 
-    for pair in arts {
+    for pair in recs {
         assert_eq!(pair.1.len(), span);
     }
 }
 
 #[test]
-fn utile_waxwork_return_type() {
-    let mut hits: Vec<String> = vec![];
+fn utile_trellis_return_type() {
+    let hits = ["n0pz".to_string(), "n0yy".to_string()];
 
-    for clef in ["n0pz", "n0", "n0yy", "n0zp"] {
-        hits.push(clef.to_string());
-    }
-
-    assert!(hits.len() > 0, "vector is empty");
-    assert_eq!((), waxwork(&hits));
+    assert_eq!((), trellis(&hits, "\t"));
 }
 
 #[test]
@@ -188,11 +194,11 @@ fn utile_enclave_return_type() {
 
 #[test]
 fn utile_veranda_return_type() {
-    let (dyns, tuns, keys): (Vec<String>, Vec<String>, Vec<String>) = codices();
-    let proc = String::from(&dyns[2]);
-    let viol = String::from(&tuns[2]);
-    let tune = String::from(&viol);
-    let inks = vec![keys[0].clone(), viol.clone(), keys[1].clone(), proc];
+    let (dyns, tuns, keys) = codices();
+    let proc = String::from(&dyns[0]);
+    let tune = String::from(&tuns[0]);
+    let clef = String::from(&keys[0]);
+    let inks = vec![tune.clone(), clef, proc];
     let kind: () = veranda(inks, tune);
 
     assert_eq!((), kind);
@@ -203,8 +209,8 @@ fn utile_spandex_return_type() {
     let clef = String::from("n0");
     let tune = String::from("beadgcf");
     let cogs: (String, Vec<usize>) = qualify(tune);
-    let arts: [(&str, &str); QTY] = records();
-    let kind: () = spandex(&clef, &cogs, &arts);
+    let recs: [(&str, &str); QTY] = records();
+    let kind: () = spandex(&clef, &cogs, &recs);
 
     assert_eq!((), kind);
 }
@@ -213,8 +219,8 @@ fn utile_spandex_return_type() {
 fn utile_lattice_return_type() {
     let tune = String::from("beadgcf");
     let cogs: (String, Vec<usize>) = qualify(tune);
-    let arts: [(&str, &str); QTY] = records();
-    let pair: (&str, &str) = arts[QTY - 1];
+    let recs: [(&str, &str); QTY] = records();
+    let pair: (&str, &str) = recs[0];
     let kind: () = lattice(pair, &cogs);
 
     assert_eq!((), kind);
@@ -229,15 +235,15 @@ fn utile_entirety_return_type() {
 }
 
 #[test]
-fn utile_refined_return_type() {
-    let kind: () = refined();
+fn utile_diatoms_return_type() {
+    let kind: () = diatoms();
 
     assert_eq!((), kind);
 }
 
 #[test]
-fn utile_stylist_return_type() {
-    let kind: () = stylist();
+fn utile_catalog_return_type() {
+    let kind: () = catalog();
 
     assert_eq!((), kind);
 }

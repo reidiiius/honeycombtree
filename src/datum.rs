@@ -14,8 +14,10 @@ pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
 
 /// Returns a Vector of routine Strings
 pub fn dynamos() -> Vec<String> {
-    let ways: [&str; 6] = ["gamut", "group", "octad", "polar", "query", "tonal"];
-    let mut dyns: Vec<String> = vec![];
+    let ways: [&str; 7] = [
+        "gamut", "group", "octad", "polar", "query", "tonal", "usage",
+    ];
+    let mut dyns: Vec<String> = Vec::with_capacity(8);
 
     for proc in ways {
         dyns.push(proc.to_string());
@@ -60,7 +62,7 @@ pub fn tunings() -> Vec<String> {
     let ways: [&str; 7] = [
         "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
     ];
-    let mut tuns: Vec<String> = vec![];
+    let mut tuns: Vec<String> = Vec::with_capacity(8);
 
     for tune in ways {
         tuns.push(tune.to_string());
@@ -71,7 +73,7 @@ pub fn tunings() -> Vec<String> {
 
 /// Matches tuning String and returns a Vector of indices
 pub fn machine(tune: Option<&str>) -> Vec<usize> {
-    match tune {
+    let pegs: Vec<usize> = match tune {
         Some("beadgcf") => vec![30, 15, 0, 21, 6, 27, 12, 33, 18],
         Some("bfbfb") => vec![33, 15, 33, 15, 33],
         Some("cgdae") => vec![12, 27, 6, 21, 0],
@@ -81,14 +83,16 @@ pub fn machine(tune: Option<&str>) -> Vec<usize> {
         Some("piano") => vec![0],
         Some(&_) => vec![0],
         None => vec![0],
-    }
+    };
+
+    pegs
 }
 
 /// Returns a Tuple containing tuning-dateline String and indices Vector
 pub fn qualify(tune: String) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
     let mast: String = format!("-{}-h{}", tune, aeon);
-    let pegs: Vec<usize> = machine(Some(&tune));
+    let pegs = machine(Some(&tune));
 
     (mast, pegs)
 }
@@ -96,11 +100,12 @@ pub fn qualify(tune: String) -> (String, Vec<usize>) {
 /// Returns unix timestamp
 pub fn horolog() -> u64 {
     let date: SystemTime = SystemTime::now();
-
-    match date.duration_since(UNIX_EPOCH) {
+    let aeon: u64 = match date.duration_since(UNIX_EPOCH) {
         Ok(span) => span.as_secs(),
         Err(_) => 0,
-    }
+    };
+
+    aeon
 }
 
 /// Parses last character of key String and returns Boolean
@@ -113,10 +118,10 @@ pub fn caboose(clef: &str) -> bool {
 
 /// Returns a Vector of key Strings from `records`
 pub fn signats() -> Vec<String> {
-    let arts: [(&str, &str); QTY] = records();
-    let mut keys: Vec<String> = vec![];
+    let recs: [(&str, &str); QTY] = records();
+    let mut keys: Vec<String> = Vec::with_capacity(QTY);
 
-    for pair in arts {
+    for pair in recs {
         keys.push(pair.0.to_string());
     }
 
@@ -125,10 +130,10 @@ pub fn signats() -> Vec<String> {
 
 /// Returns a Vector of value Strings from `records`
 pub fn melodia() -> Vec<String> {
-    let arts: [(&str, &str); QTY] = records();
-    let mut vals: Vec<String> = vec![];
+    let recs: [(&str, &str); QTY] = records();
+    let mut vals: Vec<String> = Vec::with_capacity(QTY);
 
-    for pair in arts {
+    for pair in recs {
         vals.push(pair.1.to_string());
     }
 
@@ -138,21 +143,21 @@ pub fn melodia() -> Vec<String> {
 /// Returns sorted Vector of digraph Strings from `records`
 pub fn nodules() -> Vec<String> {
     let vals: Vec<String> = melodia();
-    let mut temp: Vec<String> = vec![];
-    let mut nods: Vec<String> = vec![];
+    let mut buff: Vec<String> = Vec::with_capacity(1024);
+    let mut nods: Vec<String> = Vec::with_capacity(128);
 
     for raga in vals {
         for duet in &mut raga.split_ascii_whitespace() {
             if duet.eq("__") {
                 continue;
             } else {
-                temp.push(duet.to_string());
+                buff.push(duet.to_string());
             }
         }
     }
-    nods.push(temp.pop().expect("temp vacant"));
+    nods.push(buff.pop().expect("buff vacant"));
 
-    for duet in temp {
+    for duet in buff {
         if nods.contains(&duet) {
             continue;
         } else {

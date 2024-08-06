@@ -1,15 +1,15 @@
 use crate::datum::{caboose, codices, dynamos, nodules, qualify, records, signats, tunings, QTY};
 
 /// Prints passed collection columned to screen
-pub fn waxwork(hits: &[String]) {
-    let last: usize = hits.len();
+pub fn trellis(hits: &[String], pads: &str) {
+    let span: usize = hits.len();
     let mut numb: usize = 1;
     let cols: usize = 7;
 
     println!();
-    while numb <= last {
-        print!("\t{}", hits[numb - 1]);
-        if numb % cols == 0 && numb != last {
+    while numb <= span {
+        print!("{}{}", pads, hits[numb - 1]);
+        if numb % cols == 0 && numb != span {
             println!();
         }
         numb += 1;
@@ -20,7 +20,7 @@ pub fn waxwork(hits: &[String]) {
 /// Prints matched octad key Strings from `records` columned
 pub fn octopus() {
     let keys: Vec<String> = signats();
-    let mut orcs: Vec<String> = vec![];
+    let mut orcs: Vec<String> = Vec::with_capacity(64);
 
     for sign in keys {
         if caboose(sign.as_str()) {
@@ -31,16 +31,16 @@ pub fn octopus() {
     if orcs.is_empty() {
         eprintln!("\n\toctopus: orcs vacancy");
     } else {
-        waxwork(&orcs);
+        trellis(&orcs, "\t");
     }
 }
 
 /// Prints polarized key Strings from `records` columned
 pub fn polaris() {
     let recs: [(&str, &str); QTY] = records();
-    let mut prots: Vec<String> = vec![];
-    let mut neuts: Vec<String> = vec![];
-    let mut elecs: Vec<String> = vec![];
+    let mut prots: Vec<String> = Vec::with_capacity(128);
+    let mut neuts: Vec<String> = Vec::with_capacity(8);
+    let mut elecs: Vec<String> = Vec::with_capacity(128);
     let mut incs;
 
     for (clef, raga) in recs {
@@ -83,7 +83,7 @@ pub fn polaris() {
 
     if total == QTY {
         for parts in [prots, neuts, elecs] {
-            waxwork(&parts);
+            trellis(&parts, "\t");
         }
     } else {
         eprintln!("\npolaris parts: {}, unequal to records: {}", total, QTY);
@@ -104,17 +104,17 @@ pub fn groupie(inks: Vec<String>) {
         }
 
         if held {
-            let arts: [(&str, &str); QTY] = records();
+            let recs: [(&str, &str); QTY] = records();
             let dyns: Vec<String> = dynamos();
             let tuns: Vec<String> = tunings();
-            let mut hits: Vec<String> = vec![];
+            let mut hits: Vec<String> = Vec::with_capacity(64);
 
             for argo in inks {
                 if dyns.contains(&argo) || tuns.contains(&argo) {
                     continue;
                 }
 
-                for (clef, raga) in arts {
+                for (clef, raga) in recs {
                     if raga.contains(&argo) {
                         hits.push(clef.to_string());
                     }
@@ -123,16 +123,16 @@ pub fn groupie(inks: Vec<String>) {
                 if hits.is_empty() {
                     println!("\n\t{} ?", argo);
                 } else {
-                    waxwork(&hits);
+                    trellis(&hits, "\t");
                 }
 
                 hits.clear();
             }
         } else {
-            refined();
+            diatoms();
         }
     } else {
-        refined();
+        diatoms();
     }
 }
 
@@ -150,7 +150,7 @@ pub fn enclave(inks: Vec<String>) {
         }
 
         if held {
-            let mut hits: Vec<String> = vec![];
+            let mut hits: Vec<String> = Vec::with_capacity(128);
 
             for argo in inks {
                 if dyns.contains(&argo) || tuns.contains(&argo) {
@@ -166,16 +166,16 @@ pub fn enclave(inks: Vec<String>) {
                 if hits.is_empty() {
                     println!("\n\t{} ?", argo);
                 } else {
-                    waxwork(&hits);
+                    trellis(&hits, "\t");
                 }
 
                 hits.clear();
             }
         } else {
-            stylist();
+            catalog();
         }
     } else {
-        stylist();
+        catalog();
     }
 }
 
@@ -183,7 +183,7 @@ pub fn enclave(inks: Vec<String>) {
 pub fn veranda(inks: Vec<String>, tune: String) {
     let (dyns, tuns, keys) = codices();
     let cogs: (String, Vec<usize>) = qualify(tune);
-    let arts: [(&str, &str); QTY] = records();
+    let recs: [(&str, &str); QTY] = records();
     let mut have: bool = false;
 
     // sift arguments for absence or presence of keys
@@ -196,12 +196,12 @@ pub fn veranda(inks: Vec<String>, tune: String) {
 
     for argo in &inks {
         if keys.contains(argo) {
-            spandex(argo, &cogs, &arts);
+            spandex(argo, &cogs, &recs);
         } else if tuns.contains(argo) || dyns.contains(argo) {
             if have {
                 continue;
             } else {
-                stylist();
+                catalog();
                 break;
             }
         } else {
@@ -211,12 +211,12 @@ pub fn veranda(inks: Vec<String>, tune: String) {
 }
 
 /// Parses input for key matches in `records`, passes matched Tuple to `lattice`
-pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), arts: &[(&str, &str); QTY]) {
+pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), recs: &[(&str, &str); QTY]) {
     let span: usize = argo.len();
 
-    for (spot, pair) in (0_usize..).zip(arts.iter()) {
+    for (spot, pair) in (0_usize..).zip(recs.iter()) {
         if span == pair.0.len() && argo.eq(pair.0) {
-            lattice(arts[spot], cogs);
+            lattice(recs[spot], cogs);
             break;
         }
     }
@@ -240,53 +240,26 @@ pub fn lattice(pair: (&str, &str), cogs: &(String, Vec<usize>)) {
 
 /// Prints all Tuples from `records` passing each to `lattice`
 pub fn entirety(tune: String) {
-    let arts: [(&str, &str); QTY] = records();
+    let recs: [(&str, &str); QTY] = records();
     let cogs: (String, Vec<usize>) = qualify(tune);
 
-    for pair in arts {
+    for pair in recs {
         lattice(pair, &cogs);
     }
 }
 
 /// Prints sorted digraph Strings from `records` columned
-pub fn refined() {
+pub fn diatoms() {
     let nods: Vec<String> = nodules();
-    let mut numb: usize = 1;
-    let cols: usize = 7;
 
-    println!();
-    while numb <= nods.len() {
-        print!("  {}", nods[numb - 1]);
-        if numb % cols == 0 {
-            println!();
-        }
-        numb += 1;
-    }
+    trellis(&nods, "\x20\x20");
 }
 
 /// Prints routines, tunings, and Tuple keys from `records` columned
-pub fn stylist() {
+pub fn catalog() {
     let (dyns, tuns, keys) = codices();
-    let last: usize = keys.len();
-    let cols: usize = 7;
 
-    println!();
-    for spec in dyns {
-        print!("\t{}", spec)
-    }
-    println!("\n");
-    for spec in tuns {
-        print!("\t{}", spec)
-    }
-    println!("\n");
-    for (numb, item) in (1_usize..).zip(keys.into_iter()) {
-        print!("\t{item}");
-        if numb == last {
-            continue;
-        }
-        if numb % cols == 0 {
-            println!();
-        }
-    }
-    println!();
+    trellis(&dyns, "\t");
+    trellis(&tuns, "\t");
+    trellis(&keys, "\t");
 }
