@@ -3,36 +3,36 @@ use std::time::{SystemTime, UNIX_EPOCH};
 /// Quantity of Tuples in the Array returned by `records`
 pub const QTY: usize = 126;
 
-/// Returns Tuple holding Vectors of routine, tuning, and key Strings
+/// Returns Tuple holding Vectors of device, tuning, and key Strings
 pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
-    let dyns: Vec<String> = dynamos();
+    let devs: Vec<String> = devices();
     let tuns: Vec<String> = tunings();
     let keys: Vec<String> = signats();
 
-    (dyns, tuns, keys)
+    (devs, tuns, keys)
 }
 
-/// Returns a Vector of routine Strings
-pub fn dynamos() -> Vec<String> {
+/// Returns a Vector of device Strings
+pub fn devices() -> Vec<String> {
     let ways: [&str; 7] = [
         "gamut", "group", "octad", "polar", "query", "tonal", "usage",
     ];
-    let mut dyns: Vec<String> = Vec::with_capacity(8);
+    let mut devs: Vec<String> = Vec::with_capacity(8);
 
     for proc in ways {
-        dyns.push(proc.to_string());
+        devs.push(proc.to_string());
     }
 
-    dyns
+    devs
 }
 
-/// Searches argument list for routine String and returns a String
+/// Searches argument list for device String and returns a String
 pub fn proctor(inks: &[String]) -> String {
-    let dyns: Vec<String> = dynamos();
+    let devs: Vec<String> = devices();
     let mut rout = String::new();
 
     for argo in inks {
-        if dyns.contains(argo) {
+        if devs.contains(argo) {
             rout = argo.to_string();
             break;
         }
@@ -45,7 +45,14 @@ pub fn proctor(inks: &[String]) -> String {
 pub fn adaptor(inks: &[String]) -> String {
     let tuns: Vec<String> = tunings();
     // default tuning predefined
-    let mut tune = String::from(&tuns[4]);
+    let opts: Option<String> = tuns.get(4).cloned();
+    let mut tune: String;
+
+    if opts.is_some() {
+        tune = opts.unwrap();
+    } else {
+        tune = String::from("unison");
+    }
 
     for spec in tuns {
         if inks.contains(&spec) {

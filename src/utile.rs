@@ -1,18 +1,19 @@
-use crate::datum::{caboose, codices, dynamos, nodules, qualify, records, signats, tunings, QTY};
+use crate::datum::{caboose, codices, devices, nodules, qualify, records, signats, tunings, QTY};
 
 /// Prints passed collection columned to screen
-pub fn trellis(hits: &[String], pads: &str) {
-    let span: usize = hits.len();
-    let mut numb: usize = 1;
+pub fn trellis(buds: &[String], pads: &str) {
+    let span: usize = buds.len();
     let cols: usize = 7;
 
     println!();
-    while numb <= span {
-        print!("{}{}", pads, hits[numb - 1]);
-        if numb % cols == 0 && numb != span {
+    for (numb, stem) in (1_usize..).zip(buds.iter()) {
+        print!("{}{}", pads, stem);
+        if numb == span {
+            continue;
+        }
+        if numb % cols == 0 {
             println!();
         }
-        numb += 1;
     }
     println!();
 }
@@ -105,12 +106,12 @@ pub fn groupie(inks: Vec<String>) {
 
         if held {
             let recs: [(&str, &str); QTY] = records();
-            let dyns: Vec<String> = dynamos();
+            let devs: Vec<String> = devices();
             let tuns: Vec<String> = tunings();
             let mut hits: Vec<String> = Vec::with_capacity(64);
 
             for argo in inks {
-                if dyns.contains(&argo) || tuns.contains(&argo) {
+                if devs.contains(&argo) || tuns.contains(&argo) {
                     continue;
                 }
 
@@ -139,11 +140,11 @@ pub fn groupie(inks: Vec<String>) {
 /// Prints matched key Strings from `records` columned
 pub fn enclave(inks: Vec<String>) {
     if inks.len() > 1 {
-        let (dyns, tuns, keys) = codices();
+        let (devs, tuns, keys) = codices();
         let mut held: bool = false;
 
         for argo in &inks {
-            if !dyns.contains(argo) && !tuns.contains(argo) {
+            if !devs.contains(argo) && !tuns.contains(argo) {
                 held = true;
                 break;
             }
@@ -153,7 +154,7 @@ pub fn enclave(inks: Vec<String>) {
             let mut hits: Vec<String> = Vec::with_capacity(128);
 
             for argo in inks {
-                if dyns.contains(&argo) || tuns.contains(&argo) {
+                if devs.contains(&argo) || tuns.contains(&argo) {
                     continue;
                 }
 
@@ -181,7 +182,7 @@ pub fn enclave(inks: Vec<String>) {
 
 /// Parses input for `codices` Strings, passes matched key String to `spandex`
 pub fn veranda(inks: Vec<String>, tune: String) {
-    let (dyns, tuns, keys) = codices();
+    let (devs, tuns, keys) = codices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let recs: [(&str, &str); QTY] = records();
     let mut have: bool = false;
@@ -197,7 +198,7 @@ pub fn veranda(inks: Vec<String>, tune: String) {
     for argo in &inks {
         if keys.contains(argo) {
             spandex(argo, &cogs, &recs);
-        } else if tuns.contains(argo) || dyns.contains(argo) {
+        } else if tuns.contains(argo) || devs.contains(argo) {
             if have {
                 continue;
             } else {
@@ -255,11 +256,11 @@ pub fn diatoms() {
     trellis(&nods, "\x20\x20");
 }
 
-/// Prints routines, tunings, and Tuple keys from `records` columned
+/// Prints devices, tunings, and Tuple keys from `records` columned
 pub fn catalog() {
-    let (dyns, tuns, keys) = codices();
+    let (devs, tuns, keys) = codices();
 
-    trellis(&dyns, "\t");
+    trellis(&devs, "\t");
     trellis(&tuns, "\t");
     trellis(&keys, "\t");
 }

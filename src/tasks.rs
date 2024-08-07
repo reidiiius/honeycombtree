@@ -1,5 +1,5 @@
 use crate::datum::{
-    adaptor, caboose, codices, dynamos, horolog, machine, melodia, nodules, proctor, qualify,
+    adaptor, caboose, codices, devices, horolog, machine, melodia, nodules, proctor, qualify,
     records, signats, tunings, QTY,
 };
 use crate::utile::{
@@ -16,18 +16,18 @@ fn datum_const_qty_value_size() {
 
 #[test]
 fn datum_codices_return_size() {
-    let (dyns, tuns, keys) = codices();
+    let (devs, tuns, keys) = codices();
 
-    assert!(dyns.len() == 7, "codices dyns size");
+    assert!(devs.len() == 7, "codices devs size");
     assert!(tuns.len() == 7, "codices tuns size");
     assert!(keys.len() == QTY, "codices keys size");
 }
 
 #[test]
-fn datum_dynamos_encode_ascii() {
-    let dyns: Vec<String> = dynamos();
+fn datum_devices_encode_ascii() {
+    let devs: Vec<String> = devices();
 
-    for proc in dyns {
+    for proc in devs {
         assert!(proc.is_ascii());
     }
 }
@@ -42,8 +42,8 @@ fn datum_proctor_return_value() {
 
 #[test]
 fn datum_adaptor_return_value() {
-    let (dyns, tuns, keys) = codices();
-    let proc = String::from(&dyns[2]);
+    let (devs, tuns, keys) = codices();
+    let proc = String::from(&devs[2]);
     let viol = String::from(&tuns[2]);
     let clef = String::from(&keys[2]);
     let inks = [viol.clone(), clef, proc];
@@ -194,8 +194,8 @@ fn utile_enclave_return_type() {
 
 #[test]
 fn utile_veranda_return_type() {
-    let (dyns, tuns, keys) = codices();
-    let proc = String::from(&dyns[0]);
+    let (devs, tuns, keys) = codices();
+    let proc = String::from(&devs[0]);
     let tune = String::from(&tuns[0]);
     let clef = String::from(&keys[0]);
     let inks = vec![tune.clone(), clef, proc];
