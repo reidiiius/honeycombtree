@@ -28,20 +28,20 @@ fn main() {
 
         let tune: String = adaptor(&inks);
         let rout: String = proctor(&inks);
-        let devs: Vec<String> = devices();
+        let devs: &[String] = &devices();
 
         if rout.is_empty() {
-            veranda(inks, tune);
+            veranda(&inks, &tune);
         } else if rout.eq(devs.first().unwrap()) {
-            entirety(tune); // gamut
+            entirety(&tune); // gamut
         } else if rout.eq(devs.get(1).unwrap()) {
-            groupie(inks); // group
+            groupie(&inks); // group
         } else if rout.eq(devs.get(2).unwrap()) {
             octopus(); // octad
         } else if rout.eq(devs.get(3).unwrap()) {
             polaris(); // polar
         } else if rout.eq(devs.get(4).unwrap()) {
-            enclave(inks); // query
+            enclave(&inks); // query
         } else if rout.eq(devs.get(5).unwrap()) {
             diatoms(); // tonal
         } else {

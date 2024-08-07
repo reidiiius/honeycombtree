@@ -96,10 +96,10 @@ pub fn machine(tune: Option<&str>) -> Vec<usize> {
 }
 
 /// Returns a Tuple containing tuning-dateline String and indices Vector
-pub fn qualify(tune: String) -> (String, Vec<usize>) {
+pub fn qualify(tune: &String) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
     let mast: String = format!("-{}-h{}", tune, aeon);
-    let pegs = machine(Some(&tune));
+    let pegs = machine(Some(tune));
 
     (mast, pegs)
 }

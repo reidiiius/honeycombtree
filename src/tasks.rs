@@ -25,7 +25,7 @@ fn datum_codices_return_size() {
 
 #[test]
 fn datum_devices_encode_ascii() {
-    let devs: Vec<String> = devices();
+    let devs: &[String] = &devices();
 
     for proc in devs {
         assert!(proc.is_ascii());
@@ -72,7 +72,7 @@ fn datum_machine_return_value() {
 #[test]
 fn datum_qualify_return_value() {
     let tune = String::from("cgdae");
-    let cogs: (String, Vec<usize>) = qualify(tune);
+    let cogs: (String, Vec<usize>) = qualify(&tune);
     let (mast, pegs) = cogs;
 
     assert!(!mast.is_empty(), "qualify mast is empty");
@@ -179,7 +179,7 @@ fn utile_polaris_return_type() {
 #[test]
 fn utile_groupie_return_type() {
     let inks = vec!["group".to_string(), "yq".to_string()];
-    let kind: () = groupie(inks);
+    let kind: () = groupie(&inks);
 
     assert_eq!((), kind);
 }
@@ -187,7 +187,7 @@ fn utile_groupie_return_type() {
 #[test]
 fn utile_enclave_return_type() {
     let inks = vec!["query".to_string(), "56".to_string()];
-    let kind: () = enclave(inks);
+    let kind: () = enclave(&inks);
 
     assert_eq!((), kind);
 }
@@ -199,7 +199,7 @@ fn utile_veranda_return_type() {
     let tune = String::from(&tuns[0]);
     let clef = String::from(&keys[0]);
     let inks = vec![tune.clone(), clef, proc];
-    let kind: () = veranda(inks, tune);
+    let kind: () = veranda(&inks, &tune);
 
     assert_eq!((), kind);
 }
@@ -208,7 +208,7 @@ fn utile_veranda_return_type() {
 fn utile_spandex_return_type() {
     let clef = String::from("n0");
     let tune = String::from("beadgcf");
-    let cogs: (String, Vec<usize>) = qualify(tune);
+    let cogs: (String, Vec<usize>) = qualify(&tune);
     let recs: [(&str, &str); QTY] = records();
     let kind: () = spandex(&clef, &cogs, &recs);
 
@@ -218,7 +218,7 @@ fn utile_spandex_return_type() {
 #[test]
 fn utile_lattice_return_type() {
     let tune = String::from("beadgcf");
-    let cogs: (String, Vec<usize>) = qualify(tune);
+    let cogs: (String, Vec<usize>) = qualify(&tune);
     let recs: [(&str, &str); QTY] = records();
     let pair: (&str, &str) = recs[0];
     let kind: () = lattice(pair, &cogs);
@@ -229,7 +229,7 @@ fn utile_lattice_return_type() {
 #[test]
 fn utile_entirety_return_type() {
     let tune = String::from("beadgcf");
-    let kind: () = entirety(tune);
+    let kind: () = entirety(&tune);
 
     assert_eq!((), kind);
 }

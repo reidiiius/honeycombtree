@@ -1,6 +1,6 @@
 use crate::datum::{caboose, codices, devices, nodules, qualify, records, signats, tunings, QTY};
 
-/// Prints passed collection columned to screen
+/// Prints passed shared slice of Strings columned to screen
 pub fn trellis(buds: &[String], pads: &str) {
     let span: usize = buds.len();
     let cols: usize = 7;
@@ -20,12 +20,12 @@ pub fn trellis(buds: &[String], pads: &str) {
 
 /// Prints matched octad key Strings from `records` columned
 pub fn octopus() {
-    let keys: Vec<String> = signats();
+    let keys: &[String] = &signats();
     let mut orcs: Vec<String> = Vec::with_capacity(64);
 
     for sign in keys {
         if caboose(sign.as_str()) {
-            orcs.push(sign);
+            orcs.push(sign.to_string());
         }
     }
 
@@ -92,12 +92,12 @@ pub fn polaris() {
 }
 
 /// Prints matched digraph Strings from `records` columned
-pub fn groupie(inks: Vec<String>) {
+pub fn groupie(inks: &[String]) {
     if inks.len() > 1 {
-        let nods: Vec<String> = nodules();
+        let nods: &[String] = &nodules();
         let mut held: bool = false;
 
-        for argo in &inks {
+        for argo in inks {
             if nods.contains(argo) {
                 held = true;
                 break;
@@ -106,17 +106,17 @@ pub fn groupie(inks: Vec<String>) {
 
         if held {
             let recs: [(&str, &str); QTY] = records();
-            let devs: Vec<String> = devices();
-            let tuns: Vec<String> = tunings();
+            let devs: &[String] = &devices();
+            let tuns: &[String] = &tunings();
             let mut hits: Vec<String> = Vec::with_capacity(64);
 
             for argo in inks {
-                if devs.contains(&argo) || tuns.contains(&argo) {
+                if devs.contains(argo) || tuns.contains(argo) {
                     continue;
                 }
 
                 for (clef, raga) in recs {
-                    if raga.contains(&argo) {
+                    if raga.contains(argo) {
                         hits.push(clef.to_string());
                     }
                 }
@@ -138,12 +138,12 @@ pub fn groupie(inks: Vec<String>) {
 }
 
 /// Prints matched key Strings from `records` columned
-pub fn enclave(inks: Vec<String>) {
+pub fn enclave(inks: &[String]) {
     if inks.len() > 1 {
         let (devs, tuns, keys) = codices();
         let mut held: bool = false;
 
-        for argo in &inks {
+        for argo in inks {
             if !devs.contains(argo) && !tuns.contains(argo) {
                 held = true;
                 break;
@@ -154,12 +154,12 @@ pub fn enclave(inks: Vec<String>) {
             let mut hits: Vec<String> = Vec::with_capacity(128);
 
             for argo in inks {
-                if devs.contains(&argo) || tuns.contains(&argo) {
+                if devs.contains(argo) || tuns.contains(argo) {
                     continue;
                 }
 
                 for clef in &keys {
-                    if clef.contains(&argo) {
+                    if clef.contains(argo) {
                         hits.push(clef.to_string());
                     }
                 }
@@ -181,21 +181,21 @@ pub fn enclave(inks: Vec<String>) {
 }
 
 /// Parses input for `codices` Strings, passes matched key String to `spandex`
-pub fn veranda(inks: Vec<String>, tune: String) {
+pub fn veranda(inks: &[String], tune: &String) {
     let (devs, tuns, keys) = codices();
     let cogs: (String, Vec<usize>) = qualify(tune);
     let recs: [(&str, &str); QTY] = records();
     let mut have: bool = false;
 
     // sift arguments for absence or presence of keys
-    for argo in &inks {
+    for argo in inks {
         if keys.contains(argo) {
             have = true;
             break;
         }
     }
 
-    for argo in &inks {
+    for argo in inks {
         if keys.contains(argo) {
             spandex(argo, &cogs, &recs);
         } else if tuns.contains(argo) || devs.contains(argo) {
@@ -240,7 +240,7 @@ pub fn lattice(pair: (&str, &str), cogs: &(String, Vec<usize>)) {
 }
 
 /// Prints all Tuples from `records` passing each to `lattice`
-pub fn entirety(tune: String) {
+pub fn entirety(tune: &String) {
     let recs: [(&str, &str); QTY] = records();
     let cogs: (String, Vec<usize>) = qualify(tune);
 
@@ -251,9 +251,9 @@ pub fn entirety(tune: String) {
 
 /// Prints sorted digraph Strings from `records` columned
 pub fn diatoms() {
-    let nods: Vec<String> = nodules();
+    let nods: &[String] = &nodules();
 
-    trellis(&nods, "\x20\x20");
+    trellis(nods, "\x20\x20");
 }
 
 /// Prints devices, tunings, and Tuple keys from `records` columned
