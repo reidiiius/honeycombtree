@@ -111,7 +111,7 @@ fn datum_melodia_return_size() {
 #[test]
 fn datum_nodules_return_size() {
     let nods: Vec<String> = nodules();
-    let span: usize = 84;
+    let span: usize = 83;
 
     assert!(nods.len() == span, "nodules size incorrect");
 }

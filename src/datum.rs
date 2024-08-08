@@ -1,7 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Quantity of Tuples in the Array returned by `records`
-pub const QTY: usize = 126;
+pub const QTY: usize = 127;
 
 /// Returns Tuple holding Vectors of device, tuning, and key Strings
 pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
@@ -201,7 +201,9 @@ const SWARM: [(&str, &str); QTY] = [
     ("j25", "qr vp __ __ pv rq wo __ __ yu __ ow "),
     ("j256", "qr vp __ __ pv rq wo __ uy __ __ ow "),
     ("j25l6", "or qp __ __ tv pq ro ws __ __ __ sw "),
+    ("j25uy", "qr vp __ __ pv rq wo __ uy yu __ ow "),
     ("j25vt", "or qp vt __ tv pq ro __ __ uu __ sw "),
+    ("j25ws", "or qp __ __ tv pq ro ws __ uu __ sw "),
     ("j26", "vv zq __ __ ry wu __ uw yr __ __ qz "),
     ("j26l3", "vv zq to __ __ wu __ uw yr __ __ qz "),
     ("j26l34", "vv zq to xs __ __ __ uw yr __ __ qz "),
@@ -213,6 +215,7 @@ const SWARM: [(&str, &str); QTY] = [
     ("j2k5", "qr vp __ __ pv rq __ __ uy yu __ ow "),
     ("j2k56", "vv zq __ __ ry wu __ __ yr __ ot qz "),
     ("j2k56m4", "vv zq __ __ ry __ __ uw yr __ ot qz "),
+    ("j2k5tz", "qr vp __ tz pv rq __ __ uy yu __ ow "),
     ("j2k6", "vv zq __ __ ry wu __ uw __ __ ot qz "),
     ("j2k6l3", "vv zq to __ __ wu __ uw __ __ ot qz "),
     ("j2k6m5", "vv zq __ __ ry wu __ __ __ sx ot qz "),
@@ -221,12 +224,10 @@ const SWARM: [(&str, &str); QTY] = [
     ("j2to", "vv zq to __ ry wu __ uw __ sx __ qz "),
     ("j3", "vt __ tv xq __ ws __ uu __ sw __ qx "),
     ("j346l5", "yr __ ot qz vv zq __ __ ry __ __ uw "),
-    ("j346ow", "vp __ tz pv rq __ __ uy yu __ ow qr "),
     ("j34k6", "vt __ tv pq ro __ __ uu __ __ or qp "),
     ("j34or", "vt __ tv pq ro __ __ uu __ sw or qp "),
     ("j36", "vu __ tw xr __ wt __ uv yq __ __ qy "),
     ("j36so", "vu __ tw xr __ wt __ uv yq so __ qy "),
-    ("j3k16zs", "__ zs ty xu __ ww __ ux yt __ ov qq "),
     ("j3k5", "yr __ ot qz __ zq __ __ ry wu __ uw "),
     ("j3k56m4", "vo __ ty xu __ __ __ ux yt __ ov qq "),
     ("j3k5m4", "vu __ tw xr __ __ __ uv yq so __ qy "),
@@ -272,7 +273,6 @@ const SWARM: [(&str, &str); QTY] = [
     ("k26tv", "vt __ tv pq ro ws __ uu __ __ or qp "),
     ("k26yu", "vp __ __ pv rq wo __ uy yu __ ow qr "),
     ("k2j17", "__ __ __ pq ro ws __ uu __ sw or qp "),
-    ("k2j17tv", "__ __ tv pq ro ws __ uu __ sw or qp "),
     ("k2j5", "yr __ __ qz vv zq to __ __ wu __ uw "),
     ("k2j56", "yr __ __ qz vv zq to __ ry __ __ uw "),
     ("k2j56l7", "yr __ __ qz vv zq to __ ry wu __ __ "),
@@ -282,6 +282,7 @@ const SWARM: [(&str, &str); QTY] = [
     ("k2j6tz", "vp __ tz pv rq wo __ uy yu __ __ qr "),
     ("k2j6zt", "vp zt __ pv rq wo __ uy yu __ __ qr "),
     ("k2m1", "__ __ ot qz vv zq __ xs __ wu __ uw "),
+    ("k2sp", "yr sp __ qz vv zq __ xs __ wu __ uw "),
     ("k34", "wr __ ut __ __ oq qo vs __ tu __ rw "),
     ("k345m2", "xr __ __ __ uv yq so __ qy vu __ tw "),
     ("k34m2", "wr __ __ __ sv oq qo vs __ tu __ rw "),

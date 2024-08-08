@@ -3,7 +3,7 @@ use crate::datum::{caboose, codices, devices, nodules, qualify, records, signats
 /// Prints passed shared slice of Strings columned to screen
 pub fn trellis(buds: &[String], pads: &str) {
     let span: usize = buds.len();
-    let cols: usize = 7;
+    let cols: usize = 8;
 
     println!();
     for (numb, stem) in (1_usize..).zip(buds.iter()) {
