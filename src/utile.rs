@@ -21,7 +21,7 @@ pub fn trellis(buds: &[String], pads: &str) {
 /// Prints matched octad key Strings from `records` columned
 pub fn octopus() {
     let keys: &[String] = &signats();
-    let mut orcs: Vec<String> = Vec::with_capacity(64);
+    let mut orcs: Vec<String> = Vec::with_capacity(128);
 
     for sign in keys {
         if caboose(sign.as_str()) {
@@ -108,7 +108,7 @@ pub fn groupie(inks: &[String]) {
             let recs: [(&str, &str); QTY] = records();
             let devs: &[String] = &devices();
             let tuns: &[String] = &tunings();
-            let mut hits: Vec<String> = Vec::with_capacity(64);
+            let mut hits: Vec<String> = Vec::with_capacity(128);
 
             for argo in inks {
                 if devs.contains(argo) || tuns.contains(argo) {

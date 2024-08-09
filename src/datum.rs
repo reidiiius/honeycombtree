@@ -1,7 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Quantity of Tuples in the Array returned by `records`
-pub const QTY: usize = 127;
+pub const QTY: usize = 145;
 
 /// Returns Tuple holding Vectors of device, tuning, and key Strings
 pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
@@ -194,6 +194,7 @@ const SWARM: [(&str, &str); QTY] = [
     ("j236ot", "vv zq __ xs __ wu __ uw yr __ ot qz "),
     ("j236sp", "vv zq __ xs __ wu __ uw yr sp __ qz "),
     ("j236sq", "vy zu __ xw __ wx __ uz yv sq __ qs "),
+    ("j236to", "vv zq to xs __ wu __ uw yr __ __ qz "),
     ("j23k6", "vv zq __ xs __ wu __ uw __ __ ot qz "),
     ("j23ot", "vv zq __ xs __ wu __ uw __ sx ot qz "),
     ("j23to", "vv zq to xs __ wu __ uw __ sx __ qz "),
@@ -220,6 +221,7 @@ const SWARM: [(&str, &str); QTY] = [
     ("j2k6l3", "vv zq to __ __ wu __ uw __ __ ot qz "),
     ("j2k6m5", "vv zq __ __ ry wu __ __ __ sx ot qz "),
     ("j2l3", "vv zq to __ __ wu __ uw __ sx __ qz "),
+    ("j2ot", "vv zq __ __ ry wu __ uw __ sx ot qz "),
     ("j2ps", "vv zq __ ps ry wu __ uw __ sx __ qz "),
     ("j2to", "vv zq to __ ry wu __ uw __ sx __ qz "),
     ("j3", "vt __ tv xq __ ws __ uu __ sw __ qx "),
@@ -249,17 +251,27 @@ const SWARM: [(&str, &str); QTY] = [
     ("k1", "__ qx vt __ tv xq __ ws __ uu __ sw "),
     ("k12", "__ sx __ qz vv zq __ xs __ wu __ uw "),
     ("k125", "__ sx __ qz vv zq __ __ ry wu __ uw "),
+    ("k125ot", "__ sx ot qz vv zq __ __ ry wu __ uw "),
+    ("k125ps", "__ sx __ qz vv zq __ ps ry wu __ uw "),
+    ("k125qs", "__ wx __ uz yv sq __ qs vy zu __ xw "),
+    ("k125to", "__ sx __ qz vv zq to __ ry wu __ uw "),
     ("k12j5", "__ sx __ qz vv zq to __ __ wu __ uw "),
+    ("k12ot", "__ sx ot qz vv zq __ xs __ wu __ uw "),
+    ("k12to", "__ sx __ qz vv zq to xs __ wu __ uw "),
     ("k135m4", "__ rx wt __ __ yq __ os qy vu __ tw "),
     ("k15", "__ rx wt __ uv yq __ __ qy vu __ tw "),
     ("k157m6", "vv zq to __ ry wu __ __ yr __ __ qz "),
+    ("k15os", "__ rx wt __ uv yq __ os qy vu __ tw "),
     ("k17j5", "or qp vt __ tv pq ro __ __ uu __ __ "),
     ("k17ro", "or qp vt __ tv pq ro ws __ uu __ __ "),
     ("k1j5", "__ ux yt __ ov qq vo __ __ xu __ ww "),
     ("k1j56l7", "__ ux yt __ ov qq vo __ ty xu __ __ "),
+    ("k1j5ty", "__ ux yt __ ov qq vo __ ty xu __ ww "),
     ("k1j6", "__ zq to __ ry wu __ uw yr __ __ qz "),
     ("k1j6l7", "__ rx wt __ uv yq __ os qy vu __ __ "),
     ("k1j6ot", "__ zq to __ ry wu __ uw yr __ ot qz "),
+    ("k1or", "or qp vt __ tv xq __ ws __ uu __ sw "),
+    ("k1ro", "__ qx vt __ tv pq ro ws __ uu __ sw "),
     ("k1zz", "__ qx vt zz tv xq __ ws __ uu __ sw "),
     ("k2", "yr __ __ qz vv zq __ xs __ wu __ uw "),
     ("k25", "yr __ __ qz vv zq __ __ ry wu __ uw "),
@@ -267,6 +279,10 @@ const SWARM: [(&str, &str); QTY] = [
     ("k257m1", "yr __ ot qz vv zq __ __ ry wu __ __ "),
     ("k25m1", "__ __ ot qz vv zq __ __ ry wu __ uw "),
     ("k25m17", "__ sx ot qz vv zq __ __ ry wu __ __ "),
+    ("k25ot", "yr __ ot qz vv zq __ __ ry wu __ uw "),
+    ("k25ps", "yr __ __ qz vv zq __ ps ry wu __ uw "),
+    ("k25sp", "yr sp __ qz vv zq __ __ ry wu __ uw "),
+    ("k25to", "yr __ __ qz vv zq to __ ry wu __ uw "),
     ("k26", "vp __ __ pv rq wo __ uy __ __ ow qr "),
     ("k26m5", "vt __ __ pq ro ws __ __ __ sw or qp "),
     ("k26sw", "vt __ __ pq ro ws __ uu __ sw or qp "),
@@ -282,7 +298,9 @@ const SWARM: [(&str, &str); QTY] = [
     ("k2j6tz", "vp __ tz pv rq wo __ uy yu __ __ qr "),
     ("k2j6zt", "vp zt __ pv rq wo __ uy yu __ __ qr "),
     ("k2m1", "__ __ ot qz vv zq __ xs __ wu __ uw "),
+    ("k2ot", "yr __ ot qz vv zq __ xs __ wu __ uw "),
     ("k2sp", "yr sp __ qz vv zq __ xs __ wu __ uw "),
+    ("k2to", "yr __ __ qz vv zq to xs __ wu __ uw "),
     ("k34", "wr __ ut __ __ oq qo vs __ tu __ rw "),
     ("k345m2", "xr __ __ __ uv yq so __ qy vu __ tw "),
     ("k34m2", "wr __ __ __ sv oq qo vs __ tu __ rw "),
