@@ -1,7 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Quantity of Tuples in the Array returned by `records`
-pub const QTY: usize = 145;
+pub const QTY: usize = 146;
 
 /// Returns Tuple holding Vectors of device, tuning, and key Strings
 pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
@@ -187,7 +187,6 @@ const SWARM: [(&str, &str); QTY] = [
     ("j167l2", "vu __ __ __ rx wt __ uv yq __ os qy "),
     ("j17", "__ __ tu __ rw wr __ ut __ sv oq qo "),
     ("j17l2", "vs __ __ __ rw wr __ ut __ sv oq qo "),
-    ("j17zy", "__ zy tu __ rw wr __ ut __ sv oq qo "),
     ("j2", "vv zq __ __ ry wu __ uw __ sx __ qz "),
     ("j23", "vv zq __ xs __ wu __ uw __ sx __ qz "),
     ("j236", "vv zq __ xs __ wu __ uw yr __ __ qz "),
@@ -213,10 +212,12 @@ const SWARM: [(&str, &str); QTY] = [
     ("j26sp", "vv zq __ __ ry wu __ uw yr sp __ qz "),
     ("j26to", "vv zq to __ ry wu __ uw yr __ __ qz "),
     ("j2k34", "or qp __ __ __ pq ro ws __ uu __ sw "),
+    ("j2k34zz", "or qp __ zz __ pq ro ws __ uu __ sw "),
     ("j2k5", "qr vp __ __ pv rq __ __ uy yu __ ow "),
     ("j2k56", "vv zq __ __ ry wu __ __ yr __ ot qz "),
     ("j2k56m4", "vv zq __ __ ry __ __ uw yr __ ot qz "),
     ("j2k5tz", "qr vp __ tz pv rq __ __ uy yu __ ow "),
+    ("j2k5zt", "qr vp zt __ pv rq __ __ uy yu __ ow "),
     ("j2k6", "vv zq __ __ ry wu __ uw __ __ ot qz "),
     ("j2k6l3", "vv zq to __ __ wu __ uw __ __ ot qz "),
     ("j2k6m5", "vv zq __ __ ry wu __ __ __ sx ot qz "),
@@ -289,6 +290,7 @@ const SWARM: [(&str, &str); QTY] = [
     ("k26tv", "vt __ tv pq ro ws __ uu __ __ or qp "),
     ("k26yu", "vp __ __ pv rq wo __ uy yu __ ow qr "),
     ("k2j17", "__ __ __ pq ro ws __ uu __ sw or qp "),
+    ("k2j17zz", "__ zz __ pq ro ws __ uu __ sw or qp "),
     ("k2j5", "yr __ __ qz vv zq to __ __ wu __ uw "),
     ("k2j56", "yr __ __ qz vv zq to __ ry __ __ uw "),
     ("k2j56l7", "yr __ __ qz vv zq to __ ry wu __ __ "),
@@ -304,7 +306,6 @@ const SWARM: [(&str, &str); QTY] = [
     ("k34", "wr __ ut __ __ oq qo vs __ tu __ rw "),
     ("k345m2", "xr __ __ __ uv yq so __ qy vu __ tw "),
     ("k34m2", "wr __ __ __ sv oq qo vs __ tu __ rw "),
-    ("k34yz", "wr __ ut yz __ oq qo vs __ tu __ rw "),
     ("k5", "xr __ wt __ uv yq __ __ qy vu __ tw "),
     ("k56", "vu __ tw __ rx wt __ __ yq __ os qy "),
     ("k56m4", "vu __ tw __ rx __ __ uv yq __ os qy "),
