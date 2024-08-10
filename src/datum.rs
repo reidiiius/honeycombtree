@@ -6,8 +6,8 @@ pub const QTY: usize = 146;
 /// Returns Tuple holding device and tuning Arrays of string slices
 /// and a Vector of key string slices
 pub fn codices() -> ([&'static str; 7], [&'static str; 7], Vec<&'static str>) {
-    let devs: [&str; 7] = DEVS;
-    let tuns: [&str; 7] = TUNS;
+    let devs: [&str; 7] = devices();
+    let tuns: [&str; 7] = tunings();
     let keys: Vec<&str> = signats();
 
     (devs, tuns, keys)
@@ -25,7 +25,7 @@ const DEVS: [&str; 7] = [
 
 /// Searches argument list for device String and returns a string slice
 pub fn proctor(inks: &[String]) -> &str {
-    let devs: [&str; 7] = DEVS;
+    let devs: [&str; 7] = devices();
     let mut rout = "";
 
     for argo in inks {
@@ -40,7 +40,7 @@ pub fn proctor(inks: &[String]) -> &str {
 
 /// Searches argument list for tuning String and returns a tuning string slice
 pub fn adaptor(inks: &[String]) -> &str {
-    let tuns: [&str; 7] = TUNS;
+    let tuns: [&str; 7] = tunings();
     // default tuning predefined
     let opts: &str = tuns[4];
     let mut tune;
@@ -171,11 +171,11 @@ pub fn nodules() -> Vec<&'static str> {
 
 /// Returns an Array of Tuples containing key-value string slices
 pub fn records() -> [(&'static str, &'static str); QTY] {
-    SWARM
+    RECS
 }
 
 /// Array of Tuples containing key-value string slices
-const SWARM: [(&str, &str); QTY] = [
+const RECS: [(&str, &str); QTY] = [
     ("j136l7", "__ __ tw xr __ wt __ uv yq so __ qy "),
     ("j167l2", "vu __ __ __ rx wt __ uv yq __ os qy "),
     ("j17", "__ __ tu __ rw wr __ ut __ sv oq qo "),
