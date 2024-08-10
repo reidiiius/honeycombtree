@@ -26,23 +26,23 @@ fn main() {
         // lent character set and limit amount of characters
         inks.retain(|argo| argo.is_ascii() && argo.len() < 10);
 
-        let tune: String = adaptor(&inks);
-        let rout: String = proctor(&inks);
-        let devs: &[String] = &devices();
+        let tune: &str = adaptor(&inks);
+        let rout: &str = proctor(&inks);
+        let devs: [&str; 7] = devices();
 
         if rout.is_empty() {
-            veranda(&inks, &tune);
-        } else if rout.eq(devs.first().unwrap()) {
-            entirety(&tune); // gamut
-        } else if rout.eq(devs.get(1).unwrap()) {
+            veranda(&inks, tune);
+        } else if rout.eq(devs[0]) {
+            entirety(tune); // gamut
+        } else if rout.eq(devs[1]) {
             groupie(&inks); // group
-        } else if rout.eq(devs.get(2).unwrap()) {
+        } else if rout.eq(devs[2]) {
             octopus(); // octad
-        } else if rout.eq(devs.get(3).unwrap()) {
+        } else if rout.eq(devs[3]) {
             polaris(); // polar
-        } else if rout.eq(devs.get(4).unwrap()) {
+        } else if rout.eq(devs[4]) {
             enclave(&inks); // query
-        } else if rout.eq(devs.get(5).unwrap()) {
+        } else if rout.eq(devs[5]) {
             diatoms(); // tonal
         } else {
             catalog(); // usage

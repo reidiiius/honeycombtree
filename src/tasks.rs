@@ -25,7 +25,7 @@ fn datum_codices_return_size() {
 
 #[test]
 fn datum_devices_encode_ascii() {
-    let devs: &[String] = &devices();
+    let devs: [&str; 7] = devices();
 
     for proc in devs {
         assert!(proc.is_ascii());
@@ -35,7 +35,7 @@ fn datum_devices_encode_ascii() {
 #[test]
 fn datum_proctor_return_value() {
     let inks = ["cgdae".to_string(), "tonal".to_string()];
-    let rout: String = proctor(&inks);
+    let rout: &str = proctor(&inks);
 
     assert_eq!(rout, "tonal");
 }
@@ -43,9 +43,9 @@ fn datum_proctor_return_value() {
 #[test]
 fn datum_adaptor_return_value() {
     let (devs, tuns, keys) = codices();
-    let proc = String::from(&devs[2]);
-    let viol = String::from(&tuns[2]);
-    let clef = String::from(&keys[2]);
+    let proc = devs[2].to_string();
+    let viol = tuns[2].to_string();
+    let clef = keys[2].to_string();
     let inks = [viol.clone(), clef, proc];
     let tune = adaptor(&inks);
 
@@ -54,7 +54,7 @@ fn datum_adaptor_return_value() {
 
 #[test]
 fn datum_tunings_encode_ascii() {
-    let tuns: Vec<String> = tunings();
+    let tuns: [&str; 7] = tunings();
 
     for item in tuns {
         assert!(item.is_ascii());
@@ -96,21 +96,21 @@ fn datum_caboose_return_bool() {
 
 #[test]
 fn datum_signats_return_size() {
-    let keys: Vec<String> = signats();
+    let keys: Vec<&str> = signats();
 
     assert!(keys.len() == QTY, "signats size incorrect");
 }
 
 #[test]
 fn datum_melodia_return_size() {
-    let vals: Vec<String> = melodia();
+    let vals: Vec<&str> = melodia();
 
     assert!(vals.len() == QTY, "melodia size incorrect");
 }
 
 #[test]
 fn datum_nodules_return_size() {
-    let nods: Vec<String> = nodules();
+    let nods: Vec<&str> = nodules();
     let span: usize = 81;
 
     assert!(nods.len() == span, "nodules size incorrect");
@@ -118,7 +118,7 @@ fn datum_nodules_return_size() {
 
 #[test]
 fn datum_nodules_value_size() {
-    let nods: Vec<String> = nodules();
+    let nods: Vec<&str> = nodules();
     let span: usize = 2;
 
     for duet in nods {
@@ -157,7 +157,7 @@ fn datum_records_value_size() {
 
 #[test]
 fn utile_trellis_return_type() {
-    let hits = ["n0pz".to_string(), "n0yy".to_string()];
+    let hits = ["n0pz", "n0yy"];
 
     assert_eq!((), trellis(&hits, "\t"));
 }
@@ -195,9 +195,9 @@ fn utile_enclave_return_type() {
 #[test]
 fn utile_veranda_return_type() {
     let (devs, tuns, keys) = codices();
-    let proc = String::from(&devs[0]);
-    let tune = String::from(&tuns[0]);
-    let clef = String::from(&keys[0]);
+    let proc = devs[0].to_string();
+    let tune = tuns[0].to_string();
+    let clef = keys[0].to_string();
     let inks = vec![tune.clone(), clef, proc];
     let kind: () = veranda(&inks, &tune);
 

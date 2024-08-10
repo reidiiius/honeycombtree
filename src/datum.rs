@@ -1,39 +1,36 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
-/// Quantity of Tuples in the Array returned by `records`
+/// Quantity of Tuple rows in Array returned by `records`
 pub const QTY: usize = 146;
 
-/// Returns Tuple holding Vectors of device, tuning, and key Strings
-pub fn codices() -> (Vec<String>, Vec<String>, Vec<String>) {
-    let devs: Vec<String> = devices();
-    let tuns: Vec<String> = tunings();
-    let keys: Vec<String> = signats();
+/// Returns Tuple holding device and tuning Arrays of string slices
+/// and a Vector of key string slices
+pub fn codices() -> ([&'static str; 7], [&'static str; 7], Vec<&'static str>) {
+    let devs: [&str; 7] = DEVS;
+    let tuns: [&str; 7] = TUNS;
+    let keys: Vec<&str> = signats();
 
     (devs, tuns, keys)
 }
 
-/// Returns a Vector of device Strings
-pub fn devices() -> Vec<String> {
-    let ways: [&str; 7] = [
-        "gamut", "group", "octad", "polar", "query", "tonal", "usage",
-    ];
-    let mut devs: Vec<String> = Vec::with_capacity(8);
-
-    for proc in ways {
-        devs.push(proc.to_string());
-    }
-
-    devs
+/// Returns an Array of device string slices
+pub fn devices() -> [&'static str; 7] {
+    DEVS
 }
 
-/// Searches argument list for device String and returns a String
-pub fn proctor(inks: &[String]) -> String {
-    let devs: Vec<String> = devices();
-    let mut rout = String::new();
+/// Array of device string slices
+const DEVS: [&str; 7] = [
+    "gamut", "group", "octad", "polar", "query", "tonal", "usage",
+];
+
+/// Searches argument list for device String and returns a string slice
+pub fn proctor(inks: &[String]) -> &str {
+    let devs: [&str; 7] = DEVS;
+    let mut rout = "";
 
     for argo in inks {
-        if devs.contains(argo) {
-            rout = argo.to_string();
+        if devs.contains(&argo.as_str()) {
+            rout = argo;
             break;
         }
     }
@@ -41,22 +38,22 @@ pub fn proctor(inks: &[String]) -> String {
     rout
 }
 
-/// Searches argument list for tuning String and returns tuning String
-pub fn adaptor(inks: &[String]) -> String {
-    let tuns: Vec<String> = tunings();
+/// Searches argument list for tuning String and returns a tuning string slice
+pub fn adaptor(inks: &[String]) -> &str {
+    let tuns: [&str; 7] = TUNS;
     // default tuning predefined
-    let opts: Option<String> = tuns.get(4).cloned();
-    let mut tune: String;
+    let opts: &str = tuns[4];
+    let mut tune;
 
-    if opts.is_some() {
-        tune = opts.unwrap();
+    if opts.is_ascii() {
+        tune = opts;
     } else {
-        tune = String::from("unison");
+        tune = "unison";
     }
 
-    for spec in tuns {
-        if inks.contains(&spec) {
-            tune = spec;
+    for argo in inks {
+        if tuns.contains(&argo.as_str()) {
+            tune = argo.as_str();
             break;
         }
     }
@@ -64,21 +61,17 @@ pub fn adaptor(inks: &[String]) -> String {
     tune
 }
 
-/// Returns a Vector of tuning Strings
-pub fn tunings() -> Vec<String> {
-    let ways: [&str; 7] = [
-        "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
-    ];
-    let mut tuns: Vec<String> = Vec::with_capacity(8);
-
-    for tune in ways {
-        tuns.push(tune.to_string());
-    }
-
-    tuns
+/// Returns an Array of tuning string slices
+pub fn tunings() -> [&'static str; 7] {
+    TUNS
 }
 
-/// Matches tuning String and returns a Vector of indices
+/// Array of tuning string slices
+const TUNS: [&str; 7] = [
+    "beadgcf", "bfbfb", "cgdae", "dgdgbd", "eadgbe", "fkbjdn", "piano",
+];
+
+/// Matches tuning string slice and returns a Vector of indices
 pub fn machine(tune: Option<&str>) -> Vec<usize> {
     let pegs: Vec<usize> = match tune {
         Some("beadgcf") => vec![30, 15, 0, 21, 6, 27, 12, 33, 18],
@@ -96,7 +89,7 @@ pub fn machine(tune: Option<&str>) -> Vec<usize> {
 }
 
 /// Returns a Tuple containing tuning-dateline String and indices Vector
-pub fn qualify(tune: &String) -> (String, Vec<usize>) {
+pub fn qualify(tune: &str) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
     let mast: String = format!("-{}-h{}", tune, aeon);
     let pegs = machine(Some(tune));
@@ -115,7 +108,7 @@ pub fn horolog() -> u64 {
     aeon
 }
 
-/// Parses last character of key String and returns Boolean
+/// Parses last character of key string slice and returns Boolean
 pub fn caboose(clef: &str) -> bool {
     let cars: [char; 12] = ['o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     let flag: bool = clef.ends_with(cars);
@@ -123,42 +116,42 @@ pub fn caboose(clef: &str) -> bool {
     flag
 }
 
-/// Returns a Vector of key Strings from `records`
-pub fn signats() -> Vec<String> {
+/// Returns a Vector of key string slices from `records`
+pub fn signats() -> Vec<&'static str> {
     let recs: [(&str, &str); QTY] = records();
-    let mut keys: Vec<String> = Vec::with_capacity(QTY);
+    let mut keys: Vec<&str> = Vec::with_capacity(QTY);
 
     for pair in recs {
-        keys.push(pair.0.to_string());
+        keys.push(pair.0);
     }
 
     keys
 }
 
-/// Returns a Vector of value Strings from `records`
-pub fn melodia() -> Vec<String> {
+/// Returns a Vector of value string slices from `records`
+pub fn melodia() -> Vec<&'static str> {
     let recs: [(&str, &str); QTY] = records();
-    let mut vals: Vec<String> = Vec::with_capacity(QTY);
+    let mut vals: Vec<&str> = Vec::with_capacity(QTY);
 
     for pair in recs {
-        vals.push(pair.1.to_string());
+        vals.push(pair.1);
     }
 
     vals
 }
 
-/// Returns sorted Vector of digraph Strings from `records`
-pub fn nodules() -> Vec<String> {
-    let vals: Vec<String> = melodia();
-    let mut buff: Vec<String> = Vec::with_capacity(1024);
-    let mut nods: Vec<String> = Vec::with_capacity(128);
+/// Returns sorted Vector of digraph string slices from `records`
+pub fn nodules() -> Vec<&'static str> {
+    let vals: &[&str] = &melodia();
+    let mut buff: Vec<&str> = Vec::with_capacity(1024);
+    let mut nods: Vec<&str> = Vec::with_capacity(128);
 
     for raga in vals {
         for duet in &mut raga.split_ascii_whitespace() {
             if duet.eq("__") {
                 continue;
             } else {
-                buff.push(duet.to_string());
+                buff.push(duet);
             }
         }
     }
