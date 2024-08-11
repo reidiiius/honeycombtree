@@ -1,6 +1,6 @@
-use crate::datum::{caboose, codices, devices, nodules, qualify, records, signats, tunings, QTY};
+use crate::datum::{caboose, codices, devices, nodules, pinions, records, signats, tunings, QTY};
 
-/// Prints passed shared Slice of string slices columned to stdout
+/// Prints received Slice of string slices columned to stdout
 pub fn trellis(buds: &[&str], pads: &str) {
     let span: usize = buds.len();
     let cols: usize = 8;
@@ -18,7 +18,7 @@ pub fn trellis(buds: &[&str], pads: &str) {
     println!();
 }
 
-/// Prints matched octad key string slices from `records` columned to stdout
+/// Prints matched octad key string slices from records columned to stdout
 pub fn octopus() {
     let keys: &[&str] = &signats();
     let mut orcs: Vec<&str> = Vec::with_capacity(128);
@@ -36,7 +36,7 @@ pub fn octopus() {
     }
 }
 
-/// Prints polarized key string slices from `records` columned to stdout
+/// Prints polarized key string slices from records columned to stdout
 pub fn polaris() {
     let recs: [(&str, &str); QTY] = records();
     let mut prots: Vec<&str> = Vec::with_capacity(128);
@@ -91,7 +91,8 @@ pub fn polaris() {
     }
 }
 
-/// Prints matched digraph string slices from values in `records` columned to stdout
+/// Matches digraph string slices with values in records
+/// and prints associated key string slices columned to stdout
 pub fn groupie(inks: &[String]) {
     if inks.len() > 1 {
         let nods: &[&str] = &nodules();
@@ -137,7 +138,7 @@ pub fn groupie(inks: &[String]) {
     }
 }
 
-/// Prints matched key string slices from `records` columned
+/// Prints matched key string slices from records columned
 pub fn enclave(inks: &[String]) {
     if inks.len() > 1 {
         let (devs, tuns, keys) = codices();
@@ -180,11 +181,11 @@ pub fn enclave(inks: &[String]) {
     }
 }
 
-/// Parses input Strings for `codices` string slices,
-/// passes matched key string slice to `spandex`
+/// Parses input Strings for codices string slices,
+/// passes matched key string slice to spandex
 pub fn veranda(inks: &[String], tune: &str) {
     let (devs, tuns, keys) = codices();
-    let cogs: (String, Vec<usize>) = qualify(tune);
+    let cogs: (String, Vec<usize>) = pinions(tune);
     let recs: [(&str, &str); QTY] = records();
     let mut have: bool = false;
 
@@ -212,7 +213,7 @@ pub fn veranda(inks: &[String], tune: &str) {
     }
 }
 
-/// Parses input for key matches in `records`, passes matched Tuple to `lattice`
+/// Parses input for key matches in records, passes matched Tuple to lattice
 pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), recs: &[(&str, &str); QTY]) {
     let span: usize = argo.len();
 
@@ -224,7 +225,7 @@ pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), recs: &[(&str, &str); QT
     }
 }
 
-/// Prints selected Tuple from `records` formatted to stdout
+/// Prints selected Tuple from records formatted to stdout
 pub fn lattice(pair: (&str, &str), cogs: &(String, Vec<usize>)) {
     let (clef, raga) = pair;
     let (mast, pegs) = cogs;
@@ -240,24 +241,24 @@ pub fn lattice(pair: (&str, &str), cogs: &(String, Vec<usize>)) {
     }
 }
 
-/// Prints all key-value Tuple rows from `records` formatted to stdout
+/// Prints all key-value Tuple rows from records formatted to stdout
 pub fn entirety(tune: &str) {
     let recs: [(&str, &str); QTY] = records();
-    let cogs: (String, Vec<usize>) = qualify(tune);
+    let cogs: (String, Vec<usize>) = pinions(tune);
 
     for pair in recs {
         lattice(pair, &cogs);
     }
 }
 
-/// Prints sorted digraph string slices in values from `records` columned to stdout
+/// Prints sorted digraph string slices in values from records columned to stdout
 pub fn diatoms() {
     let nods: &[&str] = &nodules();
 
     trellis(nods, "\x20\x20");
 }
 
-/// Prints devices, tunings, and Tuple keys from `records` columned
+/// Prints devices, tunings, and Tuple keys from records columned
 pub fn catalog() {
     let (devs, tuns, keys) = codices();
 

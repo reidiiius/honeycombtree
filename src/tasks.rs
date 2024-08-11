@@ -1,6 +1,6 @@
 use crate::datum::{
-    adaptor, caboose, codices, devices, horolog, machine, melodia, nodules, proctor, qualify,
-    records, signats, tunings, QTY,
+    adaptor, caboose, codices, devices, horolog, leptons, machine, melodia, nodules, pinions,
+    proctor, records, signats, tunings, QTY,
 };
 use crate::utile::{
     catalog, diatoms, enclave, entirety, groupie, lattice, octopus, polaris, spandex, trellis,
@@ -70,13 +70,13 @@ fn datum_machine_return_value() {
 }
 
 #[test]
-fn datum_qualify_return_value() {
+fn datum_pinions_return_value() {
     let tune = String::from("cgdae");
-    let cogs: (String, Vec<usize>) = qualify(&tune);
+    let cogs: (String, Vec<usize>) = pinions(&tune);
     let (mast, pegs) = cogs;
 
-    assert!(!mast.is_empty(), "qualify mast is empty");
-    assert!(!pegs.is_empty(), "qualify pegs is empty");
+    assert!(!mast.is_empty(), "pinions mast is empty");
+    assert!(!pegs.is_empty(), "pinions pegs is empty");
 }
 
 #[test]
@@ -85,6 +85,15 @@ fn datum_horolog_return_value() {
     let aeon: u64 = horolog();
 
     assert!(past < aeon, "horolog assertion failed");
+}
+
+#[test]
+fn datum_leptons_encode_ascii() {
+    let taus: [char; 12] = leptons();
+
+    for muon in taus {
+        assert!(muon.is_ascii_alphabetic());
+    }
 }
 
 #[test]
@@ -208,7 +217,7 @@ fn utile_veranda_return_type() {
 fn utile_spandex_return_type() {
     let clef = String::from("n0");
     let tune = String::from("beadgcf");
-    let cogs: (String, Vec<usize>) = qualify(&tune);
+    let cogs: (String, Vec<usize>) = pinions(&tune);
     let recs: [(&str, &str); QTY] = records();
     let kind: () = spandex(&clef, &cogs, &recs);
 
@@ -218,7 +227,7 @@ fn utile_spandex_return_type() {
 #[test]
 fn utile_lattice_return_type() {
     let tune = String::from("beadgcf");
-    let cogs: (String, Vec<usize>) = qualify(&tune);
+    let cogs: (String, Vec<usize>) = pinions(&tune);
     let recs: [(&str, &str); QTY] = records();
     let pair: (&str, &str) = recs[0];
     let kind: () = lattice(pair, &cogs);

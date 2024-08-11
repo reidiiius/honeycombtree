@@ -89,7 +89,7 @@ pub fn machine(tune: Option<&str>) -> Vec<usize> {
 }
 
 /// Returns a Tuple containing tuning-dateline String and indices Vector
-pub fn qualify(tune: &str) -> (String, Vec<usize>) {
+pub fn pinions(tune: &str) -> (String, Vec<usize>) {
     let aeon: u64 = horolog();
     let mast: String = format!("-{}-h{}", tune, aeon);
     let pegs = machine(Some(tune));
@@ -108,10 +108,18 @@ pub fn horolog() -> u64 {
     aeon
 }
 
+/// Returns an Array of subatomic characters
+pub fn leptons() -> [char; 12] {
+    TAUS
+}
+
+/// Array of subatomic characters
+const TAUS: [char; 12] = ['o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
 /// Parses last character of key string slice and returns Boolean
 pub fn caboose(clef: &str) -> bool {
-    let cars: [char; 12] = ['o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    let flag: bool = clef.ends_with(cars);
+    let taus: [char; 12] = leptons();
+    let flag: bool = clef.ends_with(taus);
 
     flag
 }
