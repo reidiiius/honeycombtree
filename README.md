@@ -48,6 +48,10 @@ Command-line
 
 :
 
+    cargo run cgdae n0yy k1zz usage
+
+:
+
     cargo run octad
 
 :

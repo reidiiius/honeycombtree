@@ -91,8 +91,8 @@ pub fn polaris() {
     }
 }
 
-/// Matches digraph string slices with values in records
-/// and prints associated key string slices columned to stdout
+/// Matches digraph string slices in record values
+/// and prints associated keys columned to stdout
 pub fn groupie(inks: &[String]) {
     if inks.len() > 1 {
         let nods: &[&str] = &nodules();
@@ -138,7 +138,7 @@ pub fn groupie(inks: &[String]) {
     }
 }
 
-/// Prints matched key string slices from records columned
+/// Prints matched key string slices from records columned to stdout
 pub fn enclave(inks: &[String]) {
     if inks.len() > 1 {
         let (devs, tuns, keys) = codices();
@@ -225,7 +225,7 @@ pub fn spandex(argo: &str, cogs: &(String, Vec<usize>), recs: &[(&str, &str); QT
     }
 }
 
-/// Prints selected Tuple from records formatted to stdout
+/// Prints contents of selected Tuple row from records formatted to stdout
 pub fn lattice(pair: (&str, &str), cogs: &(String, Vec<usize>)) {
     let (clef, raga) = pair;
     let (mast, pegs) = cogs;
@@ -258,7 +258,7 @@ pub fn diatoms() {
     trellis(nods, "\x20\x20");
 }
 
-/// Prints devices, tunings, and Tuple keys from records columned
+/// Prints devices, tunings, and Tuple keys from records columned to stdout
 pub fn catalog() {
     let (devs, tuns, keys) = codices();
 

@@ -1,6 +1,6 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
-/// Quantity of Tuple rows in Array returned by `records`
+/// Quantity of Tuple rows in Array returned by records
 pub const QTY: usize = 146;
 
 /// Returns Tuple holding device and tuning Arrays of string slices
@@ -97,7 +97,7 @@ pub fn pinions(tune: &str) -> (String, Vec<usize>) {
     (mast, pegs)
 }
 
-/// Returns unix timestamp
+/// Returns unix timestamp as 64-bit unsigned integer
 pub fn horolog() -> u64 {
     let date: SystemTime = SystemTime::now();
     let aeon: u64 = match date.duration_since(UNIX_EPOCH) {
@@ -124,7 +124,7 @@ pub fn caboose(clef: &str) -> bool {
     flag
 }
 
-/// Returns a Vector of key string slices from `records`
+/// Returns a Vector of key string slices from records
 pub fn signats() -> Vec<&'static str> {
     let recs: [(&str, &str); QTY] = records();
     let mut keys: Vec<&str> = Vec::with_capacity(QTY);
@@ -136,7 +136,7 @@ pub fn signats() -> Vec<&'static str> {
     keys
 }
 
-/// Returns a Vector of value string slices from `records`
+/// Returns a Vector of value string slices from records
 pub fn melodia() -> Vec<&'static str> {
     let recs: [(&str, &str); QTY] = records();
     let mut vals: Vec<&str> = Vec::with_capacity(QTY);
@@ -148,7 +148,7 @@ pub fn melodia() -> Vec<&'static str> {
     vals
 }
 
-/// Returns sorted Vector of digraph string slices from `records`
+/// Returns sorted Vector of digraph string slices from records
 pub fn nodules() -> Vec<&'static str> {
     let vals: &[&str] = &melodia();
     let mut buff: Vec<&str> = Vec::with_capacity(1024);
